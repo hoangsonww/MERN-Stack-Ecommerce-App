@@ -20,6 +20,7 @@ Welcome to Fusion Electronics, a MERN-Stack E-commerce Application! This project
 8. [Deployment](#deployment)
 9. [Contributing](#contributing)
 10. [License](#license)
+11. [Creator](#creator)
 
 ## Introduction
 
@@ -95,7 +96,7 @@ This project is a demonstration of building an e-commerce application using the 
 
 ## Project Structure
 
-The project is organized into two main "stacks": The backend is in the `backend` directory and the frontend is in the `root` directory. Here is an overview of the project structure:
+The project is organized into two main "stacks": The backend is in the `backend` directory that hosts all product & order data and the frontend is in the `root` directory. Here is an overview of the project structure:
 
 ```
 fullstack-ecommerce/
@@ -224,6 +225,11 @@ Contributions to this project are welcome! Here are some ways you can contribute
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Creator
+
+- **Son Nguyen** - [hoangsonww](https://github.com/hoangsonww)
+- **Email:** [info@movie-verse.com](mailto:info@movie-verse.com)
 
 ---
 

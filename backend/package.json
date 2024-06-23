@@ -1,10 +1,11 @@
 {
   "name": "fusion-electronics-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "cd seed && node productSeeds.js && cd .. && node index.js",
+    "build": "cd seed && node productSeeds.js && cd .. && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
