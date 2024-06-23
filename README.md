@@ -50,6 +50,12 @@ This project is a demonstration of building an e-commerce application using the 
     <img src="docs/checkout-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
 </p>
 
+### Order Confirmation
+
+<p align="center">
+    <img src="docs/order-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+</p>
+
 ## Features
 
 - **Product Management:**
@@ -125,7 +131,7 @@ fullstack-ecommerce/
 
 ## Getting Started
 
-#### Prerequisites
+### Prerequisites
 
 Before running this project, ensure you have the following installed:
 
@@ -133,7 +139,7 @@ Before running this project, ensure you have the following installed:
 - MongoDB (local or remote instance)
 - Git
 
-#### Installation
+### Installation
 
 1. Clone the repository:
 
