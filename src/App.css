@@ -1,38 +1,91 @@
-.App {
-  text-align: center;
+/* General Styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1, h2, h3 {
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+/* Navigation Bar */
+.navbar {
+  background-color: #2874f0;
   color: white;
+  padding: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar li {
+  margin-right: 20px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+}
+
+/* Home Page */
+.home {
+  text-align: center;
+  padding: 50px;
+}
+
+.home h2 {
+  font-size: 3rem;
+}
+
+/* Shop Page */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Cart Page */
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+/* Checkout Page */
+.checkout {
+  /* Add your checkout form styles here */
+}
+
+/* Order Success Page */
+.order-success {
+  text-align: center;
+  padding: 50px;
 }
