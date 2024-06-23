@@ -32,6 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "author": "Son Nguyen",
+  "license": "MIT",
   "eslintConfig": {
     "extends": [
       "react-app",
