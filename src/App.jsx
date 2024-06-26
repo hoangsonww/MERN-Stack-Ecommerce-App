@@ -33,6 +33,7 @@ function App() {
         const fetchProducts = async () => {
             try {
                 // Be sure to replace the endpoint if your API (backend server) is running on a different port
+                // This is the default port for the Express server - port 5000
                 const response = await fetch('http://localhost:5000/api/products');
                 const data = await response.json();
                 setProducts(data);
