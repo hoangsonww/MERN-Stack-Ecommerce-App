@@ -35,7 +35,7 @@ function Shop({ products, addToCart }) {
 
     const handleCategoryChange = (event) => {
         setCategoryFilter(event.target.value);
-        setPage(1); // Reset to page 1 when filter changes
+        setPage(1);
     };
 
     return (
