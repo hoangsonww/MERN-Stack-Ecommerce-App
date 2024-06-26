@@ -33,7 +33,8 @@ function CheckoutForm({ onSubmit }) {
         try {
             await onSubmit(formData);
             setLoading(false);
-        } catch (error) {
+        }
+        catch (error) {
             setLoading(false);
             setErrorMessage(error.response.data.error || 'An error occurred');
         }
