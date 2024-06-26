@@ -158,7 +158,7 @@ function CheckoutForm({ onSubmit }) {
                         label="Expiry Date"
                         fullWidth
                         variant="standard"
-                        placeholder="MM/YY"
+                        placeholder="MM/YY or MM/YYYY"
                         value={formData.expiry}
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
