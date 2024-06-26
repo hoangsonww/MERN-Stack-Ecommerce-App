@@ -26,7 +26,7 @@ function Checkout({ cartItems }) {
             //     cvc: formData.cvc,
             // });
 
-            // Simulating success after 3 seconds
+            // Simulating success
             setTimeout(() => {
                 setLoading(false);
                 setOrderCreated(true);
