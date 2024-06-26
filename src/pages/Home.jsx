@@ -48,7 +48,7 @@ function Home({ products, addToCart, error, loading }) {
         },
     ];
 
-    const featuredProducts = products.slice(0, 3); // Only display 3 featured products
+    const featuredProducts = products.slice(0, 3); // Display the first 3 products as featured
 
     return (
         <Box sx={{ my: 4 }}>
