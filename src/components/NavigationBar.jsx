@@ -14,7 +14,6 @@ function NavigationBar({ cartItemCount }) {
     const searchBarRef = React.useRef(null);
     const open = Boolean(anchorEl);
     const location = useLocation();
-    const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
     const handleClick = (event) => {
