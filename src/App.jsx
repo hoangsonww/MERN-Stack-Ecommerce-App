@@ -84,7 +84,9 @@ function App() {
                             element={<OrderSuccess />}
                         />
 
-                        <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
+                        <Route
+                            path="/product/:id"
+                            element={<ProductDetails addToCart={addToCart} />} />
                     </Routes>
                 </Container>
             </BrowserRouter>
