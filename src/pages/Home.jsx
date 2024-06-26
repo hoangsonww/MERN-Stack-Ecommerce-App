@@ -96,6 +96,7 @@ function Home({ products, addToCart, error, loading }) {
                                 <Typography variant="h4" component="h2" gutterBottom sx={{ color: '#fff' }}>
                                     {item.title}
                                 </Typography>
+
                                 <Typography variant="body1" sx={{ color: '#fff' }}>
                                     {item.description}
                                 </Typography>
