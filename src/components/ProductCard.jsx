@@ -16,7 +16,6 @@ export default function ProductCard({ product, addToCart }) {
 
     return (
         <Card sx={{ maxWidth: 345, height: '100%' }}>
-            {/* Wrapper div to control the aspect ratio */}
             <div style={{ position: 'relative', paddingBottom: '100%' }}>
                 <CardMedia
                     component="img"
