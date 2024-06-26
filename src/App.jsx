@@ -59,7 +59,9 @@ function App() {
                 <NavigationBar cartItemCount={cart.length} />
                 <Container>
                     <Routes>
-                        <Route path="/" element={<Home products={products} loading={loading} addToCart={addToCart} />} />
+                        <Route
+                            path="/"
+                            element={<Home products={products} loading={loading} addToCart={addToCart} />} />
                         <Route
                             path="/shop"
                             element={<Shop products={products} addToCart={addToCart} />}
