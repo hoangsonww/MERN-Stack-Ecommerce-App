@@ -59,14 +59,14 @@ function Home({ products, addToCart, error, loading }) {
                     autoPlay={true}
                     interval={5000}
                     navButtonsAlwaysVisible={true}
-                    navButtonsProps={{          // Customize the navigation buttons
+                    navButtonsProps={{
                         style: {
                             backgroundColor: 'rgba(0, 0, 0, 0.5)',
                             color: '#fff',
                             borderRadius: 0
                         }
                     }}
-                    indicatorIconButtonProps={{ // Customize the indicator icons
+                    indicatorIconButtonProps={{
                         style: {
                             padding: '10px',    // 1
                         }
