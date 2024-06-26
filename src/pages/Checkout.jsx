@@ -41,7 +41,8 @@ function Checkout({ cartItems }) {
             //     setLoading(false);
             //     setErrorMessage(response.data.error || 'An error occurred');
             // }
-        } catch (error) {
+        }
+        catch (error) {
             console.error('Error creating order:', error);
             setLoading(false);
             setErrorMessage('An error occurred');
