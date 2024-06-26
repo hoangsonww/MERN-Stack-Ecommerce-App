@@ -160,7 +160,7 @@ const productSeeds = [
         description: 'High-performance mirrorless camera with 20MP sensor.',
         price: 2499,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/522/241835/canon-eos-r6-1-600x600.jpg',
+        image: 'https://cdn.vjshop.vn/may-anh/mirrorless/canon/canon-eos-r6/canon-eos-r6-1-1500x1500.jpg',
         brand: 'Canon',
         stock: 5,
     },
