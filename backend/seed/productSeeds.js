@@ -205,7 +205,7 @@ const productSeeds = [
 const seedDB = async () => {
     await Product.deleteMany({});
     await Product.insertMany(productSeeds);
-    console.log('Products seeded successfully!');
+    console.log('Products data seeded successfully!');
 };
 
 module.exports = seedDB;
