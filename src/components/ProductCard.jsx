@@ -48,7 +48,7 @@ export default function ProductCard({ product, addToCart }) {
                 <Button size="small" onClick={() => addToCart(product)}>
                     Add to Cart
                 </Button>
-                <Button size="small" onClick={handleViewDetails}>
+                <Button size="small" onClick={handleViewDetails} sx={{ mr: 1 }}>
                     View Details
                 </Button>
             </CardActions>
