@@ -18,7 +18,24 @@ function CheckoutForm({ onSubmit }) {
     const [errorMessage, setErrorMessage] = useState('');
 
     const handleInputChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        let sanitizedValue = value;
+
+        switch (name) {
+            case 'cardNumber':
+                sanitizedValue = value.replace(/\D/g, '');
+                break;
+            case 'expiry':
+                sanitizedValue = value.replace(/[^0-9/]/g, '');
+                if (sanitizedValue.length > 7) sanitizedValue = sanitizedValue.slice(0, 7);
+                break;
+            case 'cvc':
+                sanitizedValue = value.replace(/\D/g, '');
+                if (sanitizedValue.length > 4) sanitizedValue = sanitizedValue.slice(0, 4);
+                break;
+        }
+
+        setFormData({ ...formData, [name]: sanitizedValue });
     };
 
     const handleInputFocus = (e) => {
