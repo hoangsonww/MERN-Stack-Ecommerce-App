@@ -187,7 +187,7 @@ const productSeeds = [
         description: 'Stylish smartwatch with advanced health tracking features.',
         price: 249,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/7077/241835/samsung-galaxy-watch-4-1-600x600.jpg',
+        image: 'https://cdn-v2.didongviet.vn/files/media/catalog/product/s/a/samsung-galaxy-watch-4-40mm-likenew-mau-den-didongviet.jpeg',
         brand: 'Samsung',
         stock: 100,
     },
