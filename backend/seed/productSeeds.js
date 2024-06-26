@@ -124,7 +124,7 @@ const productSeeds = [
         description: 'Powerful tablet with M1 chip and stunning Liquid Retina XDR display.',
         price: 1099,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/522/241835/ipad-pro-12-9-2022-1-600x600.jpg',
+        image: 'https://cdn2.cellphones.com.vn/x/media/catalog/product/i/p/ipad-pro-13-select-202210_3_3_1_1.png',
         brand: 'Apple',
         stock: 50,
     },
