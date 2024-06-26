@@ -85,7 +85,7 @@ function Home({ products, addToCart, error, loading }) {
                                 bottom: 0,
                                 left: 0,
                                 width: '100%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.6)',  // Increased opacity
+                                backgroundColor: 'rgba(0, 0, 0, 0.6)',
                                 color: '#fff',
                                 padding: '30px',
                                 '& h4': {
