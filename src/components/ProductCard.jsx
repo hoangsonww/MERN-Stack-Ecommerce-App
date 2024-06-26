@@ -44,6 +44,7 @@ export default function ProductCard({ product, addToCart }) {
                     ${product.price.toFixed(2)}
                 </Typography>
             </CardContent>
+
             <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
                 <Button size="small" onClick={() => addToCart(product)}>
                     Add to Cart
