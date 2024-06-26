@@ -60,6 +60,7 @@ function Cart({ cart, setCart }) {
                             </React.Fragment>
                         ))}
                     </List>
+
                     <Typography variant="h6" sx={{ mt: 2 }}>
                         Total: ${calculateTotal().toFixed(2)}
                     </Typography>
