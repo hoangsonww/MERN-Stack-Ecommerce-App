@@ -13,7 +13,7 @@ function Checkout({ cartItems }) {
         setLoading(true);
 
         try {
-            // Simulate API call to create an order - This is a demo website!
+            // Simulate API call to create an order - This is a demo website so we do not have capacity to handle a real order yet
             // const response = await axios.post('http://localhost:5000/api/checkout/create-order', {
             //     items: cartItems,
             //     name: formData.name,
@@ -37,7 +37,8 @@ function Checkout({ cartItems }) {
             //     setLoading(false);
             //     setOrderCreated(true);
             //     navigate('/order-success');
-            // } else {
+            // }
+            // else {
             //     setLoading(false);
             //     setErrorMessage(response.data.error || 'An error occurred');
             // }
