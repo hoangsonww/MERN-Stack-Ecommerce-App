@@ -92,8 +92,9 @@ function CheckoutForm({ onSubmit }) {
             </Grid>
 
             <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
-                Payment details
+                Payment Details
             </Typography>
+
             <Box sx={{ mb: 2 }}>
                 <Cards
                     number={formData.cardNumber}
