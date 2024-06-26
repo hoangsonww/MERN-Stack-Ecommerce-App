@@ -75,6 +75,7 @@ function CheckoutForm({ onSubmit }) {
             <Typography variant="h4" gutterBottom sx={{ mt: 4 }}>
                 Shipping Information
             </Typography>
+
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
