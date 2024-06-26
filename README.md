@@ -89,7 +89,7 @@ This project is a demonstration of building an e-commerce application using the 
     - Axios for external API requests
 
 - **Development Tools:**
-    - VS Code (IDE)
+    - Jetbrains WebStorm (IDE)
     - Postman (for API testing)
     - Git (version control)
     - npm (package manager)
