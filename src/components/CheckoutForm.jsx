@@ -45,6 +45,7 @@ function CheckoutForm({ onSubmit }) {
             <Typography variant="h4" gutterBottom>
                 Billing Information
             </Typography>
+
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <TextField
