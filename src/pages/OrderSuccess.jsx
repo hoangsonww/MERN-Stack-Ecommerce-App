@@ -10,6 +10,7 @@ function OrderSuccess() {
             <Typography variant="h4" gutterBottom>
                 Order Successful!
             </Typography>
+
             <Typography variant="body1">
                 Thank you for your purchase. Your order is being processed.
             </Typography>
