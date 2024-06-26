@@ -178,7 +178,7 @@ const productSeeds = [
         description: 'Ultra-portable laptop with stunning InfinityEdge display.',
         price: 999,
         category: 'computers',
-        image: 'https://cdn.tgdd.vn/Products/Images/44/241725/dell-xps-13-9310-1-600x600.jpg',
+        image: 'https://product.hstatic.net/1000331874/product/dell_xps_13_dc9a366cc90c495b9a3da844f2a08cb9_1024x1024.jpg',
         brand: 'Dell',
         stock: 30,
     },
