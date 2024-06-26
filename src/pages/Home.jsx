@@ -89,7 +89,7 @@ function Home({ products, addToCart, error, loading }) {
                                 color: '#fff',
                                 padding: '30px',
                                 '& h4': {
-                                    fontWeight: 700, // Bolder font weight for title
+                                    fontWeight: 700,
                                     marginBottom: '10px',
                                 },
                             }}>
