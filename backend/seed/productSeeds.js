@@ -133,7 +133,7 @@ const productSeeds = [
         description: 'Samsung\'s latest flagship smartphone with S Pen support.',
         price: 1199,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/42/241835/samsung-galaxy-s22-ultra-1-600x600.jpg',
+        image: 'https://i5.walmartimages.com/seo/Samsung-Galaxy-S22-Ultra-5G-SM-S908U1-256GB-Green-US-Model-Factory-Unlocked-Cell-Phone-Very-Good-Condition_0b4b7166-2688-4e0c-954d-539d5ea29ad9.5946110fe2a2c21cda0b256e2969a555.jpeg',
         brand: 'Samsung',
         stock: 30,
     },
