@@ -86,7 +86,8 @@ function App() {
 
                         <Route
                             path="/product/:id"
-                            element={<ProductDetails addToCart={addToCart} />} />
+                            element={<ProductDetails addToCart={addToCart} />}
+                        />
                     </Routes>
                 </Container>
             </BrowserRouter>
