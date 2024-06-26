@@ -1,6 +1,6 @@
 {
   "name": "fusion-electronics-backend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
