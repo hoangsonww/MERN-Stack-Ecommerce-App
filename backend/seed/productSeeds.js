@@ -196,7 +196,7 @@ const productSeeds = [
         description: 'Premium noise-canceling headphones with long battery life.',
         price: 349,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/608/',
+        image: 'https://www.sony.com.vn/image/5d02da5df552836db894cead8a68f5f3?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF',
         brand: 'Sony',
         stock: 100,
     }
