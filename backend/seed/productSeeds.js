@@ -142,7 +142,7 @@ const productSeeds = [
         description: 'Compact full-frame mirrorless camera with 24MP sensor.',
         price: 1799,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/522/241835/sony-a7c-1-600x600.jpg',
+        image: 'https://cdn.vjshop.vn/may-anh/mirrorless/sony/sony-alpha-a7c/sony-a7c-black-1.jpg',
         brand: 'Sony',
         stock: 10,
     },
