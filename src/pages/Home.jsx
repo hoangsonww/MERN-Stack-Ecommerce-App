@@ -57,7 +57,7 @@ function Home({ products, addToCart, error, loading }) {
                 <StyledCarousel
                     animation="slide"
                     autoPlay={true}
-                    interval={5000} // Adjust the interval time as needed
+                    interval={5000}
                     navButtonsAlwaysVisible={true}
                     navButtonsProps={{          // Customize the navigation buttons
                         style: {
