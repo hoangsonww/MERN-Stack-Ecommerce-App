@@ -6,6 +6,7 @@ function OrderSuccess() {
     return (
         <Box sx={{ textAlign: 'center', mt: 4 }}>
             <CheckCircleOutlineIcon sx={{ fontSize: 100, color: 'green' }} />
+
             <Typography variant="h4" gutterBottom>
                 Order Successful!
             </Typography>
