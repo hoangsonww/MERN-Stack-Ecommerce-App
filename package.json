@@ -4,7 +4,6 @@
   "description": "A fullstack ecommerce website built with React, Node.js, Express, MongoDB, and Material-UI.",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
