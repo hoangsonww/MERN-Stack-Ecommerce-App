@@ -55,6 +55,7 @@ function ProductDetails({ addToCart }) {
                     <Grid item xs={12} md={6}>
                         <img src={product.image} alt={product.name} style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }} />
                     </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Typography variant="h4" gutterBottom>{product.name}</Typography>
                         <Typography variant="h6">${product.price}</Typography>
