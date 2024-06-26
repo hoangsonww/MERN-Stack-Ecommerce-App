@@ -80,7 +80,8 @@ function App() {
                         />
 
                         <Route
-                            path="/order-success" element={<OrderSuccess />} />
+                            path="/order-success"
+                            element={<OrderSuccess />} />
                         <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
                     </Routes>
                 </Container>
