@@ -80,6 +80,7 @@ function Home({ products, addToCart, error, loading }) {
                     {bannerImages.map((item, i) => (
                         <Box key={i} sx={{ position: 'relative' }}>
                             <img src={item.url} alt={item.title} style={{ width: '100%', height: '400px', objectFit: 'cover' }} />
+
                             <Box sx={{
                                 position: 'absolute',
                                 bottom: 0,
