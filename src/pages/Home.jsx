@@ -73,7 +73,7 @@ function Home({ products, addToCart, error, loading }) {
                     }}
                     activeIndicatorIconButtonProps={{
                         style: {
-                            backgroundColor: '#fff' // 2
+                            backgroundColor: '#fff'
                         }
                     }}
                 >
