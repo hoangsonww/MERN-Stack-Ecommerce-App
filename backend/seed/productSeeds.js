@@ -115,7 +115,7 @@ const productSeeds = [
         description: 'Premium noise-canceling headphones for immersive audio experience.',
         price: 329,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/608/241835/bose-quietcomfort-45-1-600x600.jpg',
+        image: 'https://cdn.nguyenkimmall.com/images/detailed/848/10054167-tai-nghe-khong-day-bose-quietcomfort-45-den-866724-0100-1.jpg',
         brand: 'Bose',
         stock: 100,
     },
