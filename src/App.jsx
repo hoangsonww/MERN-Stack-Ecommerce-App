@@ -76,7 +76,8 @@ function App() {
 
                         <Route
                             path="/checkout"
-                            element={<Checkout />} />
+                            element={<Checkout />}
+                        />
                         <Route path="/order-success" element={<OrderSuccess />} />
                         <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
                     </Routes>
