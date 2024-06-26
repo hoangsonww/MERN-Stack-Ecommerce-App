@@ -137,7 +137,7 @@ fullstack-ecommerce/
 Before running this project, ensure you have the following installed:
 
 - Node.js (with npm)
-- MongoDB (local or remote instance)
+- MongoDB (with either local or remote instance)
 - Git
 
 ### Installation
