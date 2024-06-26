@@ -169,7 +169,7 @@ const productSeeds = [
         description: 'Premium over-ear headphones with high-fidelity audio.',
         price: 549,
         category: 'electronics',
-        image: 'https://cdn.tgdd.vn/Products/Images/608/241835/apple-airpods-max-1-600x600.jpg',
+        image: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/airpods-max-hero-select-202011_FMT_WHH?wid=607&hei=556&fmt=jpeg&qlt=90&.v=1633623988000',
         brand: 'Apple',
         stock: 50,
     },
