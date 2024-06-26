@@ -173,6 +173,7 @@ function CheckoutForm({ onSubmit }) {
                         fullWidth
                         variant="standard"
                         value={formData.cvc}
+                        placeholder="3 or 4 digits"
                         onChange={handleInputChange}
                         onFocus={handleInputFocus}
                     />
