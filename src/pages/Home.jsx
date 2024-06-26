@@ -68,7 +68,7 @@ function Home({ products, addToCart, error, loading }) {
                     }}
                     indicatorIconButtonProps={{
                         style: {
-                            padding: '10px',    // 1
+                            padding: '10px',
                         }
                     }}
                     activeIndicatorIconButtonProps={{
