@@ -64,6 +64,7 @@ function Cart({ cart, setCart }) {
                     <Typography variant="h6" sx={{ mt: 2 }}>
                         Total: ${calculateTotal().toFixed(2)}
                     </Typography>
+
                     <Button variant="contained" onClick={handleCheckout} sx={{ mt: 2 }}>
                         Proceed to Checkout
                     </Button>
