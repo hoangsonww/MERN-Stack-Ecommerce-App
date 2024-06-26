@@ -151,7 +151,7 @@ const productSeeds = [
         description: 'Ultra-lightweight laptop with long battery life.',
         price: 1499,
         category: 'computers',
-        image: 'https://cdn.tgdd.vn/Products/Images/44/241725/lg-gram-17z90p-1-600x600.jpg',
+        image: 'https://lapvip.vn/upload/products/original/lg-gram-17-20232-1700187329.jpg',
         brand: 'LG',
         stock: 20,
     },
