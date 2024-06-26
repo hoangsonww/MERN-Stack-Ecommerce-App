@@ -87,7 +87,7 @@ function Home({ products, addToCart, error, loading }) {
                                 width: '100%',
                                 backgroundColor: 'rgba(0, 0, 0, 0.6)',  // Increased opacity
                                 color: '#fff',
-                                padding: '30px', // Increased padding
+                                padding: '30px',
                                 '& h4': {
                                     fontWeight: 700, // Bolder font weight for title
                                     marginBottom: '10px',
