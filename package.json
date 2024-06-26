@@ -2,7 +2,7 @@
   "name": "ecommerce-fullstack-website-frontend",
   "displayName": "Fusion Electronics Ecommerce Website",
   "description": "A fullstack ecommerce website built with React, Node.js, Express, MongoDB, and Material-UI.",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.4",
