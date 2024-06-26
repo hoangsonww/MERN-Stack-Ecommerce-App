@@ -8,7 +8,14 @@
     "build": "cd seed && node productSeeds.js && cd .. && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "backend",
+    "server",
+    "express",
+    "mongoose",
+    "stripe",
+    "ecommerce"
+  ],
   "author": "Son Nguyen",
   "license": "MIT",
   "dependencies": {
