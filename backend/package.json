@@ -19,6 +19,10 @@
   ],
   "author": "Son Nguyen",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangsonww/Fullstack-Ecommerce-Website.git"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
