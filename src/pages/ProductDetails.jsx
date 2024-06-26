@@ -32,7 +32,7 @@ function ProductDetails({ addToCart }) {
 
     const handleAddToCart = () => {
         if (product) {
-            addToCart(product); // Pass the product object to addToCart
+            addToCart(product);
         }
     };
 
