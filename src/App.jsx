@@ -81,7 +81,8 @@ function App() {
 
                         <Route
                             path="/order-success"
-                            element={<OrderSuccess />} />
+                            element={<OrderSuccess />}
+                        />
                         <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
                     </Routes>
                 </Container>
