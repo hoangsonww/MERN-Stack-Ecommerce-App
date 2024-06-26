@@ -80,7 +80,7 @@ This project is a demonstration of building an e-commerce application using the 
     - React.js
     - Material-UI for styling
     - Axios for API requests
-    - react-credit-cards-2 for credit card visualization
+    - `react-credit-cards-2` for credit card visualization
 
 - **Backend:**
     - Node.js
