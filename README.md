@@ -176,7 +176,7 @@ Before running this project, ensure you have the following installed:
    - Seed the database with sample data:
      ```bash
      cd backend/seed
-     node productSeeds.js
+     node productSeeds.js dev
      ```
      
    - Run the backend server: (first `cd` into the backend directory)

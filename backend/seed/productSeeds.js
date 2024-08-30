@@ -1,4 +1,7 @@
 const Product = require('../models/product');
+const dotenv = require('dotenv');
+const path = require('path');
+const mongoose = require('mongoose');
 
 // Sample product data -- to be replaced with actual products
 const productSeeds = [
@@ -207,5 +210,16 @@ const seedDB = async () => {
     await Product.insertMany(productSeeds);
     console.log('Products data seeded successfully!');
 };
+
+//only run when the "node productSeeds.js dev" command is executed manually
+if(process.argv[2] == "dev") {
+    dotenv.config({ path: path.resolve(__dirname, '../.env') });
+    mongoose
+        .connect(process.env.MONGO_URI, { })
+        .then(async() => {
+          await seedDB();
+          process.exit();
+        });
+    }
 
 module.exports = seedDB;
