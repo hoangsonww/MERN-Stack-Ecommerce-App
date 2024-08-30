@@ -224,7 +224,7 @@ Contributions to this project are welcome! Here are some ways you can contribute
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ## Creator
 
@@ -233,4 +233,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Thank you for exploring **Fusion Electronics - a MERN Stack E-commerce Application**! If you have any questions or feedback, feel free to reach out and contribute to making this project even better. Happy coding! 🚀
+Thank you for exploring **Fusion Electronics - a MERN Stack E-commerce Application** today! If you have any questions or feedback, feel free to reach out. Happy coding! 🚀
