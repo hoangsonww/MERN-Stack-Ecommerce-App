@@ -29,10 +29,11 @@ const StyledCarousel = styled(Carousel)({
     },
 });
 
+// Replace these links with any image you'd like!
 function Home({ products, addToCart, error, loading }) {
     const bannerImages = [
         {
-            url: 'https://images.fpt.shop/unsafe/filters:quality(90)/fptshop.com.vn/uploads/images/tin-tuc/171585/Originals/shopping-la-gi-3.jpg',
+            url: 'https://thumbs.dreamstime.com/b/electronics-sale-banner-devices-online-shopping-delivery-basket-273419752.jpg',
             title: 'Summer Sale - Up to 50% Off',
             description: 'Shop now for the best deals on summer essentials!'
         },
