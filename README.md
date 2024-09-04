@@ -17,11 +17,13 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
     - [Installation](#installation)
 6. [Project Structure](#project-structure)
 7. [Running the Application](#running-the-application)
-8. [Deployment](#deployment)
-9. [Containerization](#containerization)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Creator](#creator)
+8. [Testing the APIs](#testing-the-apis)
+9. [Swagger API Documentation](#swagger-api-documentation)
+10. [Deployment](#deployment)
+11. [Containerization](#containerization)
+12. [Contributing](#contributing)
+13. [License](#license)
+14. [Creator](#creator)
 
 ## Introduction
 
@@ -88,6 +90,8 @@ This project is a demonstration of building an e-commerce application using the 
     - Express.js
     - MongoDB (with Mongoose ODM)
     - Axios for external API requests
+    - Swagger for API documentation
+    - Nodemon for server hot-reloading
 
 - **Development Tools:**
     - Jetbrains WebStorm (IDE)
@@ -209,6 +213,17 @@ Before running this project, ensure you have the following installed:
 - Simply open your browser and navigate to `http://localhost:5000/api/products` to view the list of products.
 - You can also change the sample data by navigating to `backend/seed/productSeeds.js` and modifying the data there.
 
+## Swagger API Documentation
+
+- The backend server includes Swagger API documentation that can be accessed at `http://localhost:5000/api-docs`.
+- Before accessing the above URL, ensure that the backend server is running.
+- The Swagger UI provides a detailed overview of the API endpoints, request/response schemas, and example requests.
+- If you have everything set up correctly, you should see the Swagger UI documentation page:
+
+<p align="center">
+    <img src="docs/swagger-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+</p>
+
 ## Deployment
 
 To deploy the application:
@@ -244,4 +259,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-Thank you for exploring **Fusion Electronics - a MERN Stack E-commerce Application** today! If you have any questions or feedback, feel free to reach out. Happy coding! 🚀
+Thank you for exploring **Fusion Electronics - a MERN Stack E-commerce Application** today! If you have any questions or feedback, feel free to reach out. 
+
+**Happy coding! 🚀**

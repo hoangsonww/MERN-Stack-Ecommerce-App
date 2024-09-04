@@ -5,9 +5,9 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
-    title: 'Product API',
+    title: 'Fusion E-Commerce Backend APIs',
     version: '1.0.0',
-    description: 'API documentation for the Product management system',
+    description: 'API documentation for the Fusion E-Commerce backend server.',
   },
   servers: [
     {
