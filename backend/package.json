@@ -5,9 +5,10 @@
   "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
-    "start": "cd seed && node productSeeds.js dev && cd .. && node index.js",
+    "start": "nodemon --exec 'cd seed && node productSeeds.js dev && cd .. && node index.js'",
     "build": "cd seed && node productSeeds.js dev && cd .. && node index.js",
-    "test": "cd seed && node productSeeds.js dev && cd .. && node index.js"
+    "test": "cd seed && node productSeeds.js dev && cd .. && node index.js",
+    "dev": "nodemon --exec 'cd seed && node productSeeds.js dev && cd .. && node index.js'"
   },
   "keywords": [
     "backend",
@@ -27,6 +28,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mongoose": "^8.4.3"
+    "mongoose": "^8.4.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
