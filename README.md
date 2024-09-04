@@ -102,32 +102,32 @@ The project is organized into two main "stacks": The backend is in the `backend`
 fullstack-ecommerce/
 ├── backend/                    # Node.js server files
 │   ├── config/                 # Configuration files
-│   │   ├── db.js               # Database connection
+│   │   └── db.js               # Database connection
 │   ├── models/                 # Mongoose models
-│   │   ├── product.js          # Product schema
+│   │   └── product.js          # Product schema
 │   ├── routes/                 # Route handlers
 │   │   ├── products.js         # Product routes
 │   │   ├── search.js           # Search routes
-│   │   ├── checkout.js         # Checkout routes
+│   │   └── checkout.js         # Checkout routes
 │   ├── seed/                   # Database seed data
-│   │   ├── products.js         # Product seed data
+│   │   └── products.js         # Product seed data
 │   ├── .env                    # Environment variables
-│   ├── index.js                # Server entry point
+│   └──index.js                # Server entry point
 ├── public/                     # Public assets
 │   ├── index.html              # HTML template
 │   ├── manifest.json           # Web app manifest
-│   ├── favicon.ico             # Favicon
+│   └── favicon.ico             # Favicon
 ├── src/                        # React.js frontend files
 │   ├── components/              # Reusable components
 │   ├── dev/                     # Development utilities
 │   ├── pages/                   # Page components
 │   ├── App.jsx                  # Main application component
 │   ├── App.css                  # Main application styles
-│   ├── index.js                 # React entry point
-│   .gitignore                   # Git ignore file
-│   package.json                 # NPM package file
-│   jsconfig.json                # JS config file
-│   setupProxy.js                # Proxy configuration
+│   └── index.js                 # React entry point
+├── .gitignore                   # Git ignore file
+├── package.json                 # NPM package file
+├── jsconfig.json                # JS config file
+└── setupProxy.js                # Proxy configuration
 ```
 
 ## Getting Started

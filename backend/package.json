@@ -5,9 +5,9 @@
   "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
-    "start": "cd seed && node productSeeds.js && cd .. && node index.js",
-    "build": "cd seed && node productSeeds.js && cd .. && node index.js",
-    "test": "cd seed && node productSeeds.js && cd .. && node index.js"
+    "start": "cd seed && node productSeeds.js dev && cd .. && node index.js",
+    "build": "cd seed && node productSeeds.js dev && cd .. && node index.js",
+    "test": "cd seed && node productSeeds.js dev && cd .. && node index.js"
   },
   "keywords": [
     "backend",
