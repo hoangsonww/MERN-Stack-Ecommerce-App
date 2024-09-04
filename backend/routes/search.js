@@ -67,15 +67,12 @@ router.get('/', async (req, res) => {
     const query = req.query.q;
 
     const products = await Product.find({
-      $or: [
-        { name: { $regex: query, $options: 'i' } },
-        { description: { $regex: query, $options: 'i' } }
-      ]
+      $or: [{ name: { $regex: query, $options: 'i' } }, { description: { $regex: query, $options: 'i' } }],
     });
 
     res.json(products);
   } catch (error) {
-    console.error("Error searching products:", error);
+    console.error('Error searching products:', error);
     res.status(500).json({ error: 'An error occurred during the search.' });
   }
 });

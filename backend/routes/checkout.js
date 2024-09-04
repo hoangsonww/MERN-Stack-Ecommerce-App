@@ -109,8 +109,7 @@ router.post('/create-order', async (req, res) => {
     await new Promise(resolve => setTimeout(resolve, 3000));
 
     res.status(201).json({ message: 'Order created successfully!' });
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error creating order:', error);
     res.status(500).json({ error: 'Failed to create order' });
   }

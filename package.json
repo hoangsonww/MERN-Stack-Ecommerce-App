@@ -28,6 +28,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.2",
     "http-proxy-middleware": "^3.0.0",
+    "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-credit-cards-2": "^1.0.2",
     "react-dom": "^18.3.1",
@@ -40,7 +41,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --config .prettierrc --write \"setupProxy.js\" \"src/components/*.{html,css,js,jsx,ts,tsx}\" \"src/dev/*.{html,css,js,jsx,ts,tsx}\" \"src/pages/*.{html,css,js,jsx,ts,tsx}\" \"src/*.{html,css,js,jsx,ts,tsx}\" \"backend/*.{html,css,js,jsx,ts,tsx}\" \"backend/seed/*.{html,css,js,jsx,ts,tsx}\" \"backend/routes/*.{html,css,js,jsx,ts,tsx}\" \"backend/docs/*.{html,css,js,jsx,ts,tsx}\" \"backend/config/*.{html,css,js,jsx,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [

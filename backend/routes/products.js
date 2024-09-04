@@ -54,8 +54,7 @@ router.get('/', async (req, res) => {
     }));
 
     res.json(formattedProducts);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).send('Server error');
   }
 });
@@ -90,8 +89,7 @@ router.get('/:id', async (req, res) => {
       return res.status(404).send('Product not found');
     }
     res.json(product);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).send('Server error');
   }
 });
@@ -123,8 +121,7 @@ router.get('/category/:category', async (req, res) => {
   try {
     const products = await Product.find({ category: req.params.category });
     res.json(products);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).send('Server error');
   }
 });
