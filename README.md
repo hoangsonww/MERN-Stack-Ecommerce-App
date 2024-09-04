@@ -18,9 +18,10 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
 6. [Project Structure](#project-structure)
 7. [Running the Application](#running-the-application)
 8. [Deployment](#deployment)
-9. [Contributing](#contributing)
-10. [License](#license)
-11. [Creator](#creator)
+9. [Containerization](#containerization)
+10. [Contributing](#contributing)
+11. [License](#license)
+12. [Creator](#creator)
 
 ## Introduction
 
@@ -213,6 +214,16 @@ Before running this project, ensure you have the following installed:
 To deploy the application:
 
 - Configure deployment settings for both frontend (React) and backend (Node.js) according to your chosen hosting provider (e.g., AWS, Heroku, Netlify).
+
+## Containerization
+
+This project can be containerized using Docker. To create a Docker image, run the following command:
+
+```bash
+docker compose up --build
+```
+
+This command will create a Docker image for the frontend and backend, and run the application in a containerized environment.
 
 ## Contributing
 
