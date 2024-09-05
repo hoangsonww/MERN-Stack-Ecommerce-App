@@ -151,7 +151,7 @@ fullstack-ecommerce/
 │   │   ├── OrderSuccess.jsx       # Order success page component
 │   │   ├── ProductDetails.jsx     # Product details page component
 │   │   └── Shop.jsx               # Shop page component
-│   ├── App.jsx                 # Main application component
+│   ├── App.jsx                    # Main application component
 │   ├── App.css                 # Main application styles
 │   └── index.js                # React entry point
 ├── build/                      # Frontend production build files
