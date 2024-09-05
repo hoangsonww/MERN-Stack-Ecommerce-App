@@ -145,6 +145,8 @@ fullstack-ecommerce/
 │   │   └── useInitials.js         # Initials hook
 │   ├── pages/                     # Page components
 │   │   ├── Cart.jsx               # Cart page component
+│   │   ├── Checkout.jsx           # Checkout page component
+│   │   ├── Home.jsx               # Home page component
 
 │   ├── App.jsx                 # Main application component
 │   ├── App.css                 # Main application styles
