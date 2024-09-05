@@ -4,7 +4,7 @@
   "description": "A fullstack ecommerce website built with React, Node.js, Express, MongoDB, and Material-UI.",
   "author": "Son Nguyen",
   "license": "MIT",
-  "homepage": "https://github.com/hoangsonww/MERN-Stack-Ecommerce-App",
+  "homepage": "/",
   "bugs": {
     "url": "https://github.com/hoangsonww/MERN-Stack-Ecommerce-App/issues"
   },
