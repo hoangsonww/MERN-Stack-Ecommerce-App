@@ -127,7 +127,7 @@ fullstack-ecommerce/
 │   └── index.js                   # Server entry point
 ├── public/                        # Frontend public assets
 │   ├── index.html                 # HTML template
-│   ├── manifest.json           # Web app manifest
+│   ├── manifest.json              # Web app manifest
 │   └── favicon.ico             # Favicon
 ├── src/                        # React.js frontend files
 │   ├── components/             # Reusable components
