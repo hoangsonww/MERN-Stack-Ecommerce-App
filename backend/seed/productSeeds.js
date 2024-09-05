@@ -214,7 +214,7 @@ const seedDB = async () => {
   console.log('Products data seeded successfully!');
 };
 
-//only run when the "node productSeeds.js dev" command is executed manually
+// Only runs when the "node productSeeds.js dev" command is executed manually
 if (process.argv[2] == 'dev') {
   dotenv.config({ path: path.resolve(__dirname, '../.env') });
   mongoose.connect(process.env.MONGO_URI, {}).then(async () => {
