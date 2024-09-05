@@ -175,7 +175,6 @@ Before running this project, ensure you have the following installed:
 ### Installation
 
 1. Clone the repository:
-
    ```bash
    git clone https://github.com/hoangsonww/fullstack-ecommerce.git
    cd fullstack-ecommerce
