@@ -154,7 +154,7 @@ fullstack-ecommerce/
 │   ├── App.jsx                    # Main application component
 │   ├── App.css                    # Main application styles
 │   └── index.js                   # React entry point
-├── build/                      # Frontend production build files
+├── build/                         # Frontend production build files
 ├── tests/                     # Test files
 ├── .gitignore                  # Git ignore file
 ├── package.json                # NPM package file
