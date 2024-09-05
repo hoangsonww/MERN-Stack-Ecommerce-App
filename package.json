@@ -42,7 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "format": "prettier --config .prettierrc --write \"setupProxy.js\" \"src/components/*.{html,css,js,jsx,ts,tsx}\" \"src/dev/*.{html,css,js,jsx,ts,tsx}\" \"src/pages/*.{html,css,js,jsx,ts,tsx}\" \"src/*.{html,css,js,jsx,ts,tsx}\" \"backend/*.{html,css,js,jsx,ts,tsx}\" \"backend/seed/*.{html,css,js,jsx,ts,tsx}\" \"backend/routes/*.{html,css,js,jsx,ts,tsx}\" \"backend/docs/*.{html,css,js,jsx,ts,tsx}\" \"backend/config/*.{html,css,js,jsx,ts,tsx}\""
+    "format": "prettier --config .prettierrc --write \"setupProxy.js\" \"src/components/*.{html,css,js,jsx,ts,tsx}\" \"src/tests/*.{html,css,js,jsx,ts,tsx}\" \"src/dev/*.{html,css,js,jsx,ts,tsx}\" \"src/pages/*.{html,css,js,jsx,ts,tsx}\" \"src/*.{html,css,js,jsx,ts,tsx}\" \"backend/*.{html,css,js,jsx,ts,tsx}\" \"backend/seed/*.{html,css,js,jsx,ts,tsx}\" \"backend/routes/*.{html,css,js,jsx,ts,tsx}\" \"backend/docs/*.{html,css,js,jsx,ts,tsx}\" \"backend/config/*.{html,css,js,jsx,ts,tsx}\""
   },
   "eslintConfig": {
     "extends": [
