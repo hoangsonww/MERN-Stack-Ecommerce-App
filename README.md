@@ -152,7 +152,7 @@ fullstack-ecommerce/
 │   │   ├── ProductDetails.jsx     # Product details page component
 │   │   └── Shop.jsx               # Shop page component
 │   ├── App.jsx                    # Main application component
-│   ├── App.css                 # Main application styles
+│   ├── App.css                    # Main application styles
 │   └── index.js                # React entry point
 ├── build/                      # Frontend production build files
 ├── tests/                     # Test files
