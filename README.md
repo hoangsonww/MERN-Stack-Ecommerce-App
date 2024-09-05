@@ -115,7 +115,7 @@ fullstack-ecommerce/
 ├── backend/                       # Node.js server files
 │   ├── config/                    # Configuration files
 │   │   └── db.js                  # Database connection
-│   ├── models/                 # Mongoose models
+│   ├── models/                    # Mongoose models
 │   │   └── product.js          # Product schema
 │   ├── routes/                 # Route handlers
 │   │   ├── products.js         # Product routes
