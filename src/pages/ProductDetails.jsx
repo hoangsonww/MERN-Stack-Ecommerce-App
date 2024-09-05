@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Typography, Container, Grid, Paper, Button, CircularProgress } from '@mui/material';
+import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip } from '@mui/material';
 
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
@@ -60,11 +60,24 @@ function ProductDetails({ addToCart }) {
             <Typography variant="h4" gutterBottom>
               {product.name}
             </Typography>
-            <Typography variant="h6">${product.price}</Typography>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Brand: {product.brand}
+            </Typography>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Category: {product.category}
+            </Typography>
+            <Typography variant="h6" color="primary" gutterBottom>
+              ${product.price}
+            </Typography>
             <Typography variant="body1" gutterBottom>
               {product.description}
             </Typography>
-            <Button variant="contained" color="primary" onClick={handleAddToCart}>
+            <Chip label={`In Stock: ${product.stock}`} color={product.stock > 0 ? 'success' : 'error'} sx={{ my: 1 }} />
+            <Rating value={product.rating} readOnly precision={0.5} sx={{ my: 1 }} />
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+              {product.numReviews} Reviews
+            </Typography>
+            <Button variant="contained" color="primary" onClick={handleAddToCart} sx={{ mt: 2 }}>
               Add to Cart
             </Button>
           </Grid>
