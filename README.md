@@ -117,7 +117,7 @@ fullstack-ecommerce/
 │   │   └── db.js                  # Database connection
 │   ├── models/                    # Mongoose models
 │   │   └── product.js             # Product schema
-│   ├── routes/                 # Route handlers
+│   ├── routes/                    # Route handlers
 │   │   ├── products.js         # Product routes
 │   │   ├── search.js           # Search routes
 │   │   └── checkout.js         # Checkout routes
