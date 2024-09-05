@@ -155,4 +155,62 @@ router.get('/category/:category', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/products/{id}/rating:
+ *   put:
+ *     summary: Update the product rating
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The product id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               rating:
+ *                 type: number
+ *                 description: The new rating for the product
+ *     responses:
+ *       200:
+ *         description: The updated product
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ */
+router.put('/:id/rating', async (req, res) => {
+  try {
+    const { rating } = req.body;
+    const product = await Product.findById(req.params.id);
+
+    if (!product) {
+      return res.status(404).send('Product not found');
+    }
+
+    // Calculate new average rating
+    const newNumReviews = product.numReviews + 1;
+    const newRatingSum = (product.rating * product.numReviews) + rating;
+    const newAverageRating = newRatingSum / newNumReviews;
+
+    // Update product with the new average rating and review count
+    product.rating = newAverageRating;
+    product.numReviews = newNumReviews;
+
+    await product.save();
+    res.json(product);
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;

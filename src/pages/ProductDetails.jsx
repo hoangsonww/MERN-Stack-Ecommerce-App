@@ -9,6 +9,7 @@ function ProductDetails({ addToCart }) {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [userRating, setUserRating] = useState(0);
 
   useEffect(() => {
     async function fetchProduct() {
@@ -16,6 +17,7 @@ function ProductDetails({ addToCart }) {
         const response = await axios.get(`http://localhost:5000/api/products/${id}`);
         if (response.data) {
           setProduct(response.data);
+          setUserRating(response.data.rating); // Initialize with current rating
         }
       } catch (error) {
         setError(error);
@@ -29,6 +31,20 @@ function ProductDetails({ addToCart }) {
   const handleAddToCart = () => {
     if (product) {
       addToCart(product);
+    }
+  };
+
+  const handleRatingChange = async (event, newRating) => {
+    setUserRating(newRating);
+    try {
+      await axios.put(`http://localhost:5000/api/products/${id}/rating`, { rating: newRating });
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        rating: newRating,
+        numReviews: prevProduct.numReviews + 1,
+      }));
+    } catch (err) {
+      console.error('Error updating rating:', err);
     }
   };
 
@@ -72,11 +88,19 @@ function ProductDetails({ addToCart }) {
             <Typography variant="body1" gutterBottom>
               {product.description}
             </Typography>
-            <Chip label={`In Stock: ${product.stock}`} color={product.stock > 0 ? 'success' : 'error'} sx={{ my: 1 }} />
-            <Rating value={product.rating} readOnly precision={0.5} sx={{ my: 1 }} />
+
+            {/* Separate lines for Stock and Rating */}
+            <Chip label={`In Stock: ${product.stock}`} color={product.stock > 0 ? 'success' : 'error'} sx={{ my: 1, display: 'block' }} />
+            <Rating
+              value={userRating}
+              precision={0.5}
+              onChange={handleRatingChange}
+              sx={{ my: 1, display: 'block' }}
+            />
             <Typography variant="body2" color="textSecondary" gutterBottom>
               {product.numReviews} Reviews
             </Typography>
+
             <Button variant="contained" color="primary" onClick={handleAddToCart} sx={{ mt: 2 }}>
               Add to Cart
             </Button>
