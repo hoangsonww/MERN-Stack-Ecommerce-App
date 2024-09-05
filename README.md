@@ -131,7 +131,7 @@ fullstack-ecommerce/
 │   └── favicon.ico             # Favicon
 ├── src/                        # React.js frontend files
 │   ├── components/             # Reusable components
-│   ├── dev/                     # Development utilities
+│   ├── dev/                    # Development utilities
 │   ├── pages/                   # Page components
 │   ├── App.jsx                  # Main application component
 │   ├── App.css                  # Main application styles
