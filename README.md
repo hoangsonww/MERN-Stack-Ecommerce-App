@@ -125,7 +125,7 @@ fullstack-ecommerce/
 │   │   └── products.js            # Product seed data
 │   ├── .env                       # Environment variables
 │   └── index.js                   # Server entry point
-├── public/                     # Frontend public assets
+├── public/                        # Frontend public assets
 │   ├── index.html              # HTML template
 │   ├── manifest.json           # Web app manifest
 │   └── favicon.ico             # Favicon
