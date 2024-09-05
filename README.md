@@ -121,7 +121,7 @@ fullstack-ecommerce/
 │   │   ├── products.js            # Product routes
 │   │   ├── search.js              # Search routes
 │   │   └── checkout.js            # Checkout routes
-│   ├── seed/                   # Database seed data
+│   ├── seed/                      # Database seed data
 │   │   └── products.js         # Product seed data
 │   ├── .env                    # Environment variables
 │   └──index.js                 # Server entry point
