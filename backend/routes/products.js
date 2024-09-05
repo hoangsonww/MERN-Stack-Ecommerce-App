@@ -199,7 +199,7 @@ router.put('/:id/rating', async (req, res) => {
 
     // Calculate new average rating
     const newNumReviews = product.numReviews + 1;
-    const newRatingSum = (product.rating * product.numReviews) + rating;
+    const newRatingSum = product.rating * product.numReviews + rating;
     const newAverageRating = newRatingSum / newNumReviews;
 
     // Update product with the new average rating and review count

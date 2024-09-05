@@ -38,7 +38,7 @@ function ProductDetails({ addToCart }) {
     setUserRating(newRating);
     try {
       await axios.put(`http://localhost:5000/api/products/${id}/rating`, { rating: newRating });
-      setProduct((prevProduct) => ({
+      setProduct(prevProduct => ({
         ...prevProduct,
         rating: newRating,
         numReviews: prevProduct.numReviews + 1,
@@ -103,12 +103,7 @@ function ProductDetails({ addToCart }) {
 
             {/* Stars and Number of Reviews on the Same Line */}
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
-              <Rating
-                value={userRating}
-                precision={0.5}
-                onChange={handleRatingChange}
-                sx={{ mr: 1 }}
-              />
+              <Rating value={userRating} precision={0.5} onChange={handleRatingChange} sx={{ mr: 1 }} />
               <Typography variant="body2" color="textSecondary">
                 ({product.numReviews} Reviews)
               </Typography>
