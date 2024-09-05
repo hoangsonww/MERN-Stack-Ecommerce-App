@@ -32,6 +32,7 @@ This project is a demonstration of building an e-commerce application using the 
 ## User Interface
 
 ### Home Page
+
 <p align="center">
     <img src="docs/home-ui.png" alt="Fusion Electronics Homepage" style="border-radius: 10px" width="100%"/>
 </p>
