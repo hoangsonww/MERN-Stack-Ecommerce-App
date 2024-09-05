@@ -33,6 +33,8 @@ function CheckoutForm({ onSubmit }) {
         sanitizedValue = value.replace(/\D/g, '');
         if (sanitizedValue.length > 4) sanitizedValue = sanitizedValue.slice(0, 4);
         break;
+      default:
+        break;
     }
 
     setFormData({ ...formData, [name]: sanitizedValue });
