@@ -138,7 +138,9 @@ fullstack-ecommerce/
 │   │   ├── ProductListing.jsx     # Product listing component
 │   │   ├── SearchResults.jsx      # Search results component
 │   │   └── ShoppingCart.jsx       # Shopping cart component
-│   ├── dev/                    # Development utilities
+│   ├── dev/                       # Development utilities
+│   │   ├── index.js               # Development entry point
+
 │   ├── pages/                  # Page components
 │   ├── App.jsx                 # Main application component
 │   ├── App.css                 # Main application styles
