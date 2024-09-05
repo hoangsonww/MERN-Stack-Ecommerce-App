@@ -140,8 +140,12 @@ fullstack-ecommerce/
 │   │   └── ShoppingCart.jsx       # Shopping cart component
 │   ├── dev/                       # Development utilities
 │   │   ├── index.js               # Development entry point
+│   │   ├── palette.jsx            # Color palette
+│   │   ├── preview.jsx            # Component preview
+│   │   └── useInitials.js         # Initials hook
+│   ├── pages/                     # Page components
+│   │   ├── Cart.jsx               # Cart page component
 
-│   ├── pages/                  # Page components
 │   ├── App.jsx                 # Main application component
 │   ├── App.css                 # Main application styles
 │   └── index.js                # React entry point
