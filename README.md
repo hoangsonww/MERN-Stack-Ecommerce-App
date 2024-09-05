@@ -136,6 +136,10 @@ fullstack-ecommerce/
 │   ├── App.jsx                  # Main application component
 │   ├── App.css                  # Main application styles
 │   └── index.js                 # React entry point
+├── build/                     # Public assets
+│   ├── index.html              # HTML template
+│   ├── manifest.json           # Web app manifest
+│   └── favicon.ico             # Favicon
 ├── .gitignore                   # Git ignore file
 ├── package.json                 # NPM package file
 ├── jsconfig.json                # JS config file
