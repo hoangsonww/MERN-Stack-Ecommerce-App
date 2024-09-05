@@ -42,6 +42,12 @@ This project is a demonstration of building an e-commerce application using the 
     <img src="docs/products-ui.png" alt="Fusion Electronics Products List" style="border-radius: 10px" width="100%"/>
 </p>
 
+### Product Details Page
+
+<p align="center">
+    <img src="docs/product-details-ui.png" alt="Fusion Electronics Product Details Page" style="border-radius: 10px" width="100%"/>
+</p>
+
 ### Cart Page
 
 <p align="center">
