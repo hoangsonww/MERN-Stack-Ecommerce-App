@@ -39,7 +39,7 @@ This project is a demonstration of building an e-commerce application using the 
 ### Full Product List
 
 <p align="center">
-    <img src="docs/products-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+    <img src="docs/products-ui.png" alt="Fusion Electronics Products List" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Cart Page
