@@ -131,7 +131,7 @@ fullstack-ecommerce/
 │   └── favicon.ico                # Favicon
 ├── src/                           # React.js frontend files
 │   ├── components/                # Reusable components
-│   │   ├── CheckoutForm.jsx    # Checkout form component
+│   │   ├── CheckoutForm.jsx       # Checkout form component
 │   │   ├── ProductCard.jsx     # Product card component
 │   │   ├── NavigationBar.jsx   # Navigation bar component
 │   │   ├── OrderConfirmation.jsx # Order confirmation component
