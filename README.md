@@ -119,7 +119,7 @@ fullstack-ecommerce/
 │   │   └── product.js             # Product schema
 │   ├── routes/                    # Route handlers
 │   │   ├── products.js            # Product routes
-│   │   ├── search.js           # Search routes
+│   │   ├── search.js              # Search routes
 │   │   └── checkout.js         # Checkout routes
 │   ├── seed/                   # Database seed data
 │   │   └── products.js         # Product seed data
