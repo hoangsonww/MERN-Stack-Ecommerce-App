@@ -17,7 +17,7 @@ function ProductDetails({ addToCart }) {
         const response = await axios.get(`http://localhost:5000/api/products/${id}`);
         if (response.data) {
           setProduct(response.data);
-          setUserRating(response.data.rating); // Initialize with current rating
+          setUserRating(response.data.rating);
         }
       } catch (error) {
         setError(error);
@@ -89,12 +89,17 @@ function ProductDetails({ addToCart }) {
               {product.description}
             </Typography>
 
-            {/* "In Stock" Chip */}
-            <Chip
-              label={`In Stock: ${product.stock}`}
-              color={product.stock > 0 ? 'success' : 'error'}
-              sx={{ my: 1, maxWidth: '100px', display: 'block' }}
-            />
+            {/* Vertically Centered "In Stock" Message and Chip */}
+            <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
+              <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>
+                In Stock:
+              </Typography>
+              <Chip
+                label={product.stock > 0 ? `${product.stock} Available` : 'Out of Stock'}
+                color={product.stock > 0 ? 'success' : 'error'}
+                sx={{ maxWidth: '200px' }}
+              />
+            </Box>
 
             {/* Stars and Number of Reviews on the Same Line */}
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
