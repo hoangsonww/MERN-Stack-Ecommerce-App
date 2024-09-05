@@ -4,12 +4,12 @@ const Product = require('../models/product');
 
 /**
  * @swagger
- * /products:
+ * /api/search:
  *   get:
  *     summary: Search for products
  *     description: Retrieve a list of products that match the provided search query in their name or description. If no query is provided, it returns all products.
  *     tags:
- *       - Products
+ *       - Search
  *     parameters:
  *       - in: query
  *         name: q

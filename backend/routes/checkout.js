@@ -3,7 +3,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /create-order:
+ * /api/checkout/create-order:
  *   post:
  *     summary: Create a new order
  *     description: Creates a new order with the provided details such as items, customer information, and payment details.

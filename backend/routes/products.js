@@ -22,7 +22,7 @@ const Product = require('../models/product');
  *           type: string
  *           description: The category of the product
  *       example:
- *         id: d5fE_asz
+ *         id: "66d9e7ee8bf3a567a5efe26b"
  *         name: "Product Name"
  *         price: 19.99
  *         category: "Electronics"
@@ -30,7 +30,7 @@ const Product = require('../models/product');
 
 /**
  * @swagger
- * /products:
+ * /api/products:
  *   get:
  *     summary: Returns the list of all products
  *     tags: [Products]
@@ -61,7 +61,7 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /products/{id}:
+ * /api/products/{id}:
  *   get:
  *     summary: Get a product by id
  *     tags: [Products]
@@ -96,7 +96,7 @@ router.get('/:id', async (req, res) => {
 
 /**
  * @swagger
- * /products/category/{category}:
+ * /api/products/category/{category}:
  *   get:
  *     summary: Get products by category
  *     tags: [Products]
