@@ -51,7 +51,7 @@ This project is a demonstration of building an e-commerce application using the 
 ### Checkout Page
 
 <p align="center">
-    <img src="docs/checkout-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+    <img src="docs/checkout-ui.png" alt="Fusion Electronics Checkout Page" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Order Confirmation
