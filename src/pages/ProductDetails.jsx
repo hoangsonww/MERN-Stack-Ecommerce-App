@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip } from '@mui/material';
+import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box } from '@mui/material';
 
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
@@ -89,17 +89,25 @@ function ProductDetails({ addToCart }) {
               {product.description}
             </Typography>
 
-            {/* Separate lines for Stock and Rating */}
-            <Chip label={`In Stock: ${product.stock}`} color={product.stock > 0 ? 'success' : 'error'} sx={{ my: 1, display: 'block' }} />
-            <Rating
-              value={userRating}
-              precision={0.5}
-              onChange={handleRatingChange}
-              sx={{ my: 1, display: 'block' }}
+            {/* "In Stock" Chip */}
+            <Chip
+              label={`In Stock: ${product.stock}`}
+              color={product.stock > 0 ? 'success' : 'error'}
+              sx={{ my: 1, maxWidth: '100px', display: 'block' }}
             />
-            <Typography variant="body2" color="textSecondary" gutterBottom>
-              {product.numReviews} Reviews
-            </Typography>
+
+            {/* Stars and Number of Reviews on the Same Line */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
+              <Rating
+                value={userRating}
+                precision={0.5}
+                onChange={handleRatingChange}
+                sx={{ mr: 1 }}
+              />
+              <Typography variant="body2" color="textSecondary">
+                ({product.numReviews} Reviews)
+              </Typography>
+            </Box>
 
             <Button variant="contained" color="primary" onClick={handleAddToCart} sx={{ mt: 2 }}>
               Add to Cart
