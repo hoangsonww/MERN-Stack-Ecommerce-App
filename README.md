@@ -33,7 +33,7 @@ This project is a demonstration of building an e-commerce application using the 
 
 ### Home Page
 <p align="center">
-    <img src="docs/home-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+    <img src="docs/home-ui.png" alt="Fusion Electronics Homepage" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Full Product List
