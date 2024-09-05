@@ -123,7 +123,7 @@ fullstack-ecommerce/
 │   │   └── checkout.js            # Checkout routes
 │   ├── seed/                      # Database seed data
 │   │   └── products.js            # Product seed data
-│   ├── .env                    # Environment variables
+│   ├── .env                       # Environment variables
 │   └──index.js                 # Server entry point
 ├── public/                     # Frontend public assets
 │   ├── index.html              # HTML template
