@@ -45,7 +45,7 @@ This project is a demonstration of building an e-commerce application using the 
 ### Cart Page
 
 <p align="center">
-    <img src="docs/cart-ui.png" alt="The MovieVerse App Interface" style="border-radius: 10px" width="100%"/>
+    <img src="docs/cart-ui.png" alt="Fusion Electronics Cart Page" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Checkout Page
