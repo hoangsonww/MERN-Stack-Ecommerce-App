@@ -259,7 +259,6 @@ To deploy the application:
 ## Containerization
 
 This project can be containerized using Docker. First, ensure that Docker Desktop is running on your system. Then, to create a Docker image, run the following command:
-
 ```bash
 docker compose up --build
 ```
