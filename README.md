@@ -132,8 +132,8 @@ fullstack-ecommerce/
 ├── src/                        # React.js frontend files
 │   ├── components/             # Reusable components
 │   ├── dev/                    # Development utilities
-│   ├── pages/                   # Page components
-│   ├── App.jsx                  # Main application component
+│   ├── pages/                  # Page components
+│   ├── App.jsx                 # Main application component
 │   ├── App.css                  # Main application styles
 │   └── index.js                 # React entry point
 ├── build/                      # Production build files
