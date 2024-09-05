@@ -182,7 +182,6 @@ Before running this project, ensure you have the following installed:
    ```
 
 2. Install project dependencies:
-
    ```bash
    # Install server dependencies
    cd backend
