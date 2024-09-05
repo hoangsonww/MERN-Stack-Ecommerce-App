@@ -112,9 +112,9 @@ The project is organized into two main "stacks": The backend is in the `backend`
 
 ```
 fullstack-ecommerce/
-├── backend/                    # Node.js server files
-│   ├── config/                 # Configuration files
-│   │   └── db.js               # Database connection
+├── backend/                       # Node.js server files
+│   ├── config/                    # Configuration files
+│   │   └── db.js                  # Database connection
 │   ├── models/                 # Mongoose models
 │   │   └── product.js          # Product schema
 │   ├── routes/                 # Route handlers
