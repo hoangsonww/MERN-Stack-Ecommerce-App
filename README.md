@@ -147,6 +147,12 @@ fullstack-ecommerce/
 │   │   ├── Cart.jsx               # Cart page component
 │   │   ├── Checkout.jsx           # Checkout page component
 │   │   ├── Home.jsx               # Home page component
+│   │   ├── ProductDetails.jsx     # Product details page component
+│   │   ├── OrderSuccess.jsx       # Order success page component
+│   │   ├── ProductDetails.jsx     # Product details page component
+│   │   └── Shop.jsx               # Shop page component
+
+
 
 │   ├── App.jsx                 # Main application component
 │   ├── App.css                 # Main application styles
