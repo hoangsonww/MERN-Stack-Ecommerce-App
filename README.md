@@ -228,6 +228,7 @@ Before running this project, ensure you have the following installed:
      ```bash
      npm start
      ```
+   - **Note:** The frontend server will run on `http://localhost:3000` by default. If you encounter any errors when starting related to the `react-credit-cards-2` package, it is OK to just ignore them as the application will still run correctly.
 
 ## Running the Application
 
