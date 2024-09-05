@@ -130,7 +130,7 @@ fullstack-ecommerce/
 │   ├── manifest.json           # Web app manifest
 │   └── favicon.ico             # Favicon
 ├── src/                        # React.js frontend files
-│   ├── components/              # Reusable components
+│   ├── components/             # Reusable components
 │   ├── dev/                     # Development utilities
 │   ├── pages/                   # Page components
 │   ├── App.jsx                  # Main application component
