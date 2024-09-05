@@ -156,7 +156,7 @@ fullstack-ecommerce/
 │   └── index.js                   # React entry point
 ├── build/                         # Frontend production build files
 ├── tests/                         # Test files
-├── .gitignore                  # Git ignore file
+├── .gitignore                     # Git ignore file
 ├── package.json                # NPM package file
 ├── jsconfig.json               # JS config file
 └── setupProxy.js               # Proxy configuration
