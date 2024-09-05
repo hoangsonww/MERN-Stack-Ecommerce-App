@@ -19,7 +19,7 @@ const StyledCarousel = styled(Carousel)({
   },
 });
 
-// Replace these links with any image you'd like!
+// Replace these links with any image you'd like! These are just my placeholders.
 function Home({ products, addToCart, error, loading }) {
   const bannerImages = [
     {
