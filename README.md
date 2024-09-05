@@ -159,7 +159,7 @@ fullstack-ecommerce/
 ├── .gitignore                     # Git ignore file
 ├── package.json                   # NPM package file
 ├── jsconfig.json                  # JS config file
-└── setupProxy.js               # Proxy configuration
+└── setupProxy.js                  # Proxy configuration
 ```
 
 ## Getting Started
