@@ -176,13 +176,13 @@ Before running this project, ensure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/hoangsonww/fullstack-ecommerce.git
-   cd fullstack-ecommerce
+   git clone https://github.com/hoangsonww/MERN-Stack-Ecommerce-App.git
+   cd MERN-Stack-Ecommerce-App  # Fix the path if necessary
    ```
 
 2. Install project dependencies:
    ```bash
-   # Install server dependencies
+   # Install server (backend) dependencies
    cd backend
    npm install
 
@@ -193,7 +193,7 @@ Before running this project, ensure you have the following installed:
    
 3. Set up the backend:
 
-   - Create a `.env` file in the `backend/` directory and add the following environment variables:
+   - Create a `.env` file in the `backend/` directory and add the following environment variable (replace the URI with your MongoDB connection string):
      ```
      MONGO_URI=mongodb://localhost:27017/Ecommerce-Products
      ```
