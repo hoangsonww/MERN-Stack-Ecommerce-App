@@ -5,29 +5,38 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
 ## Table of Contents
 
 1. [Introduction](#introduction)
-2. [User Interface](#user-interface)
+2. [Live Deployment](#live-deployment)
+3. [User Interface](#user-interface)
    - [Home Page](#home-page)
    - [Full Product List](#full-product-list)
    - [Cart Page](#cart-page)
    - [Checkout Page](#checkout-page)
-3. [Features](#features)
-4. [Technologies Used](#technologies-used)
-5. [Getting Started](#getting-started)
+4. [Features](#features)
+5. [Technologies Used](#technologies-used)
+6. [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
-6. [Project Structure](#project-structure)
-7. [Running the Application](#running-the-application)
-8. [Testing the APIs](#testing-the-apis)
-9. [Swagger API Documentation](#swagger-api-documentation)
-10. [Deployment](#deployment)
-11. [Containerization](#containerization)
-12. [Contributing](#contributing)
-13. [License](#license)
-14. [Creator](#creator)
+7. [Project Structure](#project-structure)
+8. [Running the Application](#running-the-application)
+9. [Testing the APIs](#testing-the-apis)
+10. [Swagger API Documentation](#swagger-api-documentation)
+11. [Deployment](#deployment)
+12. [Containerization](#containerization)
+13. [Contributing](#contributing)
+14. [License](#license)
+15. [Creator](#creator)
 
 ## Introduction
 
 This project is a demonstration of building an e-commerce application using the MERN stack, which consists of MongoDB (database), Express.js (server), React.js (frontend), and Node.js (runtime environment). The application allows users to browse products, add them to a shopping cart, proceed to checkout, and simulate the order processing. It includes basic validations for user inputs and simulates the checkout process on the backend.
+
+## Live Deployment
+
+The application is deployed live on Vercel. You can access it at the following URL: [Fusion Electronics](https://mern-stack-ecommerce-app-nine.vercel.app).
+
+The backend server is deployed on Render and can be accessed at the following URL: [Fusion Electronics API](https://mern-stack-ecommerce-app-h5wb.onrender.com/).
+
+Please note that the backend server may take a few seconds to wake up if it has been inactive for a while.
 
 ## User Interface
 
@@ -197,6 +206,8 @@ Before running this project, ensure you have the following installed:
      ```
      MONGO_URI=mongodb://localhost:27017/Ecommerce-Products
      ```
+     
+     For your information, I am using MongoDB Atlas for this project. You can create a free account and get your connection string from there if you want to deploy the application to the cloud.
  
     - Ensure that your MongoDB server is running. If you're using Mac, you can start the MongoDB server with the following command:
      ```bash

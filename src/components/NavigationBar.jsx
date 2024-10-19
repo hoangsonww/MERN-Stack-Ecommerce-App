@@ -35,7 +35,7 @@ function NavigationBar({ cartItemCount }) {
   const handleSearchSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:5000/api/search?q=${searchQuery}`); // Specify port 5000
+      const response = await axios.get(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/search?q=${searchQuery}`); // Specify port 5000
       setSearchResults(response.data);
     } catch (error) {
       console.error('Error fetching search results:', error);

@@ -14,6 +14,10 @@ const swaggerDefinition = {
       url: 'http://localhost:5000',
       description: 'Development server',
     },
+    {
+      url: 'https://mern-stack-ecommerce-app-h5wb.onrender.com',
+      description: 'Production server',
+    }
   ],
 };
 

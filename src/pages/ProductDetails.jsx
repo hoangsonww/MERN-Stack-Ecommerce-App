@@ -14,7 +14,7 @@ function ProductDetails({ addToCart }) {
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const response = await axios.get(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/products/${id}`);
         if (response.data) {
           setProduct(response.data);
           setUserRating(response.data.rating);
@@ -37,7 +37,7 @@ function ProductDetails({ addToCart }) {
   const handleRatingChange = async (event, newRating) => {
     setUserRating(newRating);
     try {
-      await axios.put(`http://localhost:5000/api/products/${id}/rating`, { rating: newRating });
+      await axios.put(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/products/${id}/rating`, { rating: newRating });
       setProduct(prevProduct => ({
         ...prevProduct,
         rating: newRating,
