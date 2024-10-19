@@ -11,7 +11,7 @@ dotenv.config();
 
 // Create Express App
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 // Database Connection
 mongoose
@@ -33,7 +33,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // Seed database on startup
 seedDB().then(() => {
   // Start Server after seeding
-  app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server ready on port ${PORT}.`);
   });
 });
