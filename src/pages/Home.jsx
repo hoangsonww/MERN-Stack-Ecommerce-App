@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Typography, Grid, Box, Container, Button, CircularProgress, Alert, Paper, styled } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import ProductCard from '../components/ProductCard';
+import summerSaleImage from '../assets/images/summer-sale.jpg';
+import techGadgetsImage from '../assets/images/tech-gadgets.jpg';
+import trendingFashionImage from '../assets/images/trending-fashion.jpg';
 
 const StyledCarousel = styled(Carousel)({
   '& .Carousel-indicators-container': {
@@ -23,17 +26,17 @@ const StyledCarousel = styled(Carousel)({
 function Home({ products, addToCart, error, loading }) {
   const bannerImages = [
     {
-      url: 'https://thumbs.dreamstime.com/b/electronics-sale-banner-devices-online-shopping-delivery-basket-273419752.jpg',
+      url: summerSaleImage,
       title: 'Summer Sale - Up to 50% Off',
       description: 'Shop now for the best deals on summer essentials!',
     },
     {
-      url: 'https://magesolution.com/wp-content/uploads/2022/07/1_7u7eYPpkr5baaBOzYcdNHw.jpeg',
+      url: techGadgetsImage,
       title: 'New Tech Gadgets',
       description: 'Explore the latest in tech and gadgets.',
     },
     {
-      url: 'https://images.pexels.com/photos/3768005/pexels-photo-3768005.jpeg?cs=srgb&dl=pexels-willoworld-3768005.jpg&fm=jpg',
+      url: trendingFashionImage,
       title: 'Trending Fashion',
       description: 'Discover the newest fashion trends for this season.',
     },
@@ -48,7 +51,7 @@ function Home({ products, addToCart, error, loading }) {
         <StyledCarousel
           animation="slide"
           autoPlay={true}
-          interval={5000}
+          interval={2500}
           navButtonsAlwaysVisible={true}
           navButtonsProps={{
             style: {

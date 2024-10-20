@@ -1,11 +1,19 @@
 import * as React from 'react';
-import { Grid, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Pagination } from '@mui/material';
+import { Grid, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Pagination, CircularProgress } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 
 function Shop({ products, addToCart }) {
   const [categoryFilter, setCategoryFilter] = React.useState('all');
   const [page, setPage] = React.useState(1);
+  const [loading, setLoading] = React.useState(true); // Loading state
   const itemsPerPage = 6;
+
+  React.useEffect(() => {
+    // Simulating an API call to fetch products
+    setTimeout(() => {
+      setLoading(false); // Set loading to false after data is loaded
+    }, 1000); // Adjust this timeout to match the actual API call duration
+  }, []);
 
   const uniqueCategories = Array.from(new Set(products.map(product => product.category)));
 
@@ -25,6 +33,27 @@ function Shop({ products, addToCart }) {
     setCategoryFilter(event.target.value);
     setPage(1);
   };
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 1000,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Container maxWidth="lg">
