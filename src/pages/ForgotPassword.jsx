@@ -16,7 +16,7 @@ function ForgotPassword() {
 
     try {
       // Verify email
-      await axios.post('/api/auth/verify-email', { email });
+      await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/verify-email', { email });
       // If successful, navigate to reset password page
       navigate('/reset-password');
     } catch (err) {
