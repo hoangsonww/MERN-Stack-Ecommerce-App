@@ -52,6 +52,12 @@ Please note that the backend server may take a few seconds to wake up if it has 
     <img src="docs/products-ui.png" alt="Fusion Electronics Products List" style="border-radius: 10px" width="100%"/>
 </p>
 
+### Search Results
+
+<p align="center">
+    <img src="docs/search-results-ui.png" alt="Fusion Electronics Search Results" style="border-radius: 10px" width="100%"/>
+</p>
+
 ### Product Details Page
 
 <p align="center">
@@ -68,6 +74,30 @@ Please note that the backend server may take a few seconds to wake up if it has 
 
 <p align="center">
     <img src="docs/checkout-ui.png" alt="Fusion Electronics Checkout Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Login Page
+
+<p align="center">
+    <img src="docs/login-ui.png" alt="Fusion Electronics Login Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Register Page
+
+<p align="center">
+    <img src="docs/register-ui.png" alt="Fusion Electronics Register Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Forgot Password Page
+
+<p align="center">
+    <img src="docs/forgot-password-ui.png" alt="Fusion Electronics Forgot Password Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Reset Password Page
+
+<p align="center">
+    <img src="docs/reset-password-ui.png" alt="Fusion Electronics Reset Password Page" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Order Confirmation
@@ -116,6 +146,7 @@ Please note that the backend server may take a few seconds to wake up if it has 
     - Cors for cross-origin resource sharing
     - Swagger for API documentation
     - Nodemon for server hot-reloading
+    - **Middleware**: JWT for securing API endpoints
 
 - **Development Tools:**
     - Jetbrains WebStorm (IDE)
@@ -213,6 +244,7 @@ Before running this project, ensure you have the following installed:
    - Create a `.env` file in the `backend/` directory and add the following environment variable (replace the URI with your MongoDB connection string):
      ```
      MONGO_URI=mongodb://localhost:27017/Ecommerce-Products
+     JWT_SECRET=your_secret_key
      ```
      
      For your information, I am using MongoDB Atlas for this project. You can create a free account and get your connection string from there if you want to deploy the application to the cloud.
