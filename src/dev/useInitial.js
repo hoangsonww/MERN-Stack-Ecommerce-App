@@ -6,5 +6,7 @@ export const useInitial = () => {
     error: false,
   });
 
+  console.log(setStatus);
+
   return status;
 };

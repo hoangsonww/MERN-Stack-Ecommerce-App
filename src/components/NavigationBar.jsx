@@ -1,20 +1,37 @@
 import * as React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Badge, InputBase, useMediaQuery, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Menu, MenuItem, Badge, InputBase, useMediaQuery, Box, CircularProgress } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchResults from './SearchResults';
+import { debounce } from 'lodash'; // Debounce function from lodash
 
 function NavigationBar({ cartItemCount }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [searchResults, setSearchResults] = React.useState([]);
+  const [loading, setLoading] = React.useState(false); // Loading state for search
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false); // State to track login status
   const searchBarRef = React.useRef(null);
+  const searchResultsRef = React.useRef(null); // To detect clicks outside search results
   const open = Boolean(anchorEl);
   const location = useLocation();
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width:900px)');
+
+  // Check if user is logged in by looking for token in localStorage
+  React.useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem('MERNEcommerceToken');
+      setIsLoggedIn(!!token); // Set loggedIn state based on token presence
+    };
+    checkToken(); // Initial check
+    const interval = setInterval(checkToken, 2000); // Check every 2 seconds
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -26,22 +43,60 @@ function NavigationBar({ cartItemCount }) {
 
   const handleSearchChange = event => {
     setSearchQuery(event.target.value);
+    debouncedSearch(event.target.value); // Trigger the debounced search
   };
 
   const handleSearchResultClick = () => {
     setSearchResults([]);
   };
 
-  const handleSearchSubmit = async event => {
-    event.preventDefault();
-    try {
-      const response = await axios.get(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/search?q=${searchQuery}`); // Specify port 5000
-      setSearchResults(response.data);
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      setSearchResults([]);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('MERNEcommerceToken'); // Remove token from localStorage
+    setIsLoggedIn(false);
+    navigate('/'); // Redirect to homepage after logout
   };
+
+  // Debounced function to prevent triggering the search too often
+  const debouncedSearch = React.useCallback(
+    debounce(async (query) => {
+      if (query.trim() === '') {
+        setSearchResults([]); // Clear search results if the query is empty
+        setLoading(false);
+        return;
+      }
+      setLoading(true); // Set loading to true when search is triggered
+      try {
+        const response = await axios.get(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/search?q=${query}`);
+        setSearchResults(response.data);
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+        setSearchResults([]);
+      } finally {
+        setLoading(false); // Stop loading when the API call finishes
+      }
+    }, 300), // 300ms debounce delay
+    []
+  );
+
+  // Event listener to hide search results if clicking outside search bar or results
+  React.useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Check if click is outside search bar and search results
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target) &&
+        searchResultsRef.current &&
+        !searchResultsRef.current.contains(event.target)
+      ) {
+        setSearchResults([]); // Hide search results on outside click
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside); // Cleanup listener on unmount
+    };
+  }, []);
 
   return (
     <AppBar
@@ -110,16 +165,32 @@ function NavigationBar({ cartItemCount }) {
                 FUSION ELECTRONICS
               </Link>
             </Typography>
-            <form className="search-bar" onSubmit={handleSearchSubmit} ref={searchBarRef}>
+            <form className="search-bar" ref={searchBarRef} onSubmit={e => e.preventDefault()}>
               <SearchIcon sx={{ color: 'white' }} />
-              <InputBase placeholder="Search for a product..." inputProps={{ 'aria-label': 'search' }} value={searchQuery} onChange={handleSearchChange} />
+              <InputBase
+                placeholder="Search for a product..."
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchQuery}
+                onChange={handleSearchChange}
+                style={{ width: '100%' }}
+              />
+              {/* Display loading spinner if search is in progress */}
+              {loading && (
+                <CircularProgress
+                  size={20}
+                  sx={{
+                    color: 'white',
+                    marginLeft: '10px',
+                  }}
+                />
+              )}
             </form>
             <Button
               color="inherit"
               component={Link}
               to="/"
               className={location.pathname === '/' ? 'active' : ''}
-              sx={{ fontSize: '1rem', marginLeft: '1rem', marginRight: '1rem' }}
+              sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
             >
               Home
             </Button>
@@ -128,11 +199,42 @@ function NavigationBar({ cartItemCount }) {
               component={Link}
               to="/shop"
               className={location.pathname === '/shop' ? 'active' : ''}
-              sx={{ fontSize: '1rem', marginLeft: '1rem', marginRight: '1rem' }}
+              sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
             >
               Shop
             </Button>
-            <IconButton color="inherit" component={Link} to="/cart">
+
+            {/* Login/Logout and Register */}
+            {isLoggedIn ? (
+              <Button
+                onClick={handleLogout}
+                sx={{ color: 'red', marginLeft: '0.5rem', marginRight: '0.5rem' }}
+              >
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Button
+                  color="inherit"
+                  component={Link}
+                  to="/login"
+                  sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
+                >
+                  Login
+                </Button>
+              </>
+            )}
+            <Button
+              color="inherit"
+              component={Link}
+              to="/register"
+              sx={{ fontSize: '1rem', marginLeft: '1rem' }}
+            >
+              Register
+            </Button>
+
+            {/* Cart Icon */}
+            <IconButton color="inherit" component={Link} to="/cart" sx={{ marginLeft: '0.5rem' }}>
               <Badge badgeContent={cartItemCount} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
@@ -141,27 +243,25 @@ function NavigationBar({ cartItemCount }) {
         )}
       </Toolbar>
 
-      {searchResults.length > 0 && (
+      {searchResults.length > 0 && searchBarRef.current && (
         <Box
+          ref={searchResultsRef} // Reference for detecting clicks outside the search results
           sx={{
-            position: 'relative',
-            display: 'flex',
-            justifyContent: 'center',
+            position: 'absolute',
+            top: searchBarRef.current.getBoundingClientRect().bottom + 'px',
+            left: searchBarRef.current.getBoundingClientRect().left + 'px',
+            zIndex: 10,
+            backgroundColor: 'white',
+            borderRadius: '4px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            width: '300px', // Specify a custom width, no need to match the search bar
           }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '100%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '100%',
-              zIndex: 10,
-              textAlign: 'center',
-            }}
-          >
-            <SearchResults results={searchResults} onResultClick={handleSearchResultClick} setSearchResults={setSearchResults} />
-          </Box>
+          <SearchResults
+            results={searchResults}
+            onResultClick={handleSearchResultClick}
+            setSearchResults={setSearchResults}
+          />
         </Box>
       )}
     </AppBar>

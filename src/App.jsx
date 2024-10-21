@@ -9,6 +9,10 @@ import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
 import ProductDetails from './pages/ProductDetails';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 const theme = createTheme({
   palette: {
@@ -68,6 +72,14 @@ function App() {
             <Route path="/order-success" element={<OrderSuccess />} />
 
             <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
+
+            <Route path="/login" element={<Login />} />
+
+            <Route path="/register" element={<Register />} />
+
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Routes>
         </Container>
       </BrowserRouter>

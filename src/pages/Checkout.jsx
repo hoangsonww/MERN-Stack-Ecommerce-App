@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import CheckoutForm from '../components/CheckoutForm';
 import { Typography, CircularProgress } from '@mui/material';
 
@@ -15,6 +14,7 @@ function Checkout({ cartItems }) {
 
     try {
       // Simulate API call to create an order - This is a demo website so we do not have capacity to handle a real order yet
+      // Remember to import axios at the top of the file if you want to use it here
       // const response = await axios.post('http://localhost:5000/api/checkout/create-order', {
       //     items: cartItems,
       //     name: formData.name,

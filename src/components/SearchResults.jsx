@@ -13,10 +13,10 @@ function SearchResults({ results, onResultClick, setSearchResults }) {
       elevation={3}
       sx={{
         width: '100%',
-        maxWidth: 360,
-        maxHeight: '300px',
+        maxWidth: '50vw',
+        maxHeight: '50vh',
         overflowY: 'auto',
-        padding: '0.5rem',
+        padding: '1rem',
       }}
     >
       <List>
@@ -30,6 +30,7 @@ function SearchResults({ results, onResultClick, setSearchResults }) {
               onClick={handleItemClick}
               sx={{
                 borderBottom: '1px solid #eee',
+                width: '100%',
                 '&:last-child': {
                   borderBottom: 'none',
                 },
@@ -39,7 +40,7 @@ function SearchResults({ results, onResultClick, setSearchResults }) {
               }}
             >
               <ListItemAvatar>
-                <Avatar alt={product.name} src={product.image} />
+                <Avatar alt={product.name} src={product.image} sx={{ borderRadius: '0' }} />
               </ListItemAvatar>
               <ListItemText
                 primary={product.name}

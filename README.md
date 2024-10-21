@@ -100,12 +100,20 @@ Please note that the backend server may take a few seconds to wake up if it has 
     - Material-UI for styling
     - Axios for API requests
     - `react-credit-cards-2` for credit card visualization
+    - `react-router-dom` for routing
+    - `react-hook-form` for form validation
+    - `react-toastify` for toast notifications
+    - Jest and React Testing Library for testing
 
 - **Backend:**
     - Node.js
     - Express.js
     - MongoDB (with Mongoose ODM)
     - Axios for external API requests
+    - JsonWebToken for user authentication
+    - Bcrypt for password hashing
+    - Dotenv for environment variables
+    - Cors for cross-origin resource sharing
     - Swagger for API documentation
     - Nodemon for server hot-reloading
 
