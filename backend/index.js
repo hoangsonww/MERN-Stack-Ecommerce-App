@@ -8,7 +8,7 @@ const seedDB = require('./seed/productSeeds');
 const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const authRoutes = require('./routes/auth');
-const { swaggerUi, swaggerSpec } = require('./docs/swagger');
+const { swaggerUi, swaggerSpec, setupSwaggerUi } = require('./docs/swagger');
 
 // Create Express App
 const app = express();
@@ -29,6 +29,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
 });
+
+// Setup Swagger UI with customized title
+setupSwaggerUi(app);
 
 // Routes
 app.use('/api/products', productRoutes);
