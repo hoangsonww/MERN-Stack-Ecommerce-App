@@ -150,7 +150,7 @@ const swaggerSpec = swaggerJSDoc(options);
 
 const setupSwaggerUi = (app) => {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-    customSiteTitle: 'Fusion E-Commerce API Docs', // Customize the browser tab title
+    customSiteTitle: 'Fusion E-Commerce API Docs',
   }));
 };
 
