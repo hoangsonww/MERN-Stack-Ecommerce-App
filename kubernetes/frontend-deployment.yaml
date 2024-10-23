@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: employee-management-frontend:latest  # Build and push this to a container registry
+          image: fusion-ecommerce-frontend:latest  # Build and push this to a container registry
           ports:
             - containerPort: 3001
           env:

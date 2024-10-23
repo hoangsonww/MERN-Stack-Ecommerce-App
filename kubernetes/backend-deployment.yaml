@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: employee-management-backend:latest
+          image: fusion-ecommerce-backend:latest
           ports:
             - containerPort: 3000
           env:
