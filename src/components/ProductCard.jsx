@@ -14,8 +14,15 @@ export default function ProductCard({ product, addToCart }) {
     navigate(`/product/${product._id}`);
   };
 
+  const handleCardClick = (event) => {
+    // Prevent navigation if the "Add to Cart" button is clicked
+    if (event.target.tagName !== 'BUTTON') {
+      handleViewDetails();
+    }
+  };
+
   return (
-    <Card sx={{ maxWidth: 345, height: '100%' }}>
+    <Card sx={{ maxWidth: 345, height: '100%', cursor: 'pointer' }} onClick={handleCardClick}>
       <div style={{ position: 'relative', paddingBottom: '100%' }}>
         <CardMedia
           component="img"
@@ -45,10 +52,22 @@ export default function ProductCard({ product, addToCart }) {
       </CardContent>
 
       <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
-        <Button size="small" onClick={() => addToCart(product)}>
+        <Button
+          size="small"
+          onClick={(event) => {
+            event.stopPropagation();
+            addToCart(product);
+          }}
+        >
           Add to Cart
         </Button>
-        <Button size="small" onClick={handleViewDetails} sx={{ mr: 1 }}>
+        <Button
+          size="small"
+          onClick={(event) => {
+            event.stopPropagation();
+            handleViewDetails();
+          }}
+        >
           View Details
         </Button>
       </CardActions>

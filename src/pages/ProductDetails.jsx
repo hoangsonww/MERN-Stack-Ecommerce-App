@@ -28,6 +28,10 @@ function ProductDetails({ addToCart }) {
     fetchProduct();
   }, [id, navigate]);
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
   const handleAddToCart = () => {
     if (product) {
       addToCart(product);
@@ -38,7 +42,7 @@ function ProductDetails({ addToCart }) {
     setUserRating(newRating);
     try {
       await axios.put(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/products/${id}/rating`, { rating: newRating });
-      setProduct(prevProduct => ({
+      setProduct((prevProduct) => ({
         ...prevProduct,
         rating: newRating,
         numReviews: prevProduct.numReviews + 1,
@@ -80,7 +84,7 @@ function ProductDetails({ addToCart }) {
               Brand: {product.brand}
             </Typography>
             <Typography variant="h6" color="textSecondary" gutterBottom>
-              Category: {product.category}
+              Category: {capitalizeFirstLetter(product.category)}
             </Typography>
             <Typography variant="h6" color="primary" gutterBottom>
               ${product.price}
@@ -89,7 +93,6 @@ function ProductDetails({ addToCart }) {
               {product.description}
             </Typography>
 
-            {/* Vertically Centered "In Stock" Message and Chip */}
             <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
               <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>
                 In Stock:
@@ -101,7 +104,6 @@ function ProductDetails({ addToCart }) {
               />
             </Box>
 
-            {/* Stars and Number of Reviews on the Same Line */}
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
               <Rating value={userRating} precision={0.5} onChange={handleRatingChange} sx={{ mr: 1 }} />
               <Typography variant="body2" color="textSecondary">

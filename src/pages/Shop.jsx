@@ -5,19 +5,17 @@ import ProductCard from '../components/ProductCard';
 function Shop({ products, addToCart }) {
   const [categoryFilter, setCategoryFilter] = React.useState('all');
   const [page, setPage] = React.useState(1);
-  const [loading, setLoading] = React.useState(true); // Loading state
+  const [loading, setLoading] = React.useState(true); // Set loading to true initially to show CircularProgress
   const itemsPerPage = 6;
 
-  React.useEffect(() => {
-    // Simulating an API call to fetch products
-    setTimeout(() => {
-      setLoading(false); // Set loading to false after data is loaded
-    }, 1000); // Adjust this timeout to match the actual API call duration
-  }, []);
+  // Capitalize the first letter of each category
+  const capitalizeCategory = (category) => category.charAt(0).toUpperCase() + category.slice(1);
 
-  const uniqueCategories = Array.from(new Set(products.map(product => product.category)));
+  const uniqueCategories = Array.from(new Set(products.map(product => capitalizeCategory(product.category))));
 
-  const filteredProducts = categoryFilter === 'all' ? products : products.filter(product => product.category === categoryFilter);
+  const filteredProducts = categoryFilter === 'all'
+    ? products
+    : products.filter(product => capitalizeCategory(product.category) === categoryFilter);
 
   const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -33,6 +31,19 @@ function Shop({ products, addToCart }) {
     setCategoryFilter(event.target.value);
     setPage(1);
   };
+
+  React.useEffect(() => {
+    // Simulating an API call to fetch products
+    setLoading(true);
+    const fetchProducts = async () => {
+      // Simulate an API fetch with a timeout (replace with actual API call)
+      setTimeout(() => {
+        setLoading(false); // Set loading to false after data is loaded
+      }, 1000); // Adjust this timeout or replace with an actual fetch call
+    };
+
+    fetchProducts();
+  }, []);
 
   if (loading) {
     return (
@@ -63,7 +74,13 @@ function Shop({ products, addToCart }) {
 
       <FormControl fullWidth sx={{ mb: 3 }}>
         <InputLabel id="category-filter-label">Filter by Category</InputLabel>
-        <Select labelId="category-filter-label" id="category-filter" value={categoryFilter} label="Filter by Category" onChange={handleCategoryChange}>
+        <Select
+          labelId="category-filter-label"
+          id="category-filter"
+          value={categoryFilter}
+          label="Filter by Category"
+          onChange={handleCategoryChange}
+        >
           <MenuItem value="all">All Categories</MenuItem>
           {uniqueCategories.map(category => (
             <MenuItem key={category} value={category}>
