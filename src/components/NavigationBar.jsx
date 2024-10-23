@@ -6,7 +6,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import SearchResults from './SearchResults';
-import { debounce } from 'lodash'; // Debounce function from lodash
+import { debounce } from 'lodash';
 
 function NavigationBar({ cartItemCount }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -190,7 +190,7 @@ function NavigationBar({ cartItemCount }) {
               component={Link}
               to="/"
               className={location.pathname === '/' ? 'active' : ''}
-              sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
+              sx={{ fontSize: '1rem', marginLeft: '1rem', marginRight: '0.5rem' }}
             >
               Home
             </Button>
@@ -228,7 +228,7 @@ function NavigationBar({ cartItemCount }) {
               color="inherit"
               component={Link}
               to="/register"
-              sx={{ fontSize: '1rem', marginLeft: '1rem' }}
+              sx={{ fontSize: '1rem', marginLeft: '0.5rem' }}
             >
               Register
             </Button>
