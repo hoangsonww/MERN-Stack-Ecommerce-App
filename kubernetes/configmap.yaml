@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: employee-management-config
+data:
+  NODE_ENV: "production"
+  REACT_APP_BACKEND_URL: "http://backend-service:3000"
