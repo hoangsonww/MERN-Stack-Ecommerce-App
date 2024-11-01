@@ -65,7 +65,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
  *               password: password123
  *     responses:
  *       200:
- *         description: User registered and JWT token returned
+ *         description: User registered and JWT token returned (expires in 24 hours)
  *         content:
  *           application/json:
  *             schema:
@@ -152,7 +152,7 @@ router.post(
  *               password: password123
  *     responses:
  *       200:
- *         description: User authenticated and JWT token returned
+ *         description: User authenticated and JWT token returned (expires in 24 hours)
  *         content:
  *           application/json:
  *             schema:
