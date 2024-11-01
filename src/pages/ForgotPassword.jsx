@@ -34,7 +34,7 @@ function ForgotPassword() {
         </Typography>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: "center" }}>
             {error}
           </Typography>
         )}
@@ -46,6 +46,7 @@ function ForgotPassword() {
             fullWidth
             margin="normal"
             value={email}
+            type={'email'}
             onChange={(e) => setEmail(e.target.value)}
             required
           />

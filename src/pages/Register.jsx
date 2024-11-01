@@ -1,11 +1,25 @@
 import React, { useState } from 'react';
-import { Box, Container, TextField, Typography, Button, CircularProgress, Paper } from '@mui/material';
+import {
+  Box,
+  Container,
+  TextField,
+  Typography,
+  Button,
+  CircularProgress,
+  Paper,
+  IconButton,
+  InputAdornment,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios'; // For making API calls
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirming password
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility toggle
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility toggle
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -14,8 +28,17 @@ function Register() {
     setLoading(true);
     setError(null);
 
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/register', { name, email, password });
+      const response = await axios.post(
+        'https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/register',
+        { name, email, password }
+      );
       const token = response.data.token;
       // Store token in localStorage or sessionStorage
       localStorage.setItem('token', token);
@@ -28,6 +51,16 @@ function Register() {
     }
   };
 
+  // Toggle password visibility
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  // Toggle confirm password visibility
+  const handleToggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prev) => !prev);
+  };
+
   return (
     <Container maxWidth="sm" sx={{ mt: 4 }}>
       <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
@@ -36,7 +69,7 @@ function Register() {
         </Typography>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: "center" }}>
             {error}
           </Typography>
         )}
@@ -62,13 +95,49 @@ function Register() {
           />
           <TextField
             label="Password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             variant="outlined"
             fullWidth
             margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleTogglePasswordVisibility}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            label="Confirm Password"
+            type={showConfirmPassword ? 'text' : 'password'}
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle confirm password visibility"
+                    onClick={handleToggleConfirmPasswordVisibility}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
