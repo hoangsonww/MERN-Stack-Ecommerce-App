@@ -117,7 +117,7 @@ router.post(
         }
       };
 
-      jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' }, (err, token) => {
+      jwt.sign(payload, JWT_SECRET, { expiresIn: '48h' }, (err, token) => {
         if (err) throw err;
         res.json({ token });
       });
@@ -199,7 +199,7 @@ router.post(
         }
       };
 
-      jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' }, (err, token) => {
+      jwt.sign(payload, JWT_SECRET, { expiresIn: '48h' }, (err, token) => {
         if (err) throw err;
         res.json({ token });
       });
@@ -303,7 +303,7 @@ router.post(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
