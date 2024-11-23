@@ -9,7 +9,7 @@ function ForgotPassword() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -34,7 +34,7 @@ function ForgotPassword() {
         </Typography>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: "center" }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
             {error}
           </Typography>
         )}
@@ -47,7 +47,7 @@ function ForgotPassword() {
             margin="normal"
             value={email}
             type={'email'}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
             required
           />
 

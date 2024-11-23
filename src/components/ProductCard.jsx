@@ -14,7 +14,7 @@ export default function ProductCard({ product, addToCart }) {
     navigate(`/product/${product._id}`);
   };
 
-  const handleCardClick = (event) => {
+  const handleCardClick = event => {
     // Prevent navigation if the "Add to Cart" button is clicked
     if (event.target.tagName !== 'BUTTON') {
       handleViewDetails();
@@ -55,7 +55,7 @@ export default function ProductCard({ product, addToCart }) {
       <CardActions disableSpacing sx={{ justifyContent: 'space-between' }}>
         <Button
           size="small"
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             addToCart(product);
           }}
@@ -64,7 +64,7 @@ export default function ProductCard({ product, addToCart }) {
         </Button>
         <Button
           size="small"
-          onClick={(event) => {
+          onClick={event => {
             event.stopPropagation();
             handleViewDetails();
           }}

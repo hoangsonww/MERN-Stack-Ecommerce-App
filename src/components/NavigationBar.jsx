@@ -58,7 +58,7 @@ function NavigationBar({ cartItemCount }) {
 
   // Debounced function to prevent triggering the search too often
   const debouncedSearch = React.useCallback(
-    debounce(async (query) => {
+    debounce(async query => {
       if (query.trim() === '') {
         setSearchResults([]); // Clear search results if the query is empty
         setLoading(false);
@@ -80,7 +80,7 @@ function NavigationBar({ cartItemCount }) {
 
   // Event listener to hide search results if clicking outside search bar or results
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       // Check if click is outside search bar and search results
       if (
         searchBarRef.current &&
@@ -206,30 +206,17 @@ function NavigationBar({ cartItemCount }) {
 
             {/* Login/Logout and Register */}
             {isLoggedIn ? (
-              <Button
-                onClick={handleLogout}
-                sx={{ color: 'red', marginLeft: '0.5rem', marginRight: '0.5rem' }}
-              >
+              <Button onClick={handleLogout} sx={{ color: 'red', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
                 Logout
               </Button>
             ) : (
               <>
-                <Button
-                  color="inherit"
-                  component={Link}
-                  to="/login"
-                  sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}
-                >
+                <Button color="inherit" component={Link} to="/login" sx={{ fontSize: '1rem', marginLeft: '0.5rem', marginRight: '0.5rem' }}>
                   Login
                 </Button>
               </>
             )}
-            <Button
-              color="inherit"
-              component={Link}
-              to="/register"
-              sx={{ fontSize: '1rem', marginLeft: '0.5rem' }}
-            >
+            <Button color="inherit" component={Link} to="/register" sx={{ fontSize: '1rem', marginLeft: '0.5rem' }}>
               Register
             </Button>
 
@@ -257,11 +244,7 @@ function NavigationBar({ cartItemCount }) {
             width: '300px', // Specify a custom width, no need to match the search bar
           }}
         >
-          <SearchResults
-            results={searchResults}
-            onResultClick={handleSearchResultClick}
-            setSearchResults={setSearchResults}
-          />
+          <SearchResults results={searchResults} onResultClick={handleSearchResultClick} setSearchResults={setSearchResults} />
         </Box>
       )}
     </AppBar>

@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Container,
-  TextField,
-  Typography,
-  Button,
-  CircularProgress,
-  Paper,
-  IconButton,
-  InputAdornment,
-} from '@mui/material';
+import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
 
@@ -20,16 +10,13 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axios.post(
-        'https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/login',
-        { email, password }
-      );
+      const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/login', { email, password });
       const token = response.data.token;
       // Store token in localStorage or sessionStorage
       localStorage.setItem('MERNEcommerceToken', token);
@@ -44,7 +31,7 @@ function Login() {
 
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(prev => !prev);
   };
 
   return (
@@ -55,21 +42,13 @@ function Login() {
         </Typography>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: "center" }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
             {error}
           </Typography>
         )}
 
         <form onSubmit={handleLogin}>
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <TextField label="Email" variant="outlined" fullWidth margin="normal" value={email} onChange={e => setEmail(e.target.value)} required />
           <TextField
             label="Password"
             type={showPassword ? 'text' : 'password'}
@@ -77,16 +56,12 @@ function Login() {
             fullWidth
             margin="normal"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleTogglePasswordVisibility}
-                    edge="end"
-                  >
+                  <IconButton aria-label="toggle password visibility" onClick={handleTogglePasswordVisibility} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>

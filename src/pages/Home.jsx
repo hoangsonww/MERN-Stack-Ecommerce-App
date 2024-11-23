@@ -127,14 +127,7 @@ function Home({ products, addToCart, error, loading }) {
         ) : (
           <Grid container spacing={4}>
             {featuredProducts.map((product, index) => (
-              <Grid
-                item
-                key={product._id}
-                xs={12}
-                sm={6}
-                md={4}
-                className={animatedCards.includes(index) ? 'product-card-animated' : ''}
-              >
+              <Grid item key={product._id} xs={12} sm={6} md={4} className={animatedCards.includes(index) ? 'product-card-animated' : ''}>
                 <ProductCard product={product} addToCart={addToCart} />
               </Grid>
             ))}

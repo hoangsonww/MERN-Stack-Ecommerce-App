@@ -7,7 +7,8 @@ const swaggerDefinition = {
   info: {
     title: 'Fusion E-Commerce Backend APIs', // API title
     version: '1.1.0', // API version
-    description: 'API documentation for the Fusion E-Commerce backend server. This documentation provides detailed information on all available endpoints for managing products, users, authentication, and more.',
+    description:
+      'API documentation for the Fusion E-Commerce backend server. This documentation provides detailed information on all available endpoints for managing products, users, authentication, and more.',
     termsOfService: 'https://mern-stack-ecommerce-app-nine.vercel.app',
     contact: {
       name: 'Fusion E-Commerce Website',
@@ -27,7 +28,7 @@ const swaggerDefinition = {
     {
       url: 'http://localhost:8000',
       description: 'Development server',
-    }
+    },
   ],
   components: {
     securitySchemes: {
@@ -148,10 +149,14 @@ const options = {
 // Initialize swagger-jsdoc
 const swaggerSpec = swaggerJSDoc(options);
 
-const setupSwaggerUi = (app) => {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-    customSiteTitle: 'Fusion E-Commerce API Docs',
-  }));
+const setupSwaggerUi = app => {
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      customSiteTitle: 'Fusion E-Commerce API Docs',
+    })
+  );
 };
 
 module.exports = {

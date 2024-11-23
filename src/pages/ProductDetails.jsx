@@ -28,7 +28,7 @@ function ProductDetails({ addToCart }) {
     fetchProduct();
   }, [id, navigate]);
 
-  const capitalizeFirstLetter = (string) => {
+  const capitalizeFirstLetter = string => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -42,7 +42,7 @@ function ProductDetails({ addToCart }) {
     setUserRating(newRating);
     try {
       await axios.put(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/products/${id}/rating`, { rating: newRating });
-      setProduct((prevProduct) => ({
+      setProduct(prevProduct => ({
         ...prevProduct,
         rating: newRating,
         numReviews: prevProduct.numReviews + 1,

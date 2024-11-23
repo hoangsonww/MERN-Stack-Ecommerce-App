@@ -10,13 +10,11 @@ function Shop({ products, addToCart, loading }) {
   const itemsPerPage = 6;
 
   // Capitalize the first letter of each category
-  const capitalizeCategory = (category) => category.charAt(0).toUpperCase() + category.slice(1);
+  const capitalizeCategory = category => category.charAt(0).toUpperCase() + category.slice(1);
 
   const uniqueCategories = Array.from(new Set(products.map(product => capitalizeCategory(product.category))));
 
-  const filteredProducts = categoryFilter === 'all'
-    ? products
-    : products.filter(product => capitalizeCategory(product.category) === categoryFilter);
+  const filteredProducts = categoryFilter === 'all' ? products : products.filter(product => capitalizeCategory(product.category) === categoryFilter);
 
   const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
 
@@ -73,13 +71,7 @@ function Shop({ products, addToCart, loading }) {
 
       <FormControl fullWidth sx={{ mb: 3 }}>
         <InputLabel id="category-filter-label">Filter by Category</InputLabel>
-        <Select
-          labelId="category-filter-label"
-          id="category-filter"
-          value={categoryFilter}
-          label="Filter by Category"
-          onChange={handleCategoryChange}
-        >
+        <Select labelId="category-filter-label" id="category-filter" value={categoryFilter} label="Filter by Category" onChange={handleCategoryChange}>
           <MenuItem value="all">All Categories</MenuItem>
           {uniqueCategories.map(category => (
             <MenuItem key={category} value={category}>
@@ -91,14 +83,7 @@ function Shop({ products, addToCart, loading }) {
 
       <Grid container spacing={3}>
         {productsToShow.map((product, index) => (
-          <Grid
-            item
-            key={product.id}
-            xs={12}
-            sm={6}
-            md={4}
-            className={animatedCards.includes(index) ? 'product-card-animated' : ''}
-          >
+          <Grid item key={product.id} xs={12} sm={6} md={4} className={animatedCards.includes(index) ? 'product-card-animated' : ''}>
             <ProductCard product={product} addToCart={addToCart} />
           </Grid>
         ))}

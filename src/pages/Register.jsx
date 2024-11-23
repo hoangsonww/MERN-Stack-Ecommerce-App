@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Box,
-  Container,
-  TextField,
-  Typography,
-  Button,
-  CircularProgress,
-  Paper,
-  IconButton,
-  InputAdornment,
-} from '@mui/material';
+import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios'; // For making API calls
 
@@ -23,22 +13,19 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleRegister = async (e) => {
+  const handleRegister = async e => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post(
-        'https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/register',
-        { name, email, password }
-      );
+      const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/register', { name, email, password });
       const token = response.data.token;
       // Store token in localStorage or sessionStorage
       localStorage.setItem('token', token);
@@ -53,12 +40,12 @@ function Register() {
 
   // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(prev => !prev);
   };
 
   // Toggle confirm password visibility
   const handleToggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prev) => !prev);
+    setShowConfirmPassword(prev => !prev);
   };
 
   return (
@@ -69,30 +56,14 @@ function Register() {
         </Typography>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: "center" }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
             {error}
           </Typography>
         )}
 
         <form onSubmit={handleRegister}>
-          <TextField
-            label="Name"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <TextField
-            label="Email"
-            variant="outlined"
-            fullWidth
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <TextField label="Name" variant="outlined" fullWidth margin="normal" value={name} onChange={e => setName(e.target.value)} required />
+          <TextField label="Email" variant="outlined" fullWidth margin="normal" value={email} onChange={e => setEmail(e.target.value)} required />
           <TextField
             label="Password"
             type={showPassword ? 'text' : 'password'}
@@ -100,16 +71,12 @@ function Register() {
             fullWidth
             margin="normal"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleTogglePasswordVisibility}
-                    edge="end"
-                  >
+                  <IconButton aria-label="toggle password visibility" onClick={handleTogglePasswordVisibility} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
@@ -123,16 +90,12 @@ function Register() {
             fullWidth
             margin="normal"
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={e => setConfirmPassword(e.target.value)}
             required
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle confirm password visibility"
-                    onClick={handleToggleConfirmPasswordVisibility}
-                    edge="end"
-                  >
+                  <IconButton aria-label="toggle confirm password visibility" onClick={handleToggleConfirmPasswordVisibility} edge="end">
                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
