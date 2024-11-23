@@ -2,10 +2,9 @@ import * as React from 'react';
 import { Grid, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Pagination, CircularProgress } from '@mui/material';
 import ProductCard from '../components/ProductCard';
 
-function Shop({ products, addToCart }) {
+function Shop({ products, addToCart, loading }) {
   const [categoryFilter, setCategoryFilter] = React.useState('all');
   const [page, setPage] = React.useState(1);
-  const [loading, setLoading] = React.useState(true); // Set loading to true initially to show CircularProgress
   const itemsPerPage = 6;
 
   // Capitalize the first letter of each category
@@ -31,19 +30,6 @@ function Shop({ products, addToCart }) {
     setCategoryFilter(event.target.value);
     setPage(1);
   };
-
-  React.useEffect(() => {
-    // Simulating an API call to fetch products
-    setLoading(true);
-    const fetchProducts = async () => {
-      // Simulate an API fetch with a timeout (replace with actual API call)
-      setTimeout(() => {
-        setLoading(false); // Set loading to false after data is loaded
-      }, 1000); // Adjust this timeout or replace with an actual fetch call
-    };
-
-    fetchProducts();
-  }, []);
 
   if (loading) {
     return (
