@@ -112,3 +112,21 @@ button {
   text-align: center;
   padding: 50px;
 }
+
+/* Slide-up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animated class for product cards */
+.product-card-animated {
+  animation: slideUp 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}

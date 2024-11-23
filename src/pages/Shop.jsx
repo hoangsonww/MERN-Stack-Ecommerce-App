@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Grid, Typography, Container, Box, FormControl, InputLabel, Select, MenuItem, Pagination, CircularProgress } from '@mui/material';
 import ProductCard from '../components/ProductCard';
+import '../App.css';
 
 function Shop({ products, addToCart, loading }) {
   const [categoryFilter, setCategoryFilter] = React.useState('all');
   const [page, setPage] = React.useState(1);
+  const [animatedCards, setAnimatedCards] = React.useState([]); // Track animated card indices
   const itemsPerPage = 6;
 
   // Capitalize the first letter of each category
@@ -24,12 +26,23 @@ function Shop({ products, addToCart, loading }) {
 
   const handlePageChange = (event, value) => {
     setPage(value);
+    setAnimatedCards([]); // Reset animations when page changes
   };
 
   const handleCategoryChange = event => {
     setCategoryFilter(event.target.value);
     setPage(1);
+    setAnimatedCards([]); // Reset animations when category changes
   };
+
+  React.useEffect(() => {
+    // Add animation classes incrementally for visible product cards
+    const timer = setTimeout(() => {
+      setAnimatedCards(productsToShow.map((_, index) => index));
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [productsToShow]);
 
   if (loading) {
     return (
@@ -77,8 +90,15 @@ function Shop({ products, addToCart, loading }) {
       </FormControl>
 
       <Grid container spacing={3}>
-        {productsToShow.map(product => (
-          <Grid item key={product.id} xs={12} sm={6} md={4}>
+        {productsToShow.map((product, index) => (
+          <Grid
+            item
+            key={product.id}
+            xs={12}
+            sm={6}
+            md={4}
+            className={animatedCards.includes(index) ? 'product-card-animated' : ''}
+          >
             <ProductCard product={product} addToCart={addToCart} />
           </Grid>
         ))}

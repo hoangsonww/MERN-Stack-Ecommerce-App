@@ -28,6 +28,7 @@ export default function ProductCard({ product, addToCart }) {
           component="img"
           alt={product.name}
           src={product.image}
+          loading="eager"
           sx={{
             position: 'absolute',
             top: 0,

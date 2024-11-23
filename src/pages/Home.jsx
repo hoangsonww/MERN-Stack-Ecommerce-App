@@ -5,6 +5,7 @@ import ProductCard from '../components/ProductCard';
 import summerSaleImage from '../assets/images/summer-sale.jpg';
 import techGadgetsImage from '../assets/images/tech-gadgets.jpg';
 import trendingFashionImage from '../assets/images/trending-fashion.jpg';
+import '../App.css';
 
 const StyledCarousel = styled(Carousel)({
   '& .Carousel-indicators-container': {
@@ -22,8 +23,19 @@ const StyledCarousel = styled(Carousel)({
   },
 });
 
-// Replace these links with any image you'd like! These are just my placeholders.
 function Home({ products, addToCart, error, loading }) {
+  const featuredProducts = products.slice(0, 3); // Display the first 3 products as featured
+  const [animatedCards, setAnimatedCards] = React.useState([]); // Track animated card indices
+
+  React.useEffect(() => {
+    // Add animation classes incrementally for visible product cards
+    const timer = setTimeout(() => {
+      setAnimatedCards(featuredProducts.map((_, index) => index));
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [featuredProducts]);
+
   const bannerImages = [
     {
       url: summerSaleImage,
@@ -41,8 +53,6 @@ function Home({ products, addToCart, error, loading }) {
       description: 'Discover the newest fashion trends for this season.',
     },
   ];
-
-  const featuredProducts = products.slice(0, 3); // Display the first 3 products as featured
 
   return (
     <Box sx={{ my: 4 }}>
@@ -116,8 +126,15 @@ function Home({ products, addToCart, error, loading }) {
           </Box>
         ) : (
           <Grid container spacing={4}>
-            {featuredProducts.map(product => (
-              <Grid item key={product._id} xs={12} sm={6} md={4}>
+            {featuredProducts.map((product, index) => (
+              <Grid
+                item
+                key={product._id}
+                xs={12}
+                sm={6}
+                md={4}
+                className={animatedCards.includes(index) ? 'product-card-animated' : ''}
+              >
                 <ProductCard product={product} addToCart={addToCart} />
               </Grid>
             ))}
