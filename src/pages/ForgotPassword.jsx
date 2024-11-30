@@ -27,7 +27,7 @@ function ForgotPassword() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
+    <Container maxWidth="sm" sx={{ mt: 12, mb: 12 }}>
       <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Forgot Password
