@@ -14,6 +14,7 @@ import Register from './pages/Register';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import NotFoundPage from './pages/NotFoundPage';
+import Footer from './components/Footer';
 
 const theme = createTheme({
   palette: {
@@ -85,6 +86,7 @@ function App() {
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Container>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );
