@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from 'axios'; // For making API calls
+import axios from 'axios';
 
 function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // New state for confirming password
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility toggle
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State for confirm password visibility toggle
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -27,23 +27,25 @@ function Register() {
     try {
       const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/register', { name, email, password });
       const token = response.data.token;
-      // Store token in localStorage or sessionStorage
       localStorage.setItem('token', token);
-      // Redirect to the homepage or dashboard
       window.location.href = '/';
     } catch (err) {
-      setError(err.response?.data?.msg || 'Registration failed');
+      if (err.response?.data?.errors) {
+        // Format the error messages for display
+        const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
+        setError(errorMessages);
+      } else {
+        setError(err.response?.data?.msg || 'Registration failed');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  // Toggle password visibility
   const handleTogglePasswordVisibility = () => {
     setShowPassword(prev => !prev);
   };
 
-  // Toggle confirm password visibility
   const handleToggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(prev => !prev);
   };

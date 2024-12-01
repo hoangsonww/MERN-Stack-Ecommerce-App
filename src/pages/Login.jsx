@@ -18,12 +18,16 @@ function Login() {
     try {
       const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/login', { email, password });
       const token = response.data.token;
-      // Store token in localStorage or sessionStorage
       localStorage.setItem('MERNEcommerceToken', token);
-      // Redirect to the homepage or dashboard
       window.location.href = '/';
     } catch (err) {
-      setError(err.response?.data?.msg || 'Login failed');
+      if (err.response?.data?.errors) {
+        // Format the error messages for display
+        const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
+        setError(errorMessages);
+      } else {
+        setError(err.response?.data?.msg || 'Login failed');
+      }
     } finally {
       setLoading(false);
     }
