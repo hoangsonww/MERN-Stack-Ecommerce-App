@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function ResetPassword() {
   const [email, setEmail] = useState('');
@@ -12,6 +13,7 @@ function ResetPassword() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -27,10 +29,17 @@ function ResetPassword() {
 
     try {
       // Make request to reset password
-      await axios.post('/api/auth/reset-password', { email, password });
-      setSuccess('Password successfully reset');
+      await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/reset-password', { email, password });
+      setSuccess('Password successfully reset. Redirecting to login...');
+      setTimeout(() => navigate('/login'), 2000); // Redirect after 2 seconds
     } catch (err) {
-      setError(err.response?.data?.msg || 'Failed to reset password');
+      if (err.response?.data?.errors) {
+        // Extract and display only the error message(s)
+        const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
+        setError(errorMessages);
+      } else {
+        setError(err.response?.data?.msg || 'Failed to reset password. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -52,13 +61,13 @@ function ResetPassword() {
         </Typography>
 
         {success && (
-          <Typography variant="body2" color="success" sx={{ mb: 2 }}>
+          <Typography variant="body2" color="success" sx={{ mb: 2, textAlign: 'center' }}>
             {success}
           </Typography>
         )}
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2 }}>
+          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
             {error}
           </Typography>
         )}
