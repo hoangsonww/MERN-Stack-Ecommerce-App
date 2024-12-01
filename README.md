@@ -36,7 +36,7 @@ The application is deployed live on Vercel. You can access it at the following U
 
 The backend server is deployed on Render and can be accessed at the following URL: [Fusion Electronics API](https://mern-stack-ecommerce-app-h5wb.onrender.com/).
 
-Please note that the backend server may take a few seconds to wake up if it has been inactive for a while.
+> **Note**: The backend server may take a few seconds to wake up if it has been inactive for a while. For your information, it is hosted on the free tier of Render, with 0.1 CPU and 512 MB of memory only, so it may take a bit longer to respond to requests, especially after periods of inactivity.
 
 ## User Interface
 
