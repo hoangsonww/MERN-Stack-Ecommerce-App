@@ -1,7 +1,7 @@
 {
-  "name": "fusion-electronics-backend",
+  "name": "@hoangsonww/fusion-electronics-backend",
   "displayName": "Fusion Electronics Backend",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A backend server for Fusion Electronics - a MERN stack e-commerce website",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,13 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoangsonww/Fullstack-Ecommerce-Website.git"
+    "url": "git+https://github.com/hoangsonww/MERN-Stack-Ecommerce-App.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hoangsonww/MERN-Stack-Ecommerce-App/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "dependencies": {
     "cors": "^2.8.5",

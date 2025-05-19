@@ -1,28 +1,33 @@
-# Use an official Node.js image to build the application
-FROM node:18 AS builder
+# 1) Build stage — compile the React app
+FROM node:18-alpine AS builder
 
-# Set the working directory
+LABEL org.opencontainers.image.description="Fusion Electronics Ecommerce Website frontend – a React SPA built with Material-UI, React-Router, Stripe integration and more."
+
 WORKDIR /app
 
-# Copy package.json and install dependencies
+# Install deps
 COPY package.json package-lock.json ./
-RUN npm install
+RUN npm ci
 
-# Copy the rest of the application code
-COPY src ./src
+# Copy sources and build
 COPY public ./public
 
-# Build the application
+COPY src    ./src
+
 RUN npm run build
 
-# Use an official Nginx image to serve the application
+# 2) Production stage — serve static build via nginx
 FROM nginx:alpine
 
-# Copy the build artifacts from the builder stage
-COPY --from=builder /app/build /usr/share/nginx/html
+# Provide a human-readable description for the image
+LABEL org.opencontainers.image.description="Fusion Electronics Frontend – a React SPA built with Material-UI, React-Router, Stripe integration and more."
 
-# Expose the default port for Nginx
+WORKDIR /usr/share/nginx/html
+
+# Remove default content, then copy in our build
+RUN rm -rf ./*
+COPY --from=builder /app/build ./
+
 EXPOSE 80
 
-# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]

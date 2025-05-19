@@ -1,5 +1,5 @@
 {
-  "name": "ecommerce-fullstack-website-frontend",
+  "name": "@hoangsonww/ecommerce-fullstack-website-frontend",
   "displayName": "Fusion Electronics Ecommerce Website",
   "description": "A fullstack ecommerce website built with React, Node.js, Express, MongoDB, and Material-UI.",
   "author": "Son Nguyen",
@@ -7,6 +7,9 @@
   "homepage": "/",
   "bugs": {
     "url": "https://github.com/hoangsonww/MERN-Stack-Ecommerce-App/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

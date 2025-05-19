@@ -1,23 +1,34 @@
-# Use an official Node.js runtime as a parent image
-FROM node:14
+# --- 1) Builder stage ---
+FROM node:18-alpine AS builder
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+# Install all dependencies
+COPY package.json package-lock.json ./
+RUN npm ci
 
-# Install any needed packages specified in package.json
-RUN npm install
-
-# Copy the rest of the application code to the working directory
+# Copy application sources
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 5000
+# (If you have a build/transpile step, add it here, e.g. `RUN npm run build`)
 
-# Set environment variables (if needed)
-# ENV NODE_ENV production
+# --- 2) Production stage ---
+FROM node:18-alpine
 
-# Start the application
+# Provide a human-readable description for the image
+LABEL org.opencontainers.image.description="Fusion Electronics Backend – a backend server for Fusion Electronics, a MERN-stack e-commerce website."
+
+WORKDIR /app
+
+# Bring in only the production deps
+COPY --from=builder /app/package.json /app/package-lock.json ./
+RUN npm ci --only=production
+
+# Copy source & any build output
+COPY --from=builder /app ./
+
+# Expose the port your app listens on
+EXPOSE 3000
+
+# Start your app
 CMD ["node", "index.js"]
