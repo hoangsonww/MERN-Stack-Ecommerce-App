@@ -7,7 +7,6 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
     <img src="docs/logo.png" alt="Fusion Electronics Logo" style="border-radius: 10px" width="35%"/>
   </a>
 </p>
-
 ## Table of Contents
 
 1. [Introduction](#introduction)
