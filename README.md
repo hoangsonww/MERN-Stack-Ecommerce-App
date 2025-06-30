@@ -40,9 +40,9 @@ This project is a demonstration of building an e-commerce application using the 
 
 ## Live Deployment
 
-The application is deployed live on Vercel. You can access it at the following URL: [Fusion Electronics](https://fusion-ecommerce-app.vercel.app).
+The application is deployed live on Vercel. You can access it at the following URL: **[Fusion Electronics App](https://fusion-ecommerce-app.vercel.app).**
 
-The backend server is deployed on Render and can be accessed at the following URL: [Fusion Electronics API](https://mern-stack-ecommerce-app-h5wb.onrender.com/).
+The backend server is deployed on Render and can be accessed at the following URL: **[Fusion Electronics API](https://mern-stack-ecommerce-app-h5wb.onrender.com/).**
 
 > [!IMPORTANT]
 > **Note**: The backend server may take a few seconds to wake up if it has been inactive for a while. For your information, it is hosted on the free tier of Render, with 0.1 CPU and 512 MB of memory only, so it may take a bit longer to respond to requests, especially after periods of inactivity.
