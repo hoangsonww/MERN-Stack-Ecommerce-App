@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install all dependencies
+      - name: Install dependencies (root)
         run: npm install
 
       - name: Run Prettier
@@ -39,9 +39,10 @@ jobs:
           node-version: 18
 
       - name: Install & Test Backend
+        working-directory: backend
         run: |
-          npm --workspace backend ci
-          npm --workspace backend test
+          npm install
+          npm test
 
   frontend:
     name: "🌐 Frontend Tests"
