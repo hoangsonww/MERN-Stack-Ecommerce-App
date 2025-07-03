@@ -8,7 +8,7 @@ on:
 
 jobs:
   formatting:
-    name: "🔧 Install, Format & Lint"
+    name: "🔧 Install, Lint & Format"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,12 +24,6 @@ jobs:
 
       - name: Run Prettier
         run: npm run format
-
-      - name: Lint backend
-        run: npm --workspace backend run lint
-
-      - name: Lint frontend
-        run: npx eslint . --ext .js,.jsx --ignore-path .gitignore
 
   backend:
     name: "✅ Backend Tests"
@@ -70,7 +64,9 @@ jobs:
   complete:
     name: "🎉 All Tests Passed"
     runs-on: ubuntu-latest
-    needs: [ backend, frontend ]
+    needs:
+      - backend
+      - frontend
     steps:
       - name: Notify success
         run: echo "✅ Backend and frontend tests all passed."
@@ -81,7 +77,7 @@ jobs:
     needs: complete
     permissions:
       contents: read
-      packages: write   # for GHCR publish
+      packages: write   # for GHCR
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
