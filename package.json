@@ -48,7 +48,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --silent",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "eject": "react-scripts eject",
     "server": "cd backend && npm start",
     "frontend": "npm start",
@@ -56,6 +58,9 @@
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "format": "prettier --config .prettierrc --write \"setupProxy.js\" \"src/components/*.{html,css,js,jsx,ts,tsx}\" \"src/tests/*.{html,css,js,jsx,ts,tsx}\" \"src/dev/*.{html,css,js,jsx,ts,tsx}\" \"src/pages/*.{html,css,js,jsx,ts,tsx}\" \"src/*.{html,css,js,jsx,ts,tsx}\" \"backend/*.{html,css,js,jsx,ts,tsx}\" \"backend/seed/*.{html,css,js,jsx,ts,tsx}\" \"backend/routes/*.{html,css,js,jsx,ts,tsx}\" \"backend/docs/*.{html,css,js,jsx,ts,tsx}\" \"backend/config/*.{html,css,js,jsx,ts,tsx}\""
   },
+  "workspaces": [
+    "backend"
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -75,7 +80,14 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "babel-jest": "^30.0.4",
     "css-loader": "^7.1.2",
-    "style-loader": "^4.0.0"
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "style-loader": "^4.0.0",
+    "supertest": "^7.1.1"
   }
 }

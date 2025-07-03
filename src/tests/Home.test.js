@@ -1,102 +1,65 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Home from '../pages/Home';
-import userEvent from '@testing-library/user-event';
 
-describe('Home Component', () => {
-  const mockAddToCart = jest.fn();
+// 1) Mock the ProductCard so it doesn’t pull in useNavigate
+jest.mock('../components/ProductCard', () => ({ product }) => (
+  <div data-testid="product-card">{product.name}</div>
+));
 
-  const sampleProducts = [
-    {
-      _id: '1',
-      name: 'Product 1',
-      price: 100,
-      description: 'Description for product 1',
-      image: 'https://example.com/product1.jpg',
-    },
-    {
-      _id: '2',
-      name: 'Product 2',
-      price: 200,
-      description: 'Description for product 2',
-      image: 'https://example.com/product2.jpg',
-    },
-    {
-      _id: '3',
-      name: 'Product 3',
-      price: 300,
-      description: 'Description for product 3',
-      image: 'https://example.com/product3.jpg',
-    },
+// 2) Mock the carousel so we don’t exercise its internals
+jest.mock('react-material-ui-carousel', () => props => (
+  <div data-testid="carousel">{props.children}</div>
+));
+
+// 3) Mock all three banner images to simple strings
+jest.mock('../assets/images/summer-sale.jpg', () => 'summer.jpg');
+jest.mock('../assets/images/tech-gadgets.jpg', () => 'tech.jpg');
+jest.mock('../assets/images/trending-fashion.jpg', () => 'fashion.jpg');
+
+describe('<Home />', () => {
+  const bannerAlts = [
+    'Summer Sale - Up to 50% Off',
+    'New Tech Gadgets',
+    'Trending Fashion',
   ];
 
-  test('renders the carousel with images', () => {
-    render(
-      <Router>
-        <Home products={[]} addToCart={mockAddToCart} error={null} loading={false} />
-      </Router>
-    );
+  const makeProducts = n =>
+    Array.from({ length: n }, (_, i) => ({
+      _id: String(i + 1),
+      name: `Prod${i + 1}`,
+      category: 'any',
+    }));
 
-    // Check that the carousel images are rendered
-    expect(screen.getByAltText(/Summer Sale - Up to 50% Off/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/New Tech Gadgets/i)).toBeInTheDocument();
-    expect(screen.getByAltText(/Trending Fashion/i)).toBeInTheDocument();
+  it('renders the 3 banner images', () => {
+    render(<Home products={[]} addToCart={() => {}} loading={false} error={null} />);
+    bannerAlts.forEach(alt => {
+      expect(screen.getByAltText(alt)).toBeInTheDocument();
+    });
   });
 
-  test('displays loading indicator when loading is true', () => {
-    render(
-      <Router>
-        <Home products={[]} addToCart={mockAddToCart} error={null} loading={true} />
-      </Router>
-    );
-
-    // Check for the CircularProgress component
+  it('shows a spinner when loading=true', () => {
+    render(<Home products={[]} addToCart={() => {}} loading={true} error={null} />);
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  test('displays error message when there is an error', () => {
-    const sampleError = { message: 'Failed to fetch products' };
-
-    render(
-      <Router>
-        <Home products={[]} addToCart={mockAddToCart} error={sampleError} loading={false} />
-      </Router>
-    );
-
-    // Check for the error message
-    expect(screen.getByText(/Failed to fetch products/i)).toBeInTheDocument();
+  it('shows an error alert when error is passed', () => {
+    const err = new Error('Oops!');
+    render(<Home products={[]} addToCart={() => {}} loading={false} error={err} />);
+    expect(screen.getByText('Oops!')).toBeInTheDocument();
   });
 
-  test('renders featured products when available', () => {
-    render(
-      <Router>
-        <Home products={sampleProducts} addToCart={mockAddToCart} error={null} loading={false} />
-      </Router>
-    );
-
-    // Check for the presence of product names
-    expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 2/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 3/i)).toBeInTheDocument();
+  it('renders only the first 3 products as featured', () => {
+    const five = makeProducts(5);
+    render(<Home products={five} addToCart={() => {}} loading={false} error={null} />);
+    const cards = screen.getAllByTestId('product-card');
+    expect(cards).toHaveLength(3);
+    expect(cards.map(c => c.textContent)).toEqual(['Prod1', 'Prod2', 'Prod3']);
   });
 
-  test('renders "Shop Now" button correctly', () => {
-    render(
-      <Router>
-        <Home products={[]} addToCart={mockAddToCart} error={null} loading={false} />
-      </Router>
-    );
-
-    const shopNowButton = screen.getByRole('button', { name: /Shop Now/i });
-
-    // Check if the button is in the document
-    expect(shopNowButton).toBeInTheDocument();
-
-    // Simulate click to test navigation or any side effects
-    userEvent.click(shopNowButton);
-
-    // Check for correct href attribute
-    expect(shopNowButton.closest('a')).toHaveAttribute('href', '/shop');
+  it('renders the Shop Now link with the correct href', () => {
+    render(<Home products={[]} addToCart={() => {}} loading={false} error={null} />);
+    const link = screen.getByRole('link', { name: /shop now/i });
+    expect(link).toHaveAttribute('href', '/shop');
   });
 });

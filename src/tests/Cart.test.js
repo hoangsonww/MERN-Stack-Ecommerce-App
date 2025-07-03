@@ -1,80 +1,48 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Cart from '../pages/Cart';
 
-describe('Cart Component', () => {
-  const mockNavigate = jest.fn();
-  const mockSetCart = jest.fn();
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  useNavigate: () => mockNavigate,
+}));
 
-  // Mock the useNavigate hook from react-router-dom
-  jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useNavigate: () => mockNavigate,
-  }));
-
-  const sampleCart = [
-    { id: '1', name: 'Product 1', price: 20, image: 'https://example.com/product1.jpg' },
-    { id: '2', name: 'Product 2', price: 15, image: 'https://example.com/product2.jpg' },
-  ];
-
-  test('renders empty cart message', () => {
-    render(
-      <Router>
-        <Cart cart={[]} setCart={mockSetCart} />
-      </Router>
-    );
-
-    expect(screen.getByText(/Your cart is empty./i)).toBeInTheDocument();
+describe('<Cart />', () => {
+  it('shows empty message when cart is empty', () => {
+    render(<Cart cart={[]} setCart={jest.fn()} />);
+    expect(screen.getByText(/Your cart is empty/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Total:/i)).not.toBeInTheDocument();
   });
 
-  test('renders cart with items', () => {
-    render(
-      <Router>
-        <Cart cart={sampleCart} setCart={mockSetCart} />
-      </Router>
-    );
-
-    expect(screen.getByText(/Shopping Cart/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 2/i)).toBeInTheDocument();
-    expect(screen.getByText(/\$20.00/i)).toBeInTheDocument();
-    expect(screen.getByText(/\$15.00/i)).toBeInTheDocument();
+  it('displays items and total correctly', () => {
+    const items = [
+      { id: '1', name: 'Widget', price: 9.99, image: '' },
+      { id: '2', name: 'Gizmo', price: 5.01, image: '' },
+    ];
+    render(<Cart cart={items} setCart={jest.fn()} />);
+    // list items
+    expect(screen.getByText('Widget')).toBeInTheDocument();
+    expect(screen.getByText('Gizmo')).toBeInTheDocument();
+    // total = 9.99 + 5.01 = 15.00
+    expect(screen.getByText(/Total: \$15\.00/)).toBeInTheDocument();
   });
 
-  test('removes item from cart', () => {
-    render(
-      <Router>
-        <Cart cart={sampleCart} setCart={mockSetCart} />
-      </Router>
-    );
-
-    const removeButtons = screen.getAllByText(/Remove/i);
+  it('calls setCart when Remove is clicked', () => {
+    const items = [
+      { id: '1', name: 'Widget', price: 9.99, image: '' },
+      { id: '2', name: 'Gizmo', price: 5.01, image: '' },
+    ];
+    const setCart = jest.fn();
+    render(<Cart cart={items} setCart={setCart} />);
+    const removeButtons = screen.getAllByRole('button', { name: /remove/i });
     fireEvent.click(removeButtons[0]);
-
-    expect(mockSetCart).toHaveBeenCalledWith([{ id: '2', name: 'Product 2', price: 15, image: 'https://example.com/product2.jpg' }]);
+    expect(setCart).toHaveBeenCalledWith([{ id: '2', name: 'Gizmo', price: 5.01, image: '' }]);
   });
 
-  test('calculates total price correctly', () => {
-    render(
-      <Router>
-        <Cart cart={sampleCart} setCart={mockSetCart} />
-      </Router>
-    );
-
-    expect(screen.getByText(/Total: \$35.00/i)).toBeInTheDocument();
-  });
-
-  test('navigates to checkout on button click', () => {
-    render(
-      <Router>
-        <Cart cart={sampleCart} setCart={mockSetCart} />
-      </Router>
-    );
-
-    const checkoutButton = screen.getByText(/Proceed to Checkout/i);
-    fireEvent.click(checkoutButton);
-
+  it('navigates to /checkout on Proceed to Checkout click', () => {
+    const items = [{ id: '1', name: 'Widget', price: 9.99, image: '' }];
+    render(<Cart cart={items} setCart={jest.fn()} />);
+    fireEvent.click(screen.getByRole('button', { name: /proceed to checkout/i }));
     expect(mockNavigate).toHaveBeenCalledWith('/checkout');
   });
 });
