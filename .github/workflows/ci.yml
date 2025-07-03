@@ -20,7 +20,7 @@ jobs:
           node-version: 18
 
       - name: Install all dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run Prettier
         run: npm run format
@@ -61,7 +61,7 @@ jobs:
 
       - name: Install & Test Frontend
         run: |
-          npm ci
+          npm install
           npm test
 
   complete:
