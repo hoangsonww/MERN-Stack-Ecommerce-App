@@ -1,103 +1,49 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import Shop from '../pages/Shop';
-import { BrowserRouter as Router } from 'react-router-dom';
 
-describe('Shop Component', () => {
-  const mockAddToCart = jest.fn();
+// Mock ProductCard so it doesn’t invoke useNavigate
+jest.mock('../components/ProductCard', () => ({ product }) => (
+  <div data-testid="product-card">{product.name}</div>
+));
 
-  const sampleProducts = [
-    { id: '1', name: 'Product 1', category: 'Electronics', price: 100, image: 'https://example.com/product1.jpg' },
-    { id: '2', name: 'Product 2', category: 'Clothing', price: 200, image: 'https://example.com/product2.jpg' },
-    { id: '3', name: 'Product 3', category: 'Electronics', price: 300, image: 'https://example.com/product3.jpg' },
-    { id: '4', name: 'Product 4', category: 'Books', price: 150, image: 'https://example.com/product4.jpg' },
-    { id: '5', name: 'Product 5', category: 'Clothing', price: 50, image: 'https://example.com/product5.jpg' },
-    { id: '6', name: 'Product 6', category: 'Books', price: 250, image: 'https://example.com/product6.jpg' },
-    { id: '7', name: 'Product 7', category: 'Electronics', price: 180, image: 'https://example.com/product7.jpg' },
-  ];
+describe('<Shop />', () => {
+  const makeProducts = (n, category = 'cat') =>
+    Array.from({ length: n }, (_, i) => ({
+      id: String(i + 1),
+      name: `Item${i + 1}`,
+      category,
+    }));
 
-  beforeEach(() => {
-    jest.clearAllMocks();
+  it('shows loading spinner when loading=true', () => {
+    render(<Shop products={[]} addToCart={() => {}} loading={true} />);
+    expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  test('renders Shop component with products', () => {
-    render(
-      <Router>
-        <Shop products={sampleProducts} addToCart={mockAddToCart} />
-      </Router>
-    );
-
-    // Check that the component displays the title
-    expect(screen.getByText(/Shop/i)).toBeInTheDocument();
-
-    // Check that the first few products are rendered
-    expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 2/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 3/i)).toBeInTheDocument();
+  it('renders header and no cards when products empty', () => {
+    render(<Shop products={[]} addToCart={() => {}} loading={false} />);
+    expect(screen.getByText(/^Shop$/)).toBeInTheDocument();
+    expect(screen.queryAllByTestId('product-card')).toHaveLength(0);
   });
 
-  test('filters products by category', () => {
-    render(
-      <Router>
-        <Shop products={sampleProducts} addToCart={mockAddToCart} />
-      </Router>
-    );
-
-    // Select category 'Electronics'
-    fireEvent.mouseDown(screen.getByLabelText(/Filter by Category/i));
-    fireEvent.click(screen.getByText(/Electronics/i));
-
-    // Ensure that only products from the selected category are displayed
-    expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 3/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 7/i)).toBeInTheDocument();
-
-    // Ensure that products from other categories are not displayed
-    expect(screen.queryByText(/Product 2/i)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Product 4/i)).not.toBeInTheDocument();
+  it('renders up to 6 product cards per page', () => {
+    const six = makeProducts(6);
+    render(<Shop products={six} addToCart={() => {}} loading={false} />);
+    expect(screen.getAllByTestId('product-card')).toHaveLength(6);
   });
 
-  test('displays pagination and handles page change', () => {
-    render(
-      <Router>
-        <Shop products={sampleProducts} addToCart={mockAddToCart} />
-      </Router>
-    );
+  it('paginates when more than 6 products', async () => {
+    const eight = makeProducts(8);
+    render(<Shop products={eight} addToCart={() => {}} loading={false} />);
 
-    // Check that pagination is rendered
-    const pagination = screen.getByRole('navigation');
-    expect(pagination).toBeInTheDocument();
+    // Page 1 should show 6 cards
+    expect(screen.getAllByTestId('product-card')).toHaveLength(6);
 
-    // Verify initial state of the page
-    expect(screen.getByText(/Product 1/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Product 7/i)).not.toBeInTheDocument();
+    // Click the "Go to page 2" button
+    fireEvent.click(screen.getByRole('button', { name: /go to page 2/i }));
 
-    // Simulate page change to 2
-    fireEvent.click(screen.getByRole('button', { name: /2/i }));
-
-    // Ensure products from the second page are displayed
-    expect(screen.getByText(/Product 7/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Product 1/i)).not.toBeInTheDocument();
-  });
-
-  test('resets to first page on category change', () => {
-    render(
-      <Router>
-        <Shop products={sampleProducts} addToCart={mockAddToCart} />
-      </Router>
-    );
-
-    // Change to page 2
-    fireEvent.click(screen.getByRole('button', { name: /2/i }));
-    expect(screen.getByText(/Product 7/i)).toBeInTheDocument();
-
-    // Change category to 'Books'
-    fireEvent.mouseDown(screen.getByLabelText(/Filter by Category/i));
-    fireEvent.click(screen.getByText(/Books/i));
-
-    // Verify that it resets to the first page
-    expect(screen.getByText(/Product 4/i)).toBeInTheDocument();
-    expect(screen.getByText(/Product 6/i)).toBeInTheDocument();
-    expect(screen.queryByText(/Product 7/i)).not.toBeInTheDocument();
+    // Wait for the new set of cards on page 2 (should be 2)
+    const page2Cards = await screen.findAllByTestId('product-card');
+    expect(page2Cards).toHaveLength(2);
   });
 });

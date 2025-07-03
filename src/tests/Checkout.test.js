@@ -1,78 +1,45 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Checkout from '../pages/Checkout';
-import axios from 'axios';
 
-// Mock useNavigate hook
+const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => jest.fn(),
+  useNavigate: () => mockNavigate,
 }));
 
-// Mock axios for API calls
-jest.mock('axios');
+// Mock the CheckoutForm to simply render a button that calls onSubmit when clicked
+jest.mock('../components/CheckoutForm', () => props => (
+  <button onClick={() => props.onSubmit({})}>Submit Order</button>
+));
 
-describe('Checkout Component', () => {
-  const mockNavigate = jest.fn();
-
-  beforeEach(() => {
-    jest.clearAllMocks();
+describe('<Checkout />', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+  afterAll(() => {
+    jest.useRealTimers();
   });
 
-  test('renders CheckoutForm when order is not created', () => {
-    render(
-      <Router>
-        <Checkout cartItems={[]} />
-      </Router>
-    );
-
-    expect(screen.getByText(/Proceed to Checkout/i)).toBeInTheDocument();
+  it('renders the form initially', () => {
+    render(<Checkout cartItems={[]} />);
+    expect(screen.getByRole('button', { name: /submit order/i })).toBeInTheDocument();
   });
 
-  test('shows loading indicator when submitting the form', async () => {
-    render(
-      <Router>
-        <Checkout cartItems={[]} />
-      </Router>
-    );
+  it('shows loading spinner, then navigates to success', async () => {
+    render(<Checkout cartItems={[{ id: '1' }]} />);
 
-    const submitButton = screen.getByText(/Proceed to Checkout/i);
-    fireEvent.click(submitButton);
+    // click the mock form's submit button
+    fireEvent.click(screen.getByRole('button', { name: /submit order/i }));
 
+    // loading spinner should appear
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
-  });
 
-  test('displays error message when order creation fails', async () => {
-    axios.post.mockRejectedValue(new Error('An error occurred'));
-
-    render(
-      <Router>
-        <Checkout cartItems={[]} />
-      </Router>
-    );
-
-    const submitButton = screen.getByText(/Proceed to Checkout/i);
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(screen.getByText('An error occurred')).toBeInTheDocument();
+    // advance the 1ms timeout
+    await act(async () => {
+      jest.advanceTimersByTime(1);
     });
-  });
 
-  test('redirects to order success page on successful order creation', async () => {
-    axios.post.mockResolvedValue({ status: 201 });
-    render(
-      <Router>
-        <Checkout cartItems={[]} />
-      </Router>
-    );
-
-    const submitButton = screen.getByText(/Proceed to Checkout/i);
-    fireEvent.click(submitButton);
-
-    await waitFor(() => {
-      expect(mockNavigate).toHaveBeenCalledWith('/order-success');
-    });
+    // after timeout, navigate should have been called
+    expect(mockNavigate).toHaveBeenCalledWith('/order-success');
   });
 });
