@@ -41,6 +41,57 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
 
 This project is a demonstration of building an e-commerce application using the MERN stack, which consists of MongoDB (database), Express.js (server), React.js (frontend), and Node.js (runtime environment). The application allows users to browse products, add them to a shopping cart, proceed to checkout, and simulate the order processing. It includes basic validations for user inputs and simulates the checkout process on the backend.
 
+<p align="center">
+  <a href="https://react.dev">
+    <img src="https://img.shields.io/badge/React-18.x-61DAFB?logo=react&logoColor=white" alt="React badge" />
+  </a>
+  <a href="https://nodejs.org/">
+    <img src="https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js&logoColor=white" alt="Node.js badge" />
+  </a>
+  <a href="https://expressjs.com/">
+    <img src="https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white" alt="Express badge" />
+  </a>
+  <a href="https://www.mongodb.com/">
+    <img src="https://img.shields.io/badge/MongoDB-6.x-47A248?logo=mongodb&logoColor=white" alt="MongoDB badge" />
+  </a>
+  <a href="https://jestjs.io/">
+    <img src="https://img.shields.io/badge/Jest-29.x-C21325?logo=jest&logoColor=white" alt="Jest badge" />
+  </a>
+  <a href="https://mui.com/">
+    <img src="https://img.shields.io/badge/Material--UI-5.x-007FFF?logo=mui&logoColor=white" alt="Material UI badge" />
+  </a>
+  <a href="https://vercel.com/">
+    <img src="https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white" alt="Vercel badge" />
+  </a>
+  <a href="https://www.render.com/">
+    <img src="https://img.shields.io/badge/Render-Deploy-46E3B7?logo=render&logoColor=white" alt="Render badge" />
+  </a>
+  <a href="https://swagger.io/">
+    <img src="https://img.shields.io/badge/Swagger-API%20Docs-85EA2D?logo=swagger&logoColor=black" alt="Swagger badge" />
+  </a>
+  <a href="https://www.docker.com/">
+    <img src="https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white" alt="Docker badge" />
+  </a>
+  <a href="https://git-scm.com/">
+    <img src="https://img.shields.io/badge/Git-VersionControl-F05032?logo=git&logoColor=white" alt="Git badge" />
+  </a>
+  <a href="https://www.postman.com/">
+    <img src="https://img.shields.io/badge/Postman-API%20Testing-FF6C37?logo=postman&logoColor=white" alt="Postman badge" />
+  </a>
+  <a href="https://axios-http.com/">
+    <img src="https://img.shields.io/badge/Axios-HTTP%20Client-5A29E4?logo=axios&logoColor=white" alt="Axios badge" />
+  </a>
+  <a href="https://reactrouter.com/">
+    <img src="https://img.shields.io/badge/React%20Router-Routing-DD0031?logo=reactrouter&logoColor=white" alt="React Router badge" />
+  </a>
+  <a href="https://react-hook-form.com/">
+    <img src="https://img.shields.io/badge/React%20Hook%20Form-Forms-EC5990?logo=reacthookform&logoColor=white" alt="React Hook Form badge" />
+  </a>
+  <a href="https://fkhadra.github.io/react-toastify/">
+    <img src="https://img.shields.io/badge/React%20Toastify-Notifications-FF8800?logo=react&logoColor=white" alt="React Toastify badge" />
+  </a>
+</p>
+
 ## Live Deployment
 
 The application is deployed live on Vercel. You can access it at the following URL: **[Fusion Electronics App](https://fusion-ecommerce-app.vercel.app).**
