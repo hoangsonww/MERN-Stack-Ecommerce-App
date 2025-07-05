@@ -306,6 +306,45 @@ Before running this project, ensure you have the following installed:
 - Simply open your browser and navigate to `http://localhost:5000/api/products` to view the list of products.
 - You can also change the sample data by navigating to `backend/seed/productSeeds.js` and modifying the data there.
 
+## Unit & Integration Testing
+
+We have implemented unit and integration tests for the application using Jest and React Testing Library. To run the tests, follow these steps:
+
+### Backend Tests
+
+```bash
+cd backend
+
+# Run backend tests (default mode)
+npm run test
+
+# Run frontend tests (watch mode - this will automatically re-run tests on file changes)
+npm run test:watch
+
+# Run frontend tests (coverage mode - this will generate a coverage report)
+npm run test:coverage
+```
+
+### Frontend Tests
+
+```bash
+cd .. # if you are still in the backend directory
+
+# Run frontend tests (default mode)
+npm run test
+
+# Run frontend tests (watch mode - this will automatically re-run tests on file changes)
+npm run test:watch
+
+# Run frontend tests (coverage mode - this will generate a coverage report)
+npm run test:coverage
+```
+
+> [!NOTE]
+> If you encounter any issues when running the tests, ensure that you have run `npm install` in both the `backend` and `root` (frontend) directories to install all necessary dependencies.
+>
+> Also, if the issue persists, try removing the `node_modules` directory and the `package-lock.json` file in both directories, and then run `npm install` again to reinstall all dependencies.
+
 ## Swagger API Documentation
 
 - The backend server includes Swagger API documentation that can be accessed at `http://localhost:5000/api-docs`.
