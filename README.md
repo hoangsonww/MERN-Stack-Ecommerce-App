@@ -140,6 +140,12 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     <img src="docs/home-ui.png" alt="Fusion Electronics Homepage" style="border-radius: 10px" width="100%"/>
 </p>
 
+### Recommended Products (based on user interaction)
+
+<p align="center">
+    <img src="docs/recommended-products-ui.png" alt="Fusion Electronics Recommended Products" style="border-radius: 10px" width="100%"/>
+</p>
+
 ### Full Product List
 
 <p align="center">
