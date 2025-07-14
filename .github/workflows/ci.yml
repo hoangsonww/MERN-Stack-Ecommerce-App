@@ -153,17 +153,36 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/mern-ecom-frontend:latest
 
   summary:
-    name: "📝 Pipeline Summary"
-    needs: docker
+    name: "🎉 Pipeline Done"
+    needs:
+      - docker
     runs-on: ubuntu-latest
     steps:
-      - name: Display summary
+      - name: CI/CD Pipeline Summary (log)
         run: |
-          echo "::group::CI/CD Pipeline Summary"
-          echo "::notice::🔧 Formatting: ✅"
-          echo "::notice::✅ Backend Tests (multi-OS): ✅"
-          echo "::notice::🌐 Frontend Tests (Node 18 & 20): ✅"
-          echo "::notice::🤖 Recommendation Tests: ✅"
-          echo "::notice::🐳 Docker Build & Push: ✅"
+          echo "::group::📝 Fusion Electronics CI/CD Pipeline Summary"
+          echo ""
+          echo "- 🔧 **Formatting:** ✅"
+          echo "- ✅ **Backend Tests (multi-OS):** ✅"
+          echo "- 🌐 **Frontend Tests (Node 18 & 20):** ✅"
+          echo "- 🤖 **Recommendation Service Sanity:** ✅"
+          echo "- 🐳 **Docker Build & Push:** ✅"
+          echo ""
+          echo "✅ All stages completed successfully!"
           echo "::endgroup::"
-          echo "::success::🎉 Pipeline complete successfully!"
+
+      - name: Write Summary to GitHub Step Summary
+        run: |
+          {
+            echo "## 🎉 Fusion Electronics CI/CD Pipeline Complete"
+            echo ""
+            echo "| Item                             | Status                                              |"
+            echo "| -------------------------------- | --------------------------------------------------- |"
+            echo "| **Formatting**                   | ✅ Installed, linted & formatted                     |"
+            echo "| **Backend Tests (multi-OS)**     | ✅ ubuntu·windows·macOS                              |"
+            echo "| **Frontend Tests (Node 18 & 20)**| ✅ Node 18·Node 20                                   |"
+            echo "| **Recommendation Service**       | ✅ cold-start·diversity·performance                   |"
+            echo "| **Docker Build & Push**          | ✅ backend & frontend images pushed to GHCR           |"
+            echo ""
+            echo "**Completed at** $(date -u +"%Y-%m-%dT%H:%M:%SZ") UTC"
+          } >> $GITHUB_STEP_SUMMARY
