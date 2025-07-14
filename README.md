@@ -35,9 +35,10 @@ It aims to provide a comprehensive example of building a modern e-commerce platf
     - [Using the `openapi.yaml` File](#using-the-openapiyaml-file)
 14. [Deployment](#deployment)
 15. [Containerization](#containerization)
-16. [Contributing](#contributing)
-17. [License](#license)
-18. [Creator](#creator)
+16. [GitHub Actions & CI/CD](#github-actions--cicd)
+17. [Contributing](#contributing)
+18. [License](#license)
+19. [Creator](#creator)
 
 ## Introduction
 
@@ -547,6 +548,14 @@ docker compose up --build
 
 This command will create a Docker image for the frontend and backend, and run the application in a containerized environment.
 
+## GitHub Actions & CI/CD
+
+This project includes a GitHub Actions workflow for continuous integration and deployment. The workflow is defined in the `.github/workflows/ci.yml` file and will automatically run tests and build the application on every push or pull request.
+
+<p align="center">
+    <img src="docs/github-actions.png" alt="GitHub Actions Workflow" style="border-radius: 10px" width="100%"/>
+</p>
+
 ## Contributing
 
 Contributions to this project are welcome! Here are some ways you can contribute:
@@ -560,6 +569,8 @@ Contributions to this project are welcome! Here are some ways you can contribute
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ## Creator
+
+Fusion Electronics was created with ❤️ by:
 
 - **Son Nguyen** - [hoangsonww](https://github.com/hoangsonww)
 - **Email:** [hoangson091104@gmail.com](mailto:hoangson091104@gmail.com).
