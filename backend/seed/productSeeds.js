@@ -29,7 +29,8 @@ const productSeeds = [
     description: 'High-performance laptop with M2 Pro chip.',
     price: 1999,
     category: 'computers',
-    image: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-mbp14-m2-silver-202303?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=ZmdRZFZQaThmdmpsRzMrNlU0TnIrNVN1UEFsa2dENVBwbUVOOUlVZ3dMdmRxTENLaEJiU0o5a1FqaDFsUHhYNjE1UUxLT2t0cW42N3FvQzVqaGhrVVltRElNTjY0QXJtekNDMXFQT2xOSU4rYWpGdS9XeFgvbS9ITnNYOEhYaG4',
+    image:
+      'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-mbp14-m2-silver-202303?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=ZmdRZFZQaThmdmpsRzMrNlU0TnIrNVN1UEFsa2dENVBwbUVOOUlVZ3dMdmRxTENLaEJiU0o5a1FqaDFsUHhYNjE1UUxLT2t0cW42N3FvQzVqaGhrVVltRElNTjY0QXJtekNDMXFQT2xOSU4rYWpGdS9XeFgvbS9ITnNYOEhYaG4',
     brand: 'Apple',
     stock: 30,
   },
@@ -110,8 +111,7 @@ const productSeeds = [
     description: 'Sleek and powerful laptop from Microsoft.',
     price: 1299,
     category: 'computers',
-    image:
-      'https://m.media-amazon.com/images/I/617for1TmjL.jpg',
+    image: 'https://m.media-amazon.com/images/I/617for1TmjL.jpg',
     brand: 'Microsoft',
     stock: 25,
   },
@@ -221,7 +221,8 @@ const productSeeds = [
     description: 'Versatile 2-in-1 laptop with high-resolution touchscreen.',
     price: 1099,
     category: 'computers',
-    image: 'https://i5.walmartimages.com/seo/Microsoft-Surface-Pro-8-13-2880x1920-i5-1135G7-8-256GB-SSD-GRAPHITE_2420c241-6f5d-414e-8ea7-9fd21f5c738e.a52cad9a8bb4e28eea851090f3df36c3.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
+    image:
+      'https://i5.walmartimages.com/seo/Microsoft-Surface-Pro-8-13-2880x1920-i5-1135G7-8-256GB-SSD-GRAPHITE_2420c241-6f5d-414e-8ea7-9fd21f5c738e.a52cad9a8bb4e28eea851090f3df36c3.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF',
     brand: 'Microsoft',
     stock: 25,
   },
@@ -257,8 +258,7 @@ const productSeeds = [
     description: 'Innovative foldable smartphone with S Pen support.',
     price: 1799,
     category: 'electronics',
-    image:
-      'https://m.media-amazon.com/images/I/71MFE2UY6-L._UF894,1000_QL80_.jpg',
+    image: 'https://m.media-amazon.com/images/I/71MFE2UY6-L._UF894,1000_QL80_.jpg',
     brand: 'Samsung',
     stock: 30,
   },
@@ -285,8 +285,7 @@ const productSeeds = [
     description: 'Affordable laptop with great performance for everyday tasks.',
     price: 699,
     category: 'computers',
-    image:
-      'https://m.media-amazon.com/images/I/51OQ4248r-L._UF894,1000_QL80_.jpg',
+    image: 'https://m.media-amazon.com/images/I/51OQ4248r-L._UF894,1000_QL80_.jpg',
     brand: 'Dell',
     stock: 20,
   },
@@ -358,8 +357,7 @@ const productSeeds = [
     description: 'Innovative foldable smartphone with compact design.',
     price: 999,
     category: 'electronics',
-    image:
-      'https://m.media-amazon.com/images/I/61gELRjp5NL._UF894,1000_QL80_.jpg',
+    image: 'https://m.media-amazon.com/images/I/61gELRjp5NL._UF894,1000_QL80_.jpg',
     brand: 'Samsung',
     stock: 30,
   },
@@ -386,7 +384,8 @@ const productSeeds = [
     description: 'Compact mirrorless camera with 24MP sensor and Dual Pixel autofocus.',
     price: 699,
     category: 'electronics',
-    image: 'https://cdn.media.amplience.net/i/canon/eos-m50-mark-ii-black-the-front-m15-45_gallery-images_04_06baea4af09f4197afef103303f8ffac?$prod-gallery-1by1-jpg$',
+    image:
+      'https://cdn.media.amplience.net/i/canon/eos-m50-mark-ii-black-the-front-m15-45_gallery-images_04_06baea4af09f4197afef103303f8ffac?$prod-gallery-1by1-jpg$',
     brand: 'Canon',
     stock: 5,
   },

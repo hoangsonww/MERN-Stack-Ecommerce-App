@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 });
 
 // Setup Swagger UI with customized title
-setupSwaggerJson(app);  // serves /api-docs/swagger.json
+setupSwaggerJson(app); // serves /api-docs/swagger.json
 setupSwaggerUi(app);
 
 // Routes
