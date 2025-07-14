@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique: true,    // assuming names are unique
     },
     description: {
         type: String,
@@ -40,6 +41,12 @@ const productSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    // ← NEW optional Weaviate UUID
+    weaviateId: {
+        type: String,
+        unique: true,
+        sparse: true,
     },
 });
 

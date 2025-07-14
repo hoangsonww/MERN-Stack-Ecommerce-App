@@ -3,14 +3,10 @@ import { render, screen } from '@testing-library/react';
 import Home from '../pages/Home';
 
 // 1) Mock the ProductCard so it doesn’t pull in useNavigate
-jest.mock('../components/ProductCard', () => ({ product }) => (
-  <div data-testid="product-card">{product.name}</div>
-));
+jest.mock('../components/ProductCard', () => ({ product }) => <div data-testid="product-card">{product.name}</div>);
 
 // 2) Mock the carousel so we don’t exercise its internals
-jest.mock('react-material-ui-carousel', () => props => (
-  <div data-testid="carousel">{props.children}</div>
-));
+jest.mock('react-material-ui-carousel', () => props => <div data-testid="carousel">{props.children}</div>);
 
 // 3) Mock all three banner images to simple strings
 jest.mock('../assets/images/summer-sale.jpg', () => 'summer.jpg');
@@ -18,11 +14,7 @@ jest.mock('../assets/images/tech-gadgets.jpg', () => 'tech.jpg');
 jest.mock('../assets/images/trending-fashion.jpg', () => 'fashion.jpg');
 
 describe('<Home />', () => {
-  const bannerAlts = [
-    'Summer Sale - Up to 50% Off',
-    'New Tech Gadgets',
-    'Trending Fashion',
-  ];
+  const bannerAlts = ['Summer Sale - Up to 50% Off', 'New Tech Gadgets', 'Trending Fashion'];
 
   const makeProducts = n =>
     Array.from({ length: n }, (_, i) => ({

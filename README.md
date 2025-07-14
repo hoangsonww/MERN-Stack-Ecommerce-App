@@ -1,6 +1,7 @@
 # Fusion Electronics: A MERN-Stack E-commerce Application
 
-Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This project is a working demo of a full-stack web application that was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It aims to provide a comprehensive example of building a modern e-commerce platform, covering frontend user interface, backend server logic, database management, and integration with third-party libraries.
+Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This project is a working demo of a full-stack web application that was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Additionally, it also includes features such as user authentication, checkout process, product recommendations with vector search, and more!
+It aims to provide a comprehensive example of building a modern e-commerce platform, covering frontend user interface, backend server logic, database management, and integration with third-party libraries.
 
 <p align="center">
   <a href="https://fusion-ecommerce-app.vercel.app/" target="_blank">
@@ -24,22 +25,25 @@ Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This
     - [Installation](#installation)
 7. [Project Structure](#project-structure)
 8. [Running the Application](#running-the-application)
-9. [Testing the APIs](#testing-the-apis)
-10. [Unit & Integration Testing](#unit--integration-testing)
+9. [Product Recommendations with Vector Database](#product-recommendations-with-vector-database)
+10. [Testing the APIs](#testing-the-apis)
+11. [Unit & Integration Testing](#unit--integration-testing)
     - [Backend Tests](#backend-tests)
     - [Frontend Tests](#frontend-tests)
-11. [Swagger API Documentation](#swagger-api-documentation)
-12. [OpenAPI Specification](#openapi-specification)
+12. [Swagger API Documentation](#swagger-api-documentation)
+13. [OpenAPI Specification](#openapi-specification)
     - [Using the `openapi.yaml` File](#using-the-openapiyaml-file)
-13. [Deployment](#deployment)
-14. [Containerization](#containerization)
-15. [Contributing](#contributing)
-16. [License](#license)
-17. [Creator](#creator)
+14. [Deployment](#deployment)
+15. [Containerization](#containerization)
+16. [Contributing](#contributing)
+17. [License](#license)
+18. [Creator](#creator)
 
 ## Introduction
 
-This project is a demonstration of building an e-commerce application using the MERN stack, which consists of MongoDB (database), Express.js (server), React.js (frontend), and Node.js (runtime environment). The application allows users to browse products, add them to a shopping cart, proceed to checkout, and simulate the order processing. It includes basic validations for user inputs and simulates the checkout process on the backend.
+This project is a demonstration of building an e-commerce application using the MERN stack, which consists of MongoDB (database), Express.js (server), React.js (frontend), and Node.js (runtime environment). The application allows users to browse products, add them to a shopping cart, proceed to checkout, and simulate the order processing. It includes comprehensive validations for user inputs and simulates the checkout process on the backend.
+
+The application is designed to be user-friendly and responsive, providing a seamless shopping experience. It also includes features such as product search, user authentication, and order confirmation. Additionally, it uses Weaviate for product recommendations based on vector search, enhancing the user experience by suggesting relevant products.
 
 <p align="center">
   <a href="https://react.dev">
@@ -60,6 +64,12 @@ This project is a demonstration of building an e-commerce application using the 
   <a href="https://mui.com/">
     <img src="https://img.shields.io/badge/Material--UI-5.x-007FFF?logo=mui&logoColor=white" alt="Material UI badge" />
   </a>
+  <a href="https://weaviate.io/">
+    <img src="https://img.shields.io/badge/Weaviate-Vector%20Database-FF6F00?logo=weblate&logoColor=white" alt="Weaviate badge" />
+  </a>
+  <a href="https://www.npmjs.com/">
+    <img src="https://img.shields.io/badge/npm-Node%20Package%20Manager-CB3837?logo=npm&logoColor=white" alt="npm badge" />
+  </a>
   <a href="https://vercel.com/">
     <img src="https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white" alt="Vercel badge" />
   </a>
@@ -71,6 +81,12 @@ This project is a demonstration of building an e-commerce application using the 
   </a>
   <a href="https://www.docker.com/">
     <img src="https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white" alt="Docker badge" />
+  </a>
+  <a href="https://jestjs.io/">
+    <img src="https://img.shields.io/badge/Jest-Testing-C21325?logo=jest&logoColor=white" alt="Jest badge" />
+  </a>
+  <a href="https://reactjs.org/">
+    <img src="https://img.shields.io/badge/React%20Testing%20Library-Testing-FF4088?logo=react&logoColor=white" alt="React Testing Library badge" />
   </a>
   <a href="https://git-scm.com/">
     <img src="https://img.shields.io/badge/Git-VersionControl-F05032?logo=git&logoColor=white" alt="Git badge" />
@@ -84,11 +100,23 @@ This project is a demonstration of building an e-commerce application using the 
   <a href="https://reactrouter.com/">
     <img src="https://img.shields.io/badge/React%20Router-Routing-DD0031?logo=reactrouter&logoColor=white" alt="React Router badge" />
   </a>
+  <a href="https://babel.io/">
+    <img src="https://img.shields.io/badge/Babel-Transpiler-F9DC3E?logo=babel&logoColor=black" alt="Babel badge" />
+  </a>
+  <a href="https://webpack.js.org/">
+    <img src="https://img.shields.io/badge/Webpack-Bundler-8DD6F9?logo=webpack&logoColor=black" alt="Webpack badge" />
+  </a>
+  <a href="https://craco.js.org/">
+    <img src="https://img.shields.io/badge/CRACO-Configuration-61DAFB?logo=react&logoColor=white" alt="CRACO badge" />
+  </a>
   <a href="https://react-hook-form.com/">
     <img src="https://img.shields.io/badge/React%20Hook%20Form-Forms-EC5990?logo=reacthookform&logoColor=white" alt="React Hook Form badge" />
   </a>
   <a href="https://fkhadra.github.io/react-toastify/">
     <img src="https://img.shields.io/badge/React%20Toastify-Notifications-FF8800?logo=react&logoColor=white" alt="React Toastify badge" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-credit-cards-2">
+    <img src="https://img.shields.io/badge/React%20Credit%20Cards-Credit%20Card-FFCA28?logo=creditcard&logoColor=black" alt="React Credit Cards badge" />
   </a>
 </p>
 
@@ -96,7 +124,9 @@ This project is a demonstration of building an e-commerce application using the 
 
 The application is deployed live on Vercel. You can access it at the following URL: **[Fusion Electronics App](https://fusion-ecommerce-app.vercel.app).**
 
-The backend server is deployed on Render and can be accessed at the following URL: **[Fusion Electronics API](https://mern-stack-ecommerce-app-h5wb.onrender.com/).**
+The **primary** backend server is deployed on Vercel and can be accessed at the following URL: **[Fusion Electronics API](https://fusion-electronics-api.vercel.app/)**.
+
+The **backup** backend server is deployed on Render and can be accessed at the following URL: **[Fusion Electronics API](https://fusion-electronics-api.vercel.app/).**
 
 > [!IMPORTANT]
 > **Note**: The backend server may take a few seconds to wake up if it has been inactive for a while. For your information, it is hosted on the free tier of Render, with 0.1 CPU and 512 MB of memory only, so it may take a bit longer to respond to requests, especially after periods of inactivity.
@@ -216,12 +246,15 @@ The backend server is deployed on Render and can be accessed at the following UR
     - Swagger for API documentation
     - Nodemon for server hot-reloading
     - **Middleware**: JWT for securing API endpoints
+    - **Weaviate** for product recommendations with vector search
+    - Jest for unit and integration testing
 
 - **Development Tools:**
     - Jetbrains WebStorm (IDE)
     - Postman (for API testing)
     - Git (version control)
     - npm (package manager)
+    - Docker (for containerization)
 
 ## Project Structure
 
@@ -232,14 +265,21 @@ fullstack-ecommerce/
 ├── backend/                       # Node.js server files
 │   ├── config/                    # Configuration files
 │   │   └── db.js                  # Database connection
+│   ├── docs/
+│   │   └── swagger.js             # Swagger API documentation setup
 │   ├── models/                    # Mongoose models
+│   │   ├── user.js                # User schema
 │   │   └── product.js             # Product schema
 │   ├── routes/                    # Route handlers
 │   │   ├── products.js            # Product routes
 │   │   ├── search.js              # Search routes
 │   │   └── checkout.js            # Checkout routes
+│   ├── scripts/                   # Scripts for various tasks
+│   │   ├── query-weaviate.js      # Script to query Weaviate
+│   │   ├── weaviate-upsert.js     # Script to upsert products to Weaviate
+│   │   └── sync-weaviate.js       # Script to synchronize products with Weaviate
 │   ├── seed/                      # Database seed data
-│   │   └── products.js            # Product seed data
+│   │   └── productSeeds.js        # Product seed data
 │   ├── .env                       # Environment variables
 │   └── index.js                   # Server entry point
 ├── public/                        # Frontend public assets
@@ -277,6 +317,7 @@ fullstack-ecommerce/
 ├── package.json                   # NPM package file
 ├── jsconfig.json                  # JS config file
 └── setupProxy.js                  # Proxy configuration
+(... and more files not listed here ...)
 ```
 
 ## Getting Started
@@ -354,6 +395,37 @@ Before running this project, ensure you have the following installed:
 ## Running the Application
 
 - Open your browser and navigate to `http://localhost:3000` to view the application.
+
+## Product Recommendations with Vector Database
+
+The application uses Weaviate as a vector database to provide product recommendations based on vector search. The product data is indexed in Weaviate, allowing for efficient similarity searches and recommendations.
+
+To set up Weaviate for product recommendations, follow these steps:
+
+1. **Sign up for a Weaviate account** at [Weaviate Cloud](https://console.weaviate.io/).
+2. **Create a new Weaviate instance** and note the API endpoint.
+3. **Get your Weaviate API key** from the Weaviate console.
+4. **Update the `.env` file in the `backend/` directory** with your Weaviate API endpoint and API key:
+   ```
+   WEAVIATE_HOST=https://your-weaviate-instance.weaviate.network
+   WEAVIATE_API_KEY=your_weaviate_api_key
+   ```
+5. **Run the Weaviate client script** to index the product data:
+   ```bash
+   cd backend
+   npm run weaviate-upsert
+   ```
+6. **Synchronize the product data** with Weaviate by running the following command:
+   ```bash
+   npm run sync-weaviate
+   ```
+7. **Start or restart the backend server** to apply the changes:
+   ```bash
+   npm start
+   ```
+   
+Now, the application will use Weaviate to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
+Try going to the product details page of any product, and you will see a list of recommended products based on the current product!
 
 ## Testing the APIs
 

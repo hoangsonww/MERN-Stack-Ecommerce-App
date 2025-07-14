@@ -16,15 +16,9 @@ describe('<Login />', () => {
 
   it('renders email & password inputs and the Login button', () => {
     render(<Login />);
-    expect(
-      screen.getByLabelText(/email/i, { selector: 'input' })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByLabelText(/password/i, { selector: 'input' })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /login/i })
-    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/email/i, { selector: 'input' })).toBeInTheDocument();
+    expect(screen.getByLabelText(/password/i, { selector: 'input' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
   });
 
   it('toggles password visibility', () => {
@@ -48,10 +42,7 @@ describe('<Login />', () => {
     fireEvent.change(screen.getByLabelText(/email/i, { selector: 'input' }), {
       target: { value: 'u@e.com' },
     });
-    fireEvent.change(
-      screen.getByLabelText(/password/i, { selector: 'input' }),
-      { target: { value: 'secret' } }
-    );
+    fireEvent.change(screen.getByLabelText(/password/i, { selector: 'input' }), { target: { value: 'secret' } });
 
     fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
@@ -79,9 +70,7 @@ describe('<Login />', () => {
     render(<Login />);
     fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-    expect(
-      await screen.findByText(/Bad email, Short pw/)
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/Bad email, Short pw/)).toBeInTheDocument();
   });
 
   it('displays single error message from server', async () => {
@@ -92,8 +81,6 @@ describe('<Login />', () => {
     render(<Login />);
     fireEvent.click(screen.getByRole('button', { name: /login/i }));
 
-    expect(
-      await screen.findByText(/Invalid credentials/)
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/Invalid credentials/)).toBeInTheDocument();
   });
 });

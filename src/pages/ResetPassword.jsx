@@ -29,7 +29,7 @@ function ResetPassword() {
 
     try {
       // Make request to reset password
-      await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/reset-password', { email, password });
+      await axios.post('https://fusion-electronics-api.vercel.app/api/auth/reset-password', { email, password });
       setSuccess('Password successfully reset. Redirecting to login...');
       setTimeout(() => navigate('/login'), 2000); // Redirect after 2 seconds
     } catch (err) {

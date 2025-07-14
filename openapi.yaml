@@ -7,9 +7,9 @@ info:
   contact:
     email: support@fusion-ecommerce.com
 servers:
-  - url: https://mern-stack-ecommerce-app-h5wb.onrender.com/
+  - url: https://fusion-electronics-api.vercel.app/
     description: Production server
-  - url: http://localhost:8000
+  - url: https://fusion-electronics-api.vercel.app
     description: Local development server
 paths:
   /api/auth/register:
