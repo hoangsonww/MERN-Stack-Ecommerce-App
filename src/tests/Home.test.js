@@ -14,7 +14,7 @@ jest.mock('../assets/images/tech-gadgets.jpg', () => 'tech.jpg');
 jest.mock('../assets/images/trending-fashion.jpg', () => 'fashion.jpg');
 
 describe('<Home />', () => {
-  const bannerAlts = ['Summer Sale - Up to 50% Off', 'New Tech Gadgets', 'Trending Fashion'];
+  const bannerAlts = ['Summer Sale - Up to 50% Off', 'New Tech Gadgets', 'Trending Electronics'];
 
   const makeProducts = n =>
     Array.from({ length: n }, (_, i) => ({

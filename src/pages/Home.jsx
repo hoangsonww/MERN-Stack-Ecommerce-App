@@ -5,7 +5,7 @@ import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import summerSaleImage from '../assets/images/summer-sale.jpg';
 import techGadgetsImage from '../assets/images/tech-gadgets.jpg';
-import trendingFashionImage from '../assets/images/trending-fashion.jpg';
+import trendingFashionImage from '../assets/images/trending-fashion.png';
 import '../App.css';
 
 const StyledCarousel = styled(Carousel)({
@@ -87,7 +87,7 @@ function Home({ products, addToCart, error, loading }) {
   const bannerImages = [
     { url: summerSaleImage, title: 'Summer Sale - Up to 50% Off', description: 'Shop now for the best deals on summer essentials!' },
     { url: techGadgetsImage, title: 'New Tech Gadgets', description: 'Explore the latest in tech and gadgets.' },
-    { url: trendingFashionImage, title: 'Trending Fashion', description: 'Discover the newest fashion trends for this season.' },
+    { url: trendingFashionImage, title: 'Trending Electronics', description: 'Discover the newest trends in electronics this season.' },
   ];
 
   return (
