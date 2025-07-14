@@ -14,7 +14,9 @@
     "dev": "nodemon --exec 'npm run sync-weaviate && node index.js'",
     "weaviate-upsert": "node scripts/weaviate-upsert.js",
     "weaviate-query": "node scripts/query-weaviate.js",
-    "sync-weaviate": "node scripts/sync-weaviate-ids.js"
+    "sync-weaviate": "node scripts/sync-weaviate-ids.js",
+    "faiss-upsert": "node scripts/build-faiss-index.js",
+    "faiss-search": "node scripts/search-faiss-index.js"
   },
   "keywords": [
     "backend",
@@ -44,6 +46,7 @@
     "dotenv": "^16.6.1",
     "express": "^4.19.2",
     "express-validator": "^7.2.0",
+    "faiss-node": "^0.5.1",
     "http-proxy-middleware": "^3.0.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.3",

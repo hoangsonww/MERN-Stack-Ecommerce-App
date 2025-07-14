@@ -7,7 +7,7 @@ if [ -z "${GITHUB_TOKEN:-}" ]; then
   exit 1
 fi
 
-echo "🚀 Publishing to GitHub Packages…"
+echo "🚀 Publishing to GitHub Packages..."
 npm publish
 
 # grab name & version for a friendly echo
