@@ -36,7 +36,7 @@ function isUUID(s) {
     let items;
 
     if (isUUID(raw)) {
-      console.log(`⏳ Finding items similar to ID="${raw}"…`);
+      console.log(`⏳ Finding items similar to ID="${raw}"...`);
 
       const vecRes = await client.graphql
         .get()
@@ -76,7 +76,7 @@ function isUUID(s) {
 
       items = res.data.Get.Product;
     } else {
-      console.log(`⏳ Searching for "${raw}"…`);
+      console.log(`⏳ Searching for "${raw}"...`);
 
       const res = await client.graphql
         .get()

@@ -49,34 +49,34 @@ help:
 install: install-frontend install-backend
 
 install-frontend:
-	@echo "↪ Installing frontend deps…"
+	@echo "↪ Installing frontend deps..."
 	npm ci
 
 install-backend:
-	@echo "↪ Installing backend deps…"
+	@echo "↪ Installing backend deps..."
 	cd $(BACKEND_DIR) && npm ci
 
 # ────────────────────────────────────────────────────────────────────────────────
 build: build-frontend build-backend
 
 build-frontend:
-	@echo "↪ Building frontend…"
+	@echo "↪ Building frontend..."
 	npm run build
 
 build-backend:
-	@echo "↪ Building backend…"
+	@echo "↪ Building backend..."
 	cd $(BACKEND_DIR) && npm run build
 
 # ────────────────────────────────────────────────────────────────────────────────
 test: test-frontend test-backend
 
 test-frontend:
-	@echo "↪ Testing frontend…"
+	@echo "↪ Testing frontend..."
 	# insert your frontend test command here, e.g. npm test
 	@echo "(no tests configured)"
 
 test-backend:
-	@echo "↪ Testing backend…"
+	@echo "↪ Testing backend..."
 	# insert your backend test command here, e.g. cd backend && npm test
 	@echo "(no tests configured)"
 
@@ -100,7 +100,7 @@ docker-build-backend:
 	  $(BACKEND_DIR)
 
 docker-push: ## push both images (requires CR_PAT)
-	@echo "↪ Pushing to GitHub Container Registry…"
+	@echo "↪ Pushing to GitHub Container Registry..."
 	@if [ -z "$(CR_PAT)" ]; then \
 	  echo "❌ CR_PAT is not set"; exit 1; \
 	fi
@@ -132,6 +132,6 @@ publish-backend-npm:
 
 # ────────────────────────────────────────────────────────────────────────────────
 clean:
-	@echo "↪ Cleaning…"
+	@echo "↪ Cleaning..."
 	rm -rf node_modules build
 	cd $(BACKEND_DIR) && rm -rf node_modules build

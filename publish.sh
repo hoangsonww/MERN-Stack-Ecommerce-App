@@ -14,7 +14,7 @@ cat > ~/.npmrc <<EOF
 @hoangsonww:registry=https://npm.pkg.github.com
 EOF
 
-echo "🚀 Publishing @hoangsonww/ecommerce-fullstack-website-frontend to GitHub Packages…"
+echo "🚀 Publishing @hoangsonww/ecommerce-fullstack-website-frontend to GitHub Packages..."
 npm publish --access public
 
 # 3) Friendly confirmation

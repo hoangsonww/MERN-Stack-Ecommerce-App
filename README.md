@@ -68,6 +68,12 @@ The application is designed to be user-friendly and responsive, providing a seam
   <a href="https://weaviate.io/">
     <img src="https://img.shields.io/badge/Weaviate-Vector%20Database-FF6F00?logo=weblate&logoColor=white" alt="Weaviate badge" />
   </a>
+  <a href="https://https://ai.meta.com/tools/faiss/">
+    <img src="https://img.shields.io/badge/FAISS-Vector%20Search-00A4FF?logo=facebook&logoColor=white" alt="FAISS badge" />
+  </a>
+  <a href="https://www.langchain.com">
+    <img src="https://img.shields.io/badge/LangChain-LLM%20Framework-00A4FF?logo=langchain&logoColor=white" alt="LangChain badge" />
+  </a>
   <a href="https://www.npmjs.com/">
     <img src="https://img.shields.io/badge/npm-Node%20Package%20Manager-CB3837?logo=npm&logoColor=white" alt="npm badge" />
   </a>
@@ -253,7 +259,8 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - Swagger for API documentation
     - Nodemon for server hot-reloading
     - **Middleware**: JWT for securing API endpoints
-    - **Weaviate** for product recommendations with vector search
+    - **Weaviate** for product recommendations with vector database
+    - **FAISS & LangChain** for efficient similarity search
     - Jest for unit and integration testing
 
 - **Development Tools:**
@@ -281,12 +288,18 @@ fullstack-ecommerce/
 │   │   ├── products.js            # Product routes
 │   │   ├── search.js              # Search routes
 │   │   └── checkout.js            # Checkout routes
+│   ├── middleware/                # Middleware functions
+│   │   ├── auth.js                # Authentication middleware
 │   ├── scripts/                   # Scripts for various tasks
+│   │   ├── build-faiss-index.js   # Script to build FAISS index
+│   │   ├── search-faiss-index.js  # Script to search FAISS index
 │   │   ├── query-weaviate.js      # Script to query Weaviate
 │   │   ├── weaviate-upsert.js     # Script to upsert products to Weaviate
 │   │   └── sync-weaviate.js       # Script to synchronize products with Weaviate
 │   ├── seed/                      # Database seed data
 │   │   └── productSeeds.js        # Product seed data
+│   ├── weaviateClient.js          # Weaviate client setup
+│   ├── faiss.sh                   # FAISS index setup script
 │   ├── .env                       # Environment variables
 │   └── index.js                   # Server entry point
 ├── public/                        # Frontend public assets
@@ -350,6 +363,9 @@ Before running this project, ensure you have the following installed:
    # Install server (backend) dependencies
    cd backend
    npm install
+   
+   # Note: If you encounter any issues with the backend/package-lock.json not updating, run the following command from root directory:
+   npm install --no-workspaces --prefix backend
 
    # Install client (frontend) dependencies
    cd ..
@@ -405,9 +421,9 @@ Before running this project, ensure you have the following installed:
 
 ## Product Recommendations with Vector Database
 
-The application uses Weaviate as a vector database to provide product recommendations based on vector search. The product data is indexed in Weaviate, allowing for efficient similarity searches and recommendations.
+The application uses **Weaviate & FAISS** as vector databases/stores to provide product recommendations based on vector search. The product data is indexed in Weaviate, allowing for efficient similarity searches and recommendations.
 
-To set up Weaviate for product recommendations, follow these steps:
+To set up **Weaviate** for product recommendations, follow these steps:
 
 1. **Sign up for a Weaviate account** at [Weaviate Cloud](https://console.weaviate.io/).
 2. **Create a new Weaviate instance** and note the API endpoint.
@@ -431,7 +447,32 @@ To set up Weaviate for product recommendations, follow these steps:
    npm start
    ```
    
-Now, the application will use Weaviate to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
+Additionally, to set up FAISS & LangChain for efficient similarity search, you can run the following commands in the `backend/scripts/` directory:
+   
+1. **Build the FAISS index**:
+   ```bash
+   cd backend
+   node build-faiss-index.js
+   ```
+   
+2. **Search efficiently with LangChain**:
+   ```bash
+     npm run faiss-search -- "your search text" 5
+    ```
+   
+Replace `"your search text"` with the text you want to search for, and `5` with the number of results you want to retrieve. It should return something like:
+
+```plaintext
+🔍 Top 5 results for "your search text 5":
+
+1. id=6874a44ee237afdff3374d27    distance=1.2893
+2. id=6874a44ee237afdff3374d25    distance=1.3328
+3. id=6874a44ee237afdff3374d23    distance=1.3522
+4. id=6874a44ee237afdff3374d2e    distance=1.3739
+5. id=6874a44ee237afdff3374d28    distance=1.3753
+```
+
+Now, the application will use Weaviate & FAISS & LangChain to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
 Try going to the product details page of any product, and you will see a list of recommended products based on the current product!
 
 ## Testing the APIs

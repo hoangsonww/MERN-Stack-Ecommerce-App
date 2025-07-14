@@ -34,7 +34,7 @@ async function main() {
   });
 
   const toSync = await Product.find({ weaviateId: { $exists: false } }).lean();
-  console.log(`🔍 Found ${toSync.length} products to sync…`);
+  console.log(`🔍 Found ${toSync.length} products to sync...`);
 
   for (const doc of toSync) {
     try {
