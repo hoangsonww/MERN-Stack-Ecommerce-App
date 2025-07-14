@@ -5,7 +5,7 @@ const weaviateModule = require('weaviate-ts-client');
 const weaviate = weaviateModule.default || weaviateModule;
 const { ApiKey } = weaviateModule;
 
-const { WEAVIATE_HOST, WEAVIATE_API_KEY, OPENAI_API_KEY } = process.env;
+const { WEAVIATE_HOST, WEAVIATE_API_KEY, GOOGLE_AI_API_KEY } = process.env;
 if (!WEAVIATE_HOST || !WEAVIATE_API_KEY) {
   console.error('❌ You must set WEAVIATE_HOST & WEAVIATE_API_KEY in .env');
   process.exit(1);
@@ -17,7 +17,7 @@ const client = weaviate.client({
   apiKey: new ApiKey(WEAVIATE_API_KEY),
   headers: {
     // only needed for nearText
-    'X-OpenAI-Api-Key': OPENAI_API_KEY || ''
+    'X-OpenAI-Api-Key': GOOGLE_AI_API_KEY || ''
   }
 });
 
