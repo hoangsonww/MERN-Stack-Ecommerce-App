@@ -3,9 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import Shop from '../pages/Shop';
 
 // Mock ProductCard so it doesn’t invoke useNavigate
-jest.mock('../components/ProductCard', () => ({ product }) => (
-  <div data-testid="product-card">{product.name}</div>
-));
+jest.mock('../components/ProductCard', () => ({ product }) => <div data-testid="product-card">{product.name}</div>);
 
 describe('<Shop />', () => {
   const makeProducts = (n, category = 'cat') =>

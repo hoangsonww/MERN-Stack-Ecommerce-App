@@ -8,9 +8,7 @@ jest.mock('react-router-dom', () => ({
 }));
 
 // Mock the CheckoutForm to simply render a button that calls onSubmit when clicked
-jest.mock('../components/CheckoutForm', () => props => (
-  <button onClick={() => props.onSubmit({})}>Submit Order</button>
-));
+jest.mock('../components/CheckoutForm', () => props => <button onClick={() => props.onSubmit({})}>Submit Order</button>);
 
 describe('<Checkout />', () => {
   beforeAll(() => {

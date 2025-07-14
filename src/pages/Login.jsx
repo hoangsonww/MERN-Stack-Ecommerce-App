@@ -16,7 +16,7 @@ function Login() {
     setError(null);
 
     try {
-      const response = await axios.post('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/auth/login', { email, password });
+      const response = await axios.post('https://fusion-electronics-api.vercel.app/api/auth/login', { email, password });
       const token = response.data.token;
       localStorage.setItem('MERNEcommerceToken', token);
       window.location.href = '/';

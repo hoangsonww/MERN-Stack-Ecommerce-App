@@ -39,7 +39,7 @@ function App() {
     const fetchProducts = async () => {
       try {
         // Be sure to replace the endpoint if your API (backend server) is running on a different port or domain
-        const response = await fetch('https://mern-stack-ecommerce-app-h5wb.onrender.com/api/products');
+        const response = await fetch('https://fusion-electronics-api.vercel.app/api/products');
         const data = await response.json();
         setProducts(data);
       } catch (error) {

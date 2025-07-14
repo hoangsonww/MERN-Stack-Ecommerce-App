@@ -66,7 +66,7 @@ function NavigationBar({ cartItemCount }) {
       }
       setLoading(true); // Set loading to true when search is triggered
       try {
-        const response = await axios.get(`https://mern-stack-ecommerce-app-h5wb.onrender.com/api/search?q=${query}`);
+        const response = await axios.get(`https://fusion-electronics-api.vercel.app/api/search?q=${query}`);
         setSearchResults(response.data);
       } catch (error) {
         console.error('Error fetching search results:', error);

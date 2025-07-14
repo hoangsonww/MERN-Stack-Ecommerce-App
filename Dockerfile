@@ -6,7 +6,7 @@ LABEL org.opencontainers.image.description="Fusion Electronics Ecommerce Website
 WORKDIR /app
 
 # Install deps
-COPY package.json package-lock.json ./
+COPY . .
 RUN npm ci
 
 # Copy sources and build

@@ -45,9 +45,10 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4"
   },
+  "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "test": "jest --silent",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -83,10 +84,12 @@
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
     "@babel/preset-react": "^7.27.1",
+    "@craco/craco": "^7.1.0",
     "babel-jest": "^30.0.4",
     "css-loader": "^7.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
+    "jest-circus": "^30.0.4",
     "style-loader": "^4.0.0",
     "supertest": "^7.1.1"
   }

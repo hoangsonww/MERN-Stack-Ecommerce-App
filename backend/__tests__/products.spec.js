@@ -1,9 +1,33 @@
-const express = require('express');
+const express    = require('express');
 const bodyParser = require('body-parser');
-const request = require('supertest');
+const request    = require('supertest');
 
 jest.mock('../models/product');
 const Product = require('../models/product');
+
+jest.mock('weaviate-ts-client', () => {
+  const chain = {
+    withClassName: () => chain,
+    withFields:    () => chain,
+    withWhere:     () => chain,
+    withNearVector:() => chain,
+    withNearObject:() => chain,
+    withLimit:     () => chain,
+    do: async () => ({ data: { Get: { Product: [] } } }),
+  };
+
+  // client factory returns an object with .graphql.get()
+  function client() {
+    return { graphql: { get: () => chain } };
+  }
+
+  return {
+    client,
+    ApiKey: class MockApiKey {},
+    default: { client }
+  };
+});
+
 const productsRouter = require('../routes/products');
 
 describe('Products API', () => {
@@ -18,16 +42,8 @@ describe('Products API', () => {
   describe('GET /api/products', () => {
     it('200 → returns all products formatted with id', async () => {
       const fakeDocs = [
-        {
-          _id: '1',
-          name: 'A',
-          toObject: () => ({ name: 'A', price: 10 }),
-        },
-        {
-          _id: '2',
-          name: 'B',
-          toObject: () => ({ name: 'B', price: 20 }),
-        },
+        { _id: '1', name: 'A', toObject: () => ({ name: 'A', price: 10 }) },
+        { _id: '2', name: 'B', toObject: () => ({ name: 'B', price: 20 }) },
       ];
       Product.find.mockResolvedValue(fakeDocs);
 

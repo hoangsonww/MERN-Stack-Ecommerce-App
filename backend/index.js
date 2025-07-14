@@ -8,7 +8,7 @@ const seedDB = require('./seed/productSeeds');
 const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const authRoutes = require('./routes/auth');
-const { swaggerUi, swaggerSpec, setupSwaggerUi } = require('./docs/swagger');
+const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./docs/swagger');
 
 // Create Express App
 const app = express();
@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 });
 
 // Setup Swagger UI with customized title
+setupSwaggerJson(app); // serves /api-docs/swagger.json
 setupSwaggerUi(app);
 
 // Routes
@@ -38,12 +39,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/search', require('./routes/search'));
 app.use('/api/auth', authRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Seed database on startup
-seedDB().then(() => {
-  // Start Server after seeding
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server ready on port ${PORT}.`);
-  });
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server ready on port ${PORT}.`);
 });
+
+module.exports = app;
