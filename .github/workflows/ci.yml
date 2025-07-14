@@ -184,5 +184,5 @@ jobs:
             echo "| **Recommendation Service**       | ✅ cold-start·diversity·performance                   |"
             echo "| **Docker Build & Push**          | ✅ backend & frontend images pushed to GHCR           |"
             echo ""
-            echo "**Completed at** $(date -u +"%Y-%m-%dT%H:%M:%SZ") UTC"
+            echo "**Completed at** $(date -u '+%Y-%m-%dT%H:%M:%SZ') UTC"
           } >> $GITHUB_STEP_SUMMARY
