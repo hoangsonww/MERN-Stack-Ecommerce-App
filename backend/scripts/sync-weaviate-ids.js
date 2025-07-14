@@ -3,7 +3,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-// Load your Product model (which was exported as ESM default)
 const ProductModule = require('../models/Product.js');
 const Product = ProductModule.default || ProductModule;
 
@@ -23,26 +22,22 @@ if (!MONGO_URI || !WEAVIATE_HOST || !WEAVIATE_API_KEY) {
 }
 
 async function main() {
-  // 1️⃣ Connect to MongoDB
   await mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
-  // 2️⃣ Connect to Weaviate
   const client = weaviate.client({
     scheme: 'https',
     host:   WEAVIATE_HOST,
     apiKey: new ApiKey(WEAVIATE_API_KEY),
   });
 
-  // 3️⃣ Find products without a weaviateId
   const toSync = await Product.find({ weaviateId: { $exists: false } }).lean();
   console.log(`🔍 Found ${toSync.length} products to sync…`);
 
   for (const doc of toSync) {
     try {
-      // 4️⃣ Lookup by name in Weaviate
       const resp = await client.graphql
         .get()
         .withClassName('Product')
@@ -62,7 +57,6 @@ async function main() {
       }
 
       const wid = hits[0]._additional.id;
-      // 5️⃣ Update Mongo document
       await Product.updateOne(
         { _id: doc._id },
         { $set: { weaviateId: wid } }

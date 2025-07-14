@@ -1,5 +1,3 @@
-// docs/swagger.js
-
 const swaggerJSDoc = require('swagger-jsdoc');
 
 // Swagger definition
@@ -94,7 +92,7 @@ const swaggerDefinition = {
 // Options for the swagger docs
 const options = {
   swaggerDefinition,
-  apis: ['./routes/*.js'], // Path to API files
+  apis: ['./routes/*.js'],
 };
 
 // Initialize swagger-jsdoc

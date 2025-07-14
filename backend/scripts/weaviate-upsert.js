@@ -3,18 +3,12 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 
-// weaviate-client exposes its client factory as the default export
 const weaviateModule = require('weaviate-client');
 const weaviate       = weaviateModule.default || weaviateModule;
 const { generateUuid5, config } = weaviateModule;
 const { ApiKey }      = weaviateModule;
-
-// your helper that returns a ready v4 client
 const { getWeaviateClient } = require('../weaviateClient.js');
-
-// Google GenAI
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-
 const {
   MONGO_URI,
   GOOGLE_AI_API_KEY,
@@ -25,14 +19,11 @@ if (!MONGO_URI)          throw new Error('Missing MONGO_URI in .env');
 if (!GOOGLE_AI_API_KEY)  throw new Error('Missing GOOGLE_AI_API_KEY in .env');
 
 async function main() {
-  // 1️⃣ MongoDB
   await mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
   console.log('✅ MongoDB connected');
-
-  // 2️⃣ Mongoose model
   const Product = mongoose.model(
     'Product',
     new mongoose.Schema({
@@ -49,17 +40,14 @@ async function main() {
     })
   );
 
-  // 3️⃣ Google embed model
   const genAI     = new GoogleGenerativeAI(GOOGLE_AI_API_KEY);
   const embedModel = genAI.getGenerativeModel({
     model: 'models/text-embedding-004'
   });
 
-  // 4️⃣ Weaviate client & collection
   const client     = await getWeaviateClient();
   const collection = client.collections.get('Product');
 
-  // 5️⃣ Ensure class exists (idempotent)
   const existing = await client.collections.listAll();
   if (!existing.some(c => c.name === 'Product')) {
     console.log('⚙️  Creating `Product` class');
@@ -84,12 +72,10 @@ async function main() {
     console.log('✅ `Product` class already exists');
   }
 
-  // 6️⃣ Fetch all products
   const products = await Product.find().lean();
   const total    = products.length;
   console.log(`🔎 Found ${total} products to upsert`);
 
-  // 7️⃣ Build DataObjects array
   const dataObjects = [];
   let done = 0;
   for (const doc of products) {
@@ -123,7 +109,6 @@ async function main() {
     console.log(`🔧 Embedded ${done}/${total}`);
   }
 
-  // 8️⃣ Chunk & insertMany
   for (let i = 0; i < dataObjects.length; i += Number(BATCH_SIZE)) {
     const chunk = dataObjects.slice(i, i + Number(BATCH_SIZE));
     await collection.data.insertMany(chunk);

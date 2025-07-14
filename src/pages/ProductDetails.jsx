@@ -3,39 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {
-  Typography,
-  Container,
-  Grid,
-  Paper,
-  Button,
-  CircularProgress,
-  Rating,
-  Chip,
-  Box,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-} from '@mui/material';
+import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
 
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
-
-  // ────────────────────────────────────────────────
-  // state
-  // ────────────────────────────────────────────────
-  const [product,     setProduct]     = useState(null);
-  const [loading,     setLoading]     = useState(true);
-  const [error,       setError]       = useState(null);
-  const [userRating,  setUserRating]  = useState(0);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [userRating, setUserRating] = useState(0);
   const [recommended, setRecommended] = useState([]);
-  const [recLoading,  setRecLoading]  = useState(true);
+  const [recLoading, setRecLoading] = useState(true);
 
-  // ────────────────────────────────────────────────
-  // fetch product + recommendations
-  // ────────────────────────────────────────────────
   useEffect(() => {
     async function fetchProduct() {
       try {
@@ -43,8 +22,8 @@ function ProductDetails({ addToCart }) {
         if (data) {
           setProduct(data);
           setUserRating(data.rating);
-          trackVisit(data);      // 🆕 store visit in localStorage
-          fetchRecommended();    // fetch similar after main product loads
+          trackVisit(data);
+          fetchRecommended();
         }
       } catch (err) {
         setError(err);
@@ -56,9 +35,7 @@ function ProductDetails({ addToCart }) {
     async function fetchRecommended() {
       setRecLoading(true);
       try {
-        const { data: recs } = await axios.get(
-          `https://fusion-electronics-api.vercel.app/api/products/${id}/similar`
-        );
+        const { data: recs } = await axios.get(`https://fusion-electronics-api.vercel.app/api/products/${id}/similar`);
         setRecommended(recs || []);
       } catch (err) {
         console.error('Error fetching recommendations:', err);
@@ -70,9 +47,6 @@ function ProductDetails({ addToCart }) {
     fetchProduct();
   }, [id]);
 
-  // ────────────────────────────────────────────────
-  // localStorage tracker (unique)
-  // ────────────────────────────────────────────────
   const trackVisit = prod => {
     try {
       const key = 'visitedProducts';
@@ -81,8 +55,8 @@ function ProductDetails({ addToCart }) {
       const exists = stored.find(p => p.id === (prod._id || prod.id));
       if (!exists) {
         stored.push({
-          id:    prod._id || prod.id,
-          name:  prod.name,
+          id: prod._id || prod.id,
+          name: prod.name,
           image: prod.image,
           price: prod.price,
         });
@@ -94,9 +68,6 @@ function ProductDetails({ addToCart }) {
     }
   };
 
-  // ────────────────────────────────────────────────
-  // helpers
-  // ────────────────────────────────────────────────
   const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
 
   const handleAddToCart = () => product && addToCart(product);
@@ -115,9 +86,6 @@ function ProductDetails({ addToCart }) {
     }
   };
 
-  // ────────────────────────────────────────────────
-  // loading / error states
-  // ────────────────────────────────────────────────
   if (loading) {
     return (
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
@@ -134,9 +102,6 @@ function ProductDetails({ addToCart }) {
     );
   }
 
-  // ────────────────────────────────────────────────
-  // main render
-  // ────────────────────────────────────────────────
   return (
     <Container maxWidth="md" sx={{ mt: 4, pb: 6 }}>
       {/* ========== PRODUCT DETAILS ========== */}
@@ -144,25 +109,31 @@ function ProductDetails({ addToCart }) {
         <Grid container spacing={3}>
           {/* image */}
           <Grid item xs={12} md={6}>
-            <img
-              src={product.image}
-              alt={product.name}
-              style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }}
-            />
+            <img src={product.image} alt={product.name} style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }} />
           </Grid>
 
           {/* info */}
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" gutterBottom>{product.name}</Typography>
-            <Typography variant="h6" color="textSecondary" gutterBottom>Brand: {product.brand}</Typography>
+            <Typography variant="h4" gutterBottom>
+              {product.name}
+            </Typography>
+            <Typography variant="h6" color="textSecondary" gutterBottom>
+              Brand: {product.brand}
+            </Typography>
             <Typography variant="h6" color="textSecondary" gutterBottom>
               Category: {capitalizeFirstLetter(product.category)}
             </Typography>
-            <Typography variant="h6" color="primary" gutterBottom>${product.price}</Typography>
-            <Typography variant="body1" gutterBottom>{product.description}</Typography>
+            <Typography variant="h6" color="primary" gutterBottom>
+              ${product.price}
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              {product.description}
+            </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
-              <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>In Stock:</Typography>
+              <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>
+                In Stock:
+              </Typography>
               <Chip
                 label={product.stock > 0 ? `${product.stock} Available` : 'Out of Stock'}
                 color={product.stock > 0 ? 'success' : 'error'}
@@ -186,30 +157,32 @@ function ProductDetails({ addToCart }) {
 
       {/* ========== RECOMMENDED SECTION ========== */}
       <Box sx={{ mt: 5 }}>
-        <Typography variant="h5" gutterBottom>Recommended for you</Typography>
+        <Typography variant="h5" gutterBottom>
+          Recommended for you
+        </Typography>
 
         {recLoading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
             <CircularProgress size={32} />
           </Box>
         ) : recommended.length === 0 ? (
-          <Typography variant="body2" color="textSecondary">No similar products found.</Typography>
+          <Typography variant="body2" color="textSecondary">
+            No similar products found.
+          </Typography>
         ) : (
           <Grid container spacing={3}>
             {recommended.map(rec => (
               <Grid item xs={12} sm={6} md={4} key={rec.id}>
                 <Card elevation={4} sx={{ height: '100%' }}>
                   <CardActionArea onClick={() => navigate(`/product/${rec.id}`)}>
-                    <CardMedia
-                      component="img"
-                      height="160"
-                      image={rec.image}
-                      alt={rec.name}
-                      sx={{ objectFit: 'contain', p: 2 }}
-                    />
+                    <CardMedia component="img" height="160" image={rec.image} alt={rec.name} sx={{ objectFit: 'contain', p: 2 }} />
                     <CardContent>
-                      <Typography variant="subtitle1" gutterBottom noWrap>{rec.name}</Typography>
-                      <Typography variant="h6" color="primary">${rec.price}</Typography>
+                      <Typography variant="subtitle1" gutterBottom noWrap>
+                        {rec.name}
+                      </Typography>
+                      <Typography variant="h6" color="primary">
+                        ${rec.price}
+                      </Typography>
                     </CardContent>
                   </CardActionArea>
                 </Card>

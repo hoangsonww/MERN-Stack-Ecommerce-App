@@ -38,7 +38,6 @@ function isUUID(s) {
     if (isUUID(raw)) {
       console.log(`⏳ Finding items similar to ID="${raw}"…`);
 
-      // 1) Fetch the target object's vector
       const vecRes = await client.graphql
         .get()
         .withClassName('Product')
@@ -61,7 +60,6 @@ function isUUID(s) {
 
       const vector = productsArr[0]._additional.vector;
 
-      // 2) Run the similarity search using that vector
       const res = await client.graphql
         .get()
         .withClassName('Product')
@@ -80,7 +78,6 @@ function isUUID(s) {
     } else {
       console.log(`⏳ Searching for "${raw}"…`);
 
-      // Free-text semantic search
       const res = await client.graphql
         .get()
         .withClassName('Product')

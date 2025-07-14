@@ -125,15 +125,11 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id/similar', async (req, res) => {
   try {
-    // 1️⃣ Load from Mongo
     const prod = await Product.findById(req.params.id).lean();
     if (!prod || !prod.weaviateId) {
-      return res
-        .status(404)
-        .json({ message: 'Product not found or not indexed in Weaviate' });
+      return res.status(404).json({ message: 'Product not found or not indexed in Weaviate' });
     }
 
-    // 2️⃣ Fetch its stored vector
     const vecResp = await client.graphql
       .get()
       .withClassName('Product')
@@ -148,19 +144,18 @@ router.get('/:id/similar', async (req, res) => {
 
     const objs = vecResp.data.Get.Product;
     if (!objs.length || !objs[0]._additional.vector) {
-      return res
-        .status(404)
-        .json({ message: 'No vector found for this product in Weaviate' });
+      return res.status(404).json({ message: 'No vector found for this product in Weaviate' });
     }
     const vector = objs[0]._additional.vector;
 
-    // 3️⃣ Run the nearVector search
     const simResp = await client.graphql
       .get()
       .withClassName('Product')
-      .withFields(`
+      .withFields(
+        `
         _additional { id }
-      `)
+      `
+      )
       .withNearVector({ vector })
       .withLimit(5)
       .do();
@@ -168,26 +163,24 @@ router.get('/:id/similar', async (req, res) => {
     const hits = simResp.data.Get.Product;
     if (!hits.length) return res.json([]);
 
-    // 4️⃣ Lookup full Mongo docs
     const weaviateIds = hits.map(h => h._additional.id);
     const recs = await Product.find({ weaviateId: { $in: weaviateIds } }).lean();
 
-    // 5️⃣ Re-order to match Weaviate ranking
     const ordered = weaviateIds
       .map(wid => recs.find(r => r.weaviateId === wid))
       .filter(Boolean)
       .map(r => ({
-        id:          r._id,
-        name:        r.name,
+        id: r._id,
+        name: r.name,
         description: r.description,
-        price:       r.price,
-        category:    r.category,
-        image:       r.image,
-        brand:       r.brand,
-        stock:       r.stock,
-        rating:      r.rating,
-        numReviews:  r.numReviews,
-        createdAt:   r.createdAt,
+        price: r.price,
+        category: r.category,
+        image: r.image,
+        brand: r.brand,
+        stock: r.stock,
+        rating: r.rating,
+        numReviews: r.numReviews,
+        createdAt: r.createdAt,
       }));
 
     res.json(ordered);
@@ -238,13 +231,11 @@ router.post('/recommendations', async (req, res) => {
       return res.status(400).json({ message: 'Request body must have a non-empty array of ids' });
     }
 
-    // 1️⃣ Load products from Mongo
     const docs = await Product.find({ _id: { $in: ids } }).lean();
     if (docs.length === 0) {
       return res.status(400).json({ message: 'No products found for provided ids' });
     }
 
-    // 2️⃣ Fetch each vector from Weaviate
     const vectors = [];
     for (const doc of docs) {
       if (!doc.weaviateId) continue;
@@ -269,7 +260,6 @@ router.post('/recommendations', async (req, res) => {
       return res.status(404).json({ message: 'None of the products have vectors in Weaviate' });
     }
 
-    // 3️⃣ Compute centroid vector (element-wise average)
     const dim = vectors[0].length;
     const centroid = Array(dim).fill(0);
     for (const vec of vectors) {
@@ -277,7 +267,6 @@ router.post('/recommendations', async (req, res) => {
     }
     for (let i = 0; i < dim; i++) centroid[i] /= vectors.length;
 
-    // 4️⃣ Run nearVector search
     const simResp = await client.graphql
       .get()
       .withClassName('Product')
@@ -300,17 +289,17 @@ router.post('/recommendations', async (req, res) => {
       .map(wid => recs.find(r => r.weaviateId === wid))
       .filter(Boolean)
       .map(r => ({
-        id:          r._id,
-        name:        r.name,
+        id: r._id,
+        name: r.name,
         description: r.description,
-        price:       r.price,
-        category:    r.category,
-        image:       r.image,
-        brand:       r.brand,
-        stock:       r.stock,
-        rating:      r.rating,
-        numReviews:  r.numReviews,
-        createdAt:   r.createdAt,
+        price: r.price,
+        category: r.category,
+        image: r.image,
+        brand: r.brand,
+        stock: r.stock,
+        rating: r.rating,
+        numReviews: r.numReviews,
+        createdAt: r.createdAt,
       }));
 
     res.json(ordered);

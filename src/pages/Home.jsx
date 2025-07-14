@@ -1,20 +1,5 @@
-// Home.jsx
-// Full page – NO omissions. Adds robust normalizer so ProductCard always gets both id and _id.
-// Features: visited-based recommendations (last 10 unique IDs) + 6-per-page pagination.
-
 import * as React from 'react';
-import {
-  Typography,
-  Grid,
-  Box,
-  Container,
-  Button,
-  CircularProgress,
-  Alert,
-  Paper,
-  styled,
-  Pagination,
-} from '@mui/material';
+import { Typography, Grid, Box, Container, Button, CircularProgress, Alert, Paper, styled, Pagination } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
@@ -35,24 +20,18 @@ const StyledCarousel = styled(Carousel)({
   },
 });
 
-/* ────────────────────────────────────────────────
-   NORMALIZER — guarantees BOTH id and _id
-──────────────────────────────────────────────── */
 const normalizeProduct = p => {
-  const canonical = p._id || p.id;   // whichever exists
+  const canonical = p._id || p.id;
   return { ...p, id: canonical, _id: canonical };
 };
 
 function Home({ products, addToCart, error, loading }) {
-  /* ───────── Featured Products ───────── */
   const featuredProducts = products.slice(0, 3);
   const [animatedCards, setAnimatedCards] = React.useState([]);
-
-  /* ───────── Recommendations ───────── */
-  const [recs, setRecs]             = React.useState([]);
+  const [recs, setRecs] = React.useState([]);
   const [recLoading, setRecLoading] = React.useState(true);
-  const [recError,   setRecError]   = React.useState(null);
-  const [recPage,    setRecPage]    = React.useState(1);
+  const [recError, setRecError] = React.useState(null);
+  const [recPage, setRecPage] = React.useState(1);
   const recPerPage = 6;
 
   /* Featured card animation */
@@ -68,7 +47,10 @@ function Home({ products, addToCart, error, loading }) {
     async function fetchRecs() {
       try {
         const visited = JSON.parse(localStorage.getItem('visitedProducts')) || [];
-        if (!visited.length) { setRecLoading(false); return; }
+        if (!visited.length) {
+          setRecLoading(false);
+          return;
+        }
 
         const seen = new Set();
         const lastTen = [];
@@ -79,7 +61,10 @@ function Home({ products, addToCart, error, loading }) {
             lastTen.push(vid);
           }
         }
-        if (!lastTen.length) { setRecLoading(false); return; }
+        if (!lastTen.length) {
+          setRecLoading(false);
+          return;
+        }
 
         const { data } = await axios.post('https://fusion-electronics-api.vercel.app/api/products/recommendations', { ids: lastTen });
         setRecs(data || []);
@@ -100,9 +85,9 @@ function Home({ products, addToCart, error, loading }) {
 
   /* Banner images */
   const bannerImages = [
-    { url: summerSaleImage,    title: 'Summer Sale - Up to 50% Off', description: 'Shop now for the best deals on summer essentials!' },
-    { url: techGadgetsImage,   title: 'New Tech Gadgets',            description: 'Explore the latest in tech and gadgets.' },
-    { url: trendingFashionImage,title: 'Trending Fashion',           description: 'Discover the newest fashion trends for this season.' },
+    { url: summerSaleImage, title: 'Summer Sale - Up to 50% Off', description: 'Shop now for the best deals on summer essentials!' },
+    { url: techGadgetsImage, title: 'New Tech Gadgets', description: 'Explore the latest in tech and gadgets.' },
+    { url: trendingFashionImage, title: 'Trending Fashion', description: 'Discover the newest fashion trends for this season.' },
   ];
 
   return (
@@ -124,7 +109,9 @@ function Home({ products, addToCart, error, loading }) {
             <Box key={i} sx={{ position: 'relative' }}>
               <img src={item.url} alt={item.title} style={{ width: '100%', height: 400, objectFit: 'cover' }} />
               <Box sx={{ position: 'absolute', bottom: 0, left: 0, width: '100%', bgcolor: 'rgba(0,0,0,0.6)', color: '#fff', p: 3 }}>
-                <Typography variant="h4" fontWeight={700} gutterBottom>{item.title}</Typography>
+                <Typography variant="h4" fontWeight={700} gutterBottom>
+                  {item.title}
+                </Typography>
                 <Typography variant="body1">{item.description}</Typography>
               </Box>
             </Box>
@@ -144,18 +131,13 @@ function Home({ products, addToCart, error, loading }) {
         {error ? (
           <Alert severity="error">{error.message}</Alert>
         ) : loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <CircularProgress />
+          </Box>
         ) : (
           <Grid container spacing={4}>
             {featuredProducts.map((p, idx) => (
-              <Grid
-                item
-                key={p._id}
-                xs={12}
-                sm={6}
-                md={4}
-                className={animatedCards.includes(idx) ? 'product-card-animated' : ''}
-              >
+              <Grid item key={p._id} xs={12} sm={6} md={4} className={animatedCards.includes(idx) ? 'product-card-animated' : ''}>
                 <ProductCard product={normalizeProduct(p)} addToCart={addToCart} />
               </Grid>
             ))}
@@ -175,7 +157,9 @@ function Home({ products, addToCart, error, loading }) {
         {recError ? (
           <Alert severity="error">{recError.message}</Alert>
         ) : recLoading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+            <CircularProgress />
+          </Box>
         ) : recs.length === 0 ? (
           <Typography align="center" color="textSecondary">
             Browse a few products so we can analyze your preferences and recommend relevant items!
