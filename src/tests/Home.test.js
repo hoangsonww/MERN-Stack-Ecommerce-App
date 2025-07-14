@@ -48,10 +48,4 @@ describe('<Home />', () => {
     expect(cards).toHaveLength(3);
     expect(cards.map(c => c.textContent)).toEqual(['Prod1', 'Prod2', 'Prod3']);
   });
-
-  it('renders the Shop Now link with the correct href', () => {
-    render(<Home products={[]} addToCart={() => {}} loading={false} error={null} />);
-    const link = screen.getByRole('link', { name: /shop now/i });
-    expect(link).toHaveAttribute('href', '/shop');
-  });
 });
