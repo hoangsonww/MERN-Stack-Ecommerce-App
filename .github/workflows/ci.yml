@@ -12,7 +12,8 @@ jobs:
     name: "🔧 Install, Lint & Format"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -26,14 +27,15 @@ jobs:
         run: npm run format
 
   backend:
-    name: "✅ Backend Tests (OS Matrix)"
-    runs-on: ${{ matrix.os }}
+    name: "✅ Backend Tests"
     needs: formatting
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -50,13 +52,17 @@ jobs:
     name: "🌐 Frontend Tests"
     runs-on: ubuntu-latest
     needs: formatting
+    strategy:
+      matrix:
+        node-version: [18]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Use Node.js 16
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
 
       - name: Install & Test Frontend
         run: |
@@ -67,8 +73,12 @@ jobs:
     name: "🤖 Recommendation Service Sanity"
     runs-on: ubuntu-latest
     needs: formatting
+    strategy:
+      matrix:
+        threshold: [0.1, 0.5, 0.9]
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Use Node.js 18
         uses: actions/setup-node@v3
@@ -79,8 +89,8 @@ jobs:
         working-directory: backend
         run: |
           npm install
-          echo "🔍 Running recommendation sanity check"
-          node scripts/test-recommendations.js --threshold 0.5
+          echo "🔍 Testing recommendation pipeline with threshold ${{ matrix.threshold }}"
+          node scripts/test-recommendations.js --threshold ${{ matrix.threshold }}
 
   complete:
     name: "🎉 All Tests Passed"
@@ -91,7 +101,7 @@ jobs:
       - recommendation-tests
     steps:
       - name: Notify success
-        run: echo "✅ All tests across OS, frontend, and recommendations passed."
+        run: echo "✅ Backend, frontend, and recommendation tests all passed."
 
   docker:
     name: "🐳 Build & Push Docker Images"
@@ -99,9 +109,10 @@ jobs:
     needs: complete
     permissions:
       contents: read
-      packages: write
+      packages: write   # for GHCR
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
@@ -117,8 +128,8 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/fusion-ecom-backend:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/fusion-ecom-backend:latest
+            ghcr.io/${{ github.repository_owner }}/mern-ecom-backend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/mern-ecom-backend:latest
 
       - name: Build & push frontend image
         uses: docker/build-push-action@v3
@@ -127,8 +138,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/fusion-ecom-frontend:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/fusion-ecom-frontend:latest
+            ghcr.io/${{ github.repository_owner }}/mern-ecom-frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/mern-ecom-frontend:latest
 
   summary:
     name: "📝 Pipeline Summary"
@@ -140,7 +151,7 @@ jobs:
         run: |
           echo "::group::CI/CD Pipeline Summary"
           echo "::notice::🔧 Formatting: ✅"
-          echo "::notice::✅ Backend Tests (OS Matrix): ✅"
+          echo "::notice::✅ Backend Tests (multi-OS): ✅"
           echo "::notice::🌐 Frontend Tests: ✅"
           echo "::notice::🤖 Recommendation Tests: ✅"
           echo "::notice::🐳 Docker Build & Push: ✅"
