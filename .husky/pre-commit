@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+
+# Lint staged files (frontend + backend)
+npx lint-staged
+
+# Type-check backend and frontend (fast incremental)
+echo "🧪 Type-checking backend..."
+cd backend && npx tsc --noEmit
+cd ..
+
+echo "🧪 Type-checking frontend..."
+cd frontend && npx tsc --noEmit
+cd ..
+
+echo "✅ Pre-commit checks passed!"
