@@ -138,6 +138,9 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 > [!IMPORTANT]
 > **Note**: The backend server may take a few seconds to wake up if it has been inactive for a while. For your information, it is hosted on the free tier of Render, with 0.1 CPU and 512 MB of memory only, so it may take a bit longer to respond to requests, especially after periods of inactivity.
 
+> [!CAUTION]
+> **Warning**: We are currently on the free trial of Weaviate. Once we run out of the free credits, the product recommendations feature will not work until we upgrade to a paid plan (but I'm a college student, so I don't have the budget to do that right now...) However, you can still run the application locally and set up your own Weaviate instance to enable product recommendations - please refer to the [Product Recommendations with Vector Database](#product-recommendations-with-vector-database) section for more details.
+
 ## User Interface
 
 ### Home Page
@@ -474,6 +477,9 @@ Replace `"your search text"` with the text you want to search for, and `5` with 
 
 Now, the application will use Weaviate & FAISS & LangChain to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
 Try going to the product details page of any product, and you will see a list of recommended products based on the current product!
+
+> [!TIP]
+> For now, the free trial of Weaviate would suffice for testing purposes. However, if you want to run your own Weaviate instance, you can follow the [Weaviate documentation](https://weaviate.io/developers/weaviate/current/getting-started/installation.html) to set it up locally or on a cloud provider.
 
 ## Testing the APIs
 
