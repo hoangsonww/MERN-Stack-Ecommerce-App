@@ -478,6 +478,9 @@ Replace `"your search text"` with the text you want to search for, and `5` with 
 Now, the application will use Weaviate & FAISS & LangChain to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
 Try going to the product details page of any product, and you will see a list of recommended products based on the current product!
 
+> [!TIP]
+> For now, the free trial of Weaviate would suffice for testing purposes. However, if you want to run your own Weaviate instance, you can follow the [Weaviate documentation](https://weaviate.io/developers/weaviate/current/getting-started/installation.html) to set it up locally or on a cloud provider.
+
 ## Testing the APIs
 
 - Simply open your browser and navigate to `http://localhost:5000/api/products` to view the list of products.
