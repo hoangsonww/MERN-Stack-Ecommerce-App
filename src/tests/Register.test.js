@@ -1,4 +1,3 @@
-// src/tests/Register.test.js
 import React from 'react';
 import axios from 'axios';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';

@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { Typography, Grid, Box, Container, Button, CircularProgress, Alert, Paper, styled, Pagination } from '@mui/material';
+import { Typography, Grid, Box, Container, Button, CircularProgress, Alert, AlertTitle, Paper, styled, Pagination, Stack, Link, Collapse } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
 import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import summerSaleImage from '../assets/images/summer-sale.jpg';
 import techGadgetsImage from '../assets/images/tech-gadgets.jpg';
 import trendingFashionImage from '../assets/images/trending-fashion.png';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import '../App.css';
 
 const StyledCarousel = styled(Carousel)({
@@ -25,6 +30,98 @@ const normalizeProduct = p => {
   return { ...p, id: canonical, _id: canonical };
 };
 
+/* ---------- Pretty states for Recommended ---------- */
+function RecommendedError({ error, onRetry }) {
+  const [showDetails, setShowDetails] = React.useState(false);
+  const detail = error?.response?.data?.message || error?.message || 'Unknown error. Please try again.';
+
+  return (
+    <Alert
+      severity="warning"
+      variant="outlined"
+      icon={<CloudOffIcon />}
+      sx={{
+        borderRadius: 3,
+        borderWidth: 2,
+        maxWidth: 900,
+        mx: 'auto',
+        background: theme => `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.action.hover} 100%)`,
+        '& .MuiAlert-message': { width: '100%' },
+      }}
+      action={
+        <Stack direction="row" spacing={1}>
+          <Button size="small" startIcon={<RefreshIcon />} onClick={onRetry}>
+            Retry
+          </Button>
+          <Button size="small" component={Link} href="https://weaviate.io" target="_blank" rel="noopener" endIcon={<OpenInNewIcon />}>
+            Docs
+          </Button>
+        </Stack>
+      }
+    >
+      <AlertTitle>Recommendations unavailable</AlertTitle>
+      We couldn’t load personalized picks right now. This often happens when the vector service is unreachable. Please try again shortly.
+      <Box sx={{ mt: 1 }}>
+        <Button
+          size="small"
+          endIcon={
+            <ExpandMoreIcon
+              sx={{
+                transform: showDetails ? 'rotate(180deg)' : 'none',
+                transition: '0.2s',
+              }}
+            />
+          }
+          onClick={() => setShowDetails(v => !v)}
+        >
+          {showDetails ? 'Hide details' : 'Show details'}
+        </Button>
+        <Collapse in={showDetails}>
+          <Paper
+            variant="outlined"
+            sx={{
+              p: 1.5,
+              mt: 1,
+              bgcolor: theme => theme.palette.action.hover,
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+              fontSize: 12,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
+            }}
+          >
+            {String(detail)}
+          </Paper>
+        </Collapse>
+      </Box>
+    </Alert>
+  );
+}
+
+function RecommendedEmpty() {
+  return (
+    <Alert
+      severity="info"
+      icon={<InfoOutlinedIcon />}
+      sx={{
+        borderRadius: 3,
+        maxWidth: 900,
+        mx: 'auto',
+        background: theme => `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.action.hover} 100%)`,
+      }}
+    >
+      <AlertTitle>No recommendations yet</AlertTitle>
+      Browse a few products so we can learn your taste and surface better picks.
+      <Box sx={{ mt: 1 }}>
+        <Button href="/shop" variant="outlined" size="small">
+          Explore products
+        </Button>
+      </Box>
+    </Alert>
+  );
+}
+
+/* --------------------------------------------------- */
+
 function Home({ products, addToCart, error, loading }) {
   const featuredProducts = products.slice(0, 3);
   const [animatedCards, setAnimatedCards] = React.useState([]);
@@ -42,40 +139,44 @@ function Home({ products, addToCart, error, loading }) {
     return () => clearTimeout(t);
   }, [featuredProducts]);
 
-  /* Fetch recommendations from last-10 visited unique IDs */
-  React.useEffect(() => {
-    async function fetchRecs() {
-      try {
-        const visited = JSON.parse(localStorage.getItem('visitedProducts')) || [];
-        if (!visited.length) {
-          setRecLoading(false);
-          return;
-        }
-
-        const seen = new Set();
-        const lastTen = [];
-        for (let i = visited.length - 1; i >= 0 && lastTen.length < 10; i--) {
-          const vid = visited[i].id;
-          if (!seen.has(vid)) {
-            seen.add(vid);
-            lastTen.push(vid);
-          }
-        }
-        if (!lastTen.length) {
-          setRecLoading(false);
-          return;
-        }
-
-        const { data } = await axios.post('https://fusion-electronics-api.vercel.app/api/products/recommendations', { ids: lastTen });
-        setRecs(data || []);
-      } catch (e) {
-        setRecError(e);
-      } finally {
-        setRecLoading(false);
+  /* Fetch recommendations (hoisted for Retry) */
+  const fetchRecs = React.useCallback(async () => {
+    setRecLoading(true);
+    setRecError(null);
+    try {
+      const visited = JSON.parse(localStorage.getItem('visitedProducts')) || [];
+      if (!visited.length) {
+        setRecs([]);
+        return;
       }
+
+      const seen = new Set();
+      const lastTen = [];
+      for (let i = visited.length - 1; i >= 0 && lastTen.length < 10; i--) {
+        const vid = visited[i].id;
+        if (!seen.has(vid)) {
+          seen.add(vid);
+          lastTen.push(vid);
+        }
+      }
+      if (!lastTen.length) {
+        setRecs([]);
+        return;
+      }
+
+      const { data } = await axios.post('https://fusion-electronics-api.vercel.app/api/products/recommendations', { ids: lastTen });
+      setRecs(data || []);
+    } catch (e) {
+      setRecs([]);
+      setRecError(e);
+    } finally {
+      setRecLoading(false);
     }
-    fetchRecs();
   }, []);
+
+  React.useEffect(() => {
+    fetchRecs();
+  }, [fetchRecs]);
 
   /* Pagination helpers for recommendations */
   const recPageCount = Math.ceil(recs.length / recPerPage);
@@ -155,15 +256,13 @@ function Home({ products, addToCart, error, loading }) {
         </Typography>
 
         {recError ? (
-          <Alert severity="error">{recError.message}</Alert>
+          <RecommendedError error={recError} onRetry={fetchRecs} />
         ) : recLoading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
             <CircularProgress />
           </Box>
         ) : recs.length === 0 ? (
-          <Typography align="center" color="textSecondary">
-            Browse a few products so we can analyze your preferences and recommend relevant items!
-          </Typography>
+          <RecommendedEmpty />
         ) : (
           <>
             <Grid container spacing={4}>

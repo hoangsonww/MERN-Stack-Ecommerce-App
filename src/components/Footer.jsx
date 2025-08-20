@@ -6,7 +6,7 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        backgroundColor: '#3f51b5', // Match primary theme color
+        backgroundColor: '#3f51b5',
         color: 'white',
         padding: '2rem 0',
         marginTop: '2rem',

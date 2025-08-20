@@ -1,9 +1,41 @@
-// ProductDetails.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Alert, AlertTitle, Link, Stack } from '@mui/material';
+import CloudOffIcon from '@mui/icons-material/CloudOff';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import axios from 'axios';
 import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
+
+function SimilarProductsError({ onRetry }) {
+  return (
+    <Alert
+      severity="warning"
+      variant="outlined"
+      icon={<CloudOffIcon fontSize="inherit" />}
+      sx={{
+        borderRadius: 2,
+        borderWidth: 2,
+        alignItems: 'center',
+        background: theme => `linear-gradient(180deg, ${theme.palette.background.paper} 0%, ${theme.palette.action.hover} 100%)`,
+        '& .MuiAlert-message': { width: '100%' },
+      }}
+      action={
+        <Stack direction="row" spacing={1}>
+          <Button size="small" startIcon={<RefreshIcon />} onClick={onRetry}>
+            Retry
+          </Button>
+          <Button size="small" component={Link} href="https://weaviate.io" target="_blank" rel="noopener" endIcon={<OpenInNewIcon />}>
+            Docs
+          </Button>
+        </Stack>
+      }
+    >
+      <AlertTitle>Similar products unavailable</AlertTitle>
+      We couldn’t load recommendations right now. This often happens when the vector database is unreachable. Please try again shortly.
+    </Alert>
+  );
+}
 
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
@@ -166,9 +198,7 @@ function ProductDetails({ addToCart }) {
             <CircularProgress size={32} />
           </Box>
         ) : recommended.length === 0 ? (
-          <Typography variant="body2" color="textSecondary">
-            No similar products found.
-          </Typography>
+          <SimilarProductsError onRetry={() => navigate(0)} />
         ) : (
           <Grid container spacing={3}>
             {recommended.map(rec => (
