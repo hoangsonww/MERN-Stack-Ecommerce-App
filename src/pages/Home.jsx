@@ -89,7 +89,8 @@ function RecommendedError({ error, onRetry }) {
               wordBreak: 'break-word',
             }}
           >
-            {String(detail)}
+            Weaviate cluster has been suspended. Please create your own free cluster at https://weaviate.io/developers/weaviate/installation/cloud and update
+            the API URL in <code>.env</code> to restore recommendations.
           </Paper>
         </Collapse>
       </Box>
