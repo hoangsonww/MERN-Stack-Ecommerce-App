@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Alert, AlertTitle, Link, Stack } from '@mui/material';
+import { Alert, AlertTitle, Collapse, Link, Stack } from '@mui/material';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import axios from 'axios';
 import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 function SimilarProductsError({ onRetry }) {
+  const [showDetails, setShowDetails] = React.useState(false);
+
   return (
     <Alert
       severity="warning"
@@ -33,6 +36,39 @@ function SimilarProductsError({ onRetry }) {
     >
       <AlertTitle>Similar products unavailable</AlertTitle>
       We couldn’t load recommendations right now. This often happens when the vector database is unreachable. Please try again shortly.
+      <Box sx={{ mt: 1 }}>
+        <Button
+          size="small"
+          endIcon={
+            <ExpandMoreIcon
+              sx={{
+                transform: showDetails ? 'rotate(180deg)' : 'none',
+                transition: '0.2s',
+              }}
+            />
+          }
+          onClick={() => setShowDetails(v => !v)}
+        >
+          {showDetails ? 'Hide details' : 'Show details'}
+        </Button>
+        <Collapse in={showDetails}>
+          <Paper
+            variant="outlined"
+            sx={{
+              p: 1.5,
+              mt: 1,
+              bgcolor: theme => theme.palette.action.hover,
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+              fontSize: 12,
+              whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
+            }}
+          >
+            Weaviate cluster has been suspended. Please create your own free cluster at https://weaviate.io/developers/weaviate/installation/cloud and update
+            the API URL in <code>.env</code> to restore recommendations.
+          </Paper>
+        </Collapse>
+      </Box>
     </Alert>
   );
 }
