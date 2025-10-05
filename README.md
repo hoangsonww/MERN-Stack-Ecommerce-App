@@ -286,7 +286,7 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - Receive confirmation of order success.
 
 > [!TIP]
-> When testing the checkout process, you can use the following test credit card number: 4242 4242 4242 4242 with any future expiry date and any CVC code. This is because we use Luhn algorithm validation for card number verification only, and no actual payment processing is done.
+> When testing the checkout process, you can use the following test credit card number: `4242 4242 4242 4242` with any future expiry date and any CVC code. This is because we use Luhn algorithm validation for card number verification only, and no actual payment processing is done.
 
 - **User Authentication:**
     - User registration and login.
@@ -300,8 +300,6 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 - **Product Recommendations:**
     - Vector-based product recommendations using Pinecone (with optional Weaviate support).
     - Similar products displayed on product detail pages.
-      - Recommendations based on product metadata as a fallback.
-      - Recommendations based on user interaction history.
 
 - **Search Functionality:**
     - Search products by name, description, brand, or category.
@@ -312,7 +310,15 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 
 - **Order Tracking:**
     - View order status and details.
-    - Simulated order tracking updates.
+    - Get estimated delivery date and tracking information.
+
+- **Terms of Service & Privacy Policy:**
+    - Inform users about terms of service and privacy policy.
+
+- **Support Page:**
+    - Provide contact information and support resources.
+    - FAQ section.
+    - Contact form for user inquiries.
 
 - **Responsive Design:**
     - Mobile-friendly layout.
