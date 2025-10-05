@@ -1,6 +1,7 @@
 import React from 'react';
 import { apiClient } from '../services/apiClient';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { MemoryRouter, useNavigate } from 'react-router-dom';
 import Register from '../pages/Register';
 
 jest.mock('../services/apiClient', () => {
@@ -11,16 +12,25 @@ jest.mock('../services/apiClient', () => {
   };
 });
 
+const mockNavigate = jest.fn();
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockNavigate,
+}));
+
 describe('<Register />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     localStorage.clear();
-    delete window.location;
-    window.location = { href: '' };
+    mockNavigate.mockClear();
   });
 
   it('renders name, email, both password inputs and the Register button', () => {
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     expect(screen.getByLabelText(/name/i, { selector: 'input' })).toBeInTheDocument();
     expect(screen.getByLabelText(/email/i, { selector: 'input' })).toBeInTheDocument();
 
@@ -31,7 +41,11 @@ describe('<Register />', () => {
   });
 
   it('toggles both password fields visibility', () => {
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     let [pwd, cpwd] = screen.getAllByLabelText(/password/i, { selector: 'input' });
     const togglePwd = screen.getByRole('button', { name: /toggle password visibility/i });
     const toggleCpwd = screen.getByRole('button', {
@@ -53,7 +67,11 @@ describe('<Register />', () => {
   });
 
   it('shows "Passwords do not match" without calling axios', async () => {
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     fireEvent.change(screen.getByLabelText(/name/i, { selector: 'input' }), {
       target: { value: 'Alice' },
     });
@@ -73,7 +91,11 @@ describe('<Register />', () => {
   it('on success stores token & redirects', async () => {
     apiClient.post.mockResolvedValueOnce({ data: { token: 'tok123' } });
 
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     fireEvent.change(screen.getByLabelText(/name/i, { selector: 'input' }), {
       target: { value: 'Bob' },
     });
@@ -88,7 +110,7 @@ describe('<Register />', () => {
 
     await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(localStorage.getItem('token')).toBe('tok123'));
-    await waitFor(() => expect(window.location.href).toBe('/'));
+    await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith('/', { replace: true }));
   });
 
   it('renders concatenated validation errors from server', async () => {
@@ -96,7 +118,11 @@ describe('<Register />', () => {
       response: { data: { errors: [{ msg: 'Err1' }, { msg: 'Err2' }] } },
     });
 
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     let [pwd, cpwd] = screen.getAllByLabelText(/password/i, { selector: 'input' });
     fireEvent.change(pwd, { target: { value: 'x' } });
     fireEvent.change(cpwd, { target: { value: 'x' } });
@@ -111,7 +137,11 @@ describe('<Register />', () => {
       response: { data: { msg: 'Single error' } },
     });
 
-    render(<Register />);
+    render(
+      <MemoryRouter>
+        <Register />
+      </MemoryRouter>
+    );
     let [pwd, cpwd] = screen.getAllByLabelText(/password/i, { selector: 'input' });
     fireEvent.change(pwd, { target: { value: 'y' } });
     fireEvent.change(cpwd, { target: { value: 'y' } });

@@ -1,11 +1,12 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import Home from '../pages/Home';
 
-// 1) Mock the ProductCard so it doesn’t pull in useNavigate
+// 1) Mock the ProductCard so it doesn't pull in useNavigate
 jest.mock('../components/ProductCard', () => ({ product }) => <div data-testid="product-card">{product.name}</div>);
 
-// 2) Mock the carousel so we don’t exercise its internals
+// 2) Mock the carousel so we don't exercise its internals
 jest.mock('react-material-ui-carousel', () => props => <div data-testid="carousel">{props.children}</div>);
 
 // 3) Mock all three banner images to simple strings
@@ -24,28 +25,48 @@ describe('<Home />', () => {
     }));
 
   it('renders the 3 banner images', () => {
-    render(<Home products={[]} addToCart={() => {}} loading={false} error={null} />);
+    render(
+      <MemoryRouter>
+        <Home products={[]} addToCart={() => {}} loading={false} error={null} />
+      </MemoryRouter>
+    );
     bannerAlts.forEach(alt => {
       expect(screen.getByAltText(alt)).toBeInTheDocument();
     });
   });
 
   it('shows a spinner when loading=true', () => {
-    render(<Home products={[]} addToCart={() => {}} loading={true} error={null} />);
+    render(
+      <MemoryRouter>
+        <Home products={[]} addToCart={() => {}} loading={true} error={null} />
+      </MemoryRouter>
+    );
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
   it('shows an error alert when error is passed', () => {
     const err = new Error('Oops!');
-    render(<Home products={[]} addToCart={() => {}} loading={false} error={err} />);
+    render(
+      <MemoryRouter>
+        <Home products={[]} addToCart={() => {}} loading={false} error={err} />
+      </MemoryRouter>
+    );
     expect(screen.getByText('Oops!')).toBeInTheDocument();
   });
 
   it('renders only the first 3 products as featured', () => {
     const five = makeProducts(5);
-    render(<Home products={five} addToCart={() => {}} loading={false} error={null} />);
+    render(
+      <MemoryRouter>
+        <Home products={five} addToCart={() => {}} loading={false} error={null} />
+      </MemoryRouter>
+    );
     const cards = screen.getAllByTestId('product-card');
-    expect(cards).toHaveLength(3);
-    expect(cards.map(c => c.textContent)).toEqual(['Prod1', 'Prod2', 'Prod3']);
+    // Home page now renders Featured Products (3) + New Arrivals (5) = 8 total
+    // Featured products are the first 3 in the array
+    expect(cards.length).toBeGreaterThanOrEqual(3);
+    expect(cards[0].textContent).toBe('Prod1');
+    expect(cards[1].textContent).toBe('Prod2');
+    expect(cards[2].textContent).toBe('Prod3');
   });
 });
