@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { Box, Container, Grid, Typography, Link as MuiLink, Stack, TextField, IconButton, Divider, Chip } from '@mui/material';
+import { Box, Container, Grid, Typography, Link as MuiLink, Stack, TextField, IconButton, Divider, Chip, Tooltip } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import EmailIcon from '@mui/icons-material/Email';
 import LanguageIcon from '@mui/icons-material/Language';
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
+import GavelIcon from '@mui/icons-material/Gavel';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import LocationSearchingIcon from '@mui/icons-material/LocationSearching';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { useNotifier } from '../context/NotificationProvider';
 
 const quickLinks = [
@@ -30,6 +35,14 @@ const socialLinks = [
   { icon: <LinkedInIcon />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/hoangsonw/' },
   { icon: <LanguageIcon />, label: 'Portfolio', href: 'https://sonnguyenhoang.com/' },
   { icon: <EmailIcon />, label: 'Email', href: 'mailto:hoangson091104@gmail.com' },
+];
+
+const policyLinks = [
+  { label: 'Privacy', to: '/privacy', icon: <PrivacyTipOutlinedIcon fontSize="small" /> },
+  { label: 'Terms', to: '/terms', icon: <GavelIcon fontSize="small" /> },
+  { label: 'Shipping & Returns', to: '/shipping-returns', icon: <LocalShippingIcon fontSize="small" /> },
+  { label: 'Track Order', to: '/order-tracking', icon: <LocationSearchingIcon fontSize="small" /> },
+  { label: 'Contact', to: '/support#contact', icon: <SupportAgentIcon fontSize="small" /> },
 ];
 
 function Footer() {
@@ -159,22 +172,31 @@ function Footer() {
           <Typography variant="body2" sx={{ color: 'rgba(226,232,240,0.7)' }}>
             © {new Date().getFullYear()} Fusion Electronics. Crafted in California & powered worldwide.
           </Typography>
-          <Stack direction="row" spacing={2} sx={{ color: 'rgba(226,232,240,0.7)' }}>
-            <MuiLink component={RouterLink} to="/privacy" color="inherit" underline="none">
-              Privacy
-            </MuiLink>
-            <MuiLink component={RouterLink} to="/terms" color="inherit" underline="none">
-              Terms
-            </MuiLink>
-            <MuiLink component={RouterLink} to="/shipping-returns" color="inherit" underline="none">
-              Shipping & Returns
-            </MuiLink>
-            <MuiLink component={RouterLink} to="/order-tracking" color="inherit" underline="none">
-              Track Order
-            </MuiLink>
-            <MuiLink component={RouterLink} to="/support#contact" color="inherit" underline="none">
-              Contact
-            </MuiLink>
+          <Stack direction="row" spacing={2} sx={{ color: 'rgba(226,232,240,0.7)', display: { xs: 'none', sm: 'flex' } }}>
+            {policyLinks.map(link => (
+              <MuiLink key={link.to} component={RouterLink} to={link.to} color="inherit" underline="none">
+                {link.label}
+              </MuiLink>
+            ))}
+          </Stack>
+          <Stack direction="row" spacing={1} sx={{ display: { xs: 'flex', sm: 'none' } }}>
+            {policyLinks.map(link => (
+              <Tooltip key={link.to} title={link.label} enterTouchDelay={0} leaveTouchDelay={2500}>
+                <IconButton
+                  component={RouterLink}
+                  to={link.to}
+                  size="small"
+                  color="inherit"
+                  sx={{
+                    bgcolor: 'rgba(255,255,255,0.12)',
+                    '&:hover': { bgcolor: 'rgba(255,255,255,0.25)' },
+                  }}
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </IconButton>
+              </Tooltip>
+            ))}
           </Stack>
         </Stack>
       </Container>

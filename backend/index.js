@@ -24,12 +24,22 @@ mongoose
   .then(async () => {
     console.log('MongoDB Connected');
 
-    // 1. Seed the database
-    try {
-      await seedDB();
-      console.log('🪴 Database seeded');
-    } catch (err) {
-      console.error('❌ Seeding error:', err);
+    // 1. Seed the database (only when necessary)
+    const skipSeed = process.env.SKIP_SEED_ON_START === 'true';
+    if (!skipSeed) {
+      try {
+        const forceSeed = process.env.FORCE_SEED_ON_START === 'true';
+        const result = await seedDB({ force: forceSeed, skipIfExists: !forceSeed });
+        if (result?.seeded) {
+          console.log('🪴 Database seeded');
+        } else if (result?.skipped) {
+          console.log('🌱 Seed skipped (existing products retained)');
+        }
+      } catch (err) {
+        console.error('❌ Seeding error:', err);
+      }
+    } else {
+      console.log('🌱 SKIP_SEED_ON_START enabled. Existing products preserved.');
     }
 
     // 2. Sync with Pinecone (primary recommendation engine)

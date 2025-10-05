@@ -216,11 +216,8 @@ function NavigationBar({ cartItemCount }) {
                   handleClose();
                   handleSearchModalOpen();
                 }}
-                sx={{ gap: 1 }}
+                sx={{ gap: 0.5 }}
               >
-                <ListItemIcon sx={{ minWidth: 30, color: 'inherit' }}>
-                  <SearchIcon fontSize="small" />
-                </ListItemIcon>
                 Search
               </MenuItem>
               <Divider sx={{ my: 0.5 }} />

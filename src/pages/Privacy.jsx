@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Chip, Container, Divider, Grid, LinearProgress, Paper, Stack, Typography } from '@mui/material';
+import { Box, Chip, Container, Divider, LinearProgress, Paper, Stack, Typography } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Shield';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
@@ -60,21 +60,19 @@ function Privacy() {
 
           <Divider />
 
-          <Grid container spacing={4}>
+          <Stack spacing={4}>
             {dataPractices.map(section => (
-              <Grid item xs={12} md={4} key={section.title}>
-                <Stack spacing={2} alignItems={{ xs: 'center', md: 'flex-start' }} textAlign={{ xs: 'center', md: 'left' }}>
-                  {section.icon}
-                  <Typography variant="h6" fontWeight={700}>
-                    {section.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {section.body}
-                  </Typography>
-                </Stack>
-              </Grid>
+              <Stack key={section.title} spacing={2} alignItems={{ xs: 'center', md: 'flex-start' }} textAlign={{ xs: 'center', md: 'left' }}>
+                {section.icon}
+                <Typography variant="h6" fontWeight={700}>
+                  {section.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {section.body}
+                </Typography>
+              </Stack>
             ))}
-          </Grid>
+          </Stack>
 
           <Divider />
 

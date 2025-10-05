@@ -67,6 +67,13 @@ export function NotificationProvider({ children }) {
         autoHideDuration={current?.autoHideDuration}
         anchorOrigin={current?.anchorOrigin || defaultOptions.anchorOrigin}
         onExited={handleExited}
+        sx={{
+          // Ensure snackbars remain visible above Safari/iOS safe areas.
+          bottom: {
+            xs: `calc(20px + env(safe-area-inset-bottom, 0px))`,
+            sm: '24px',
+          },
+        }}
       >
         <Alert
           elevation={6}
