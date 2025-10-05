@@ -1,10 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Alert, AlertTitle, Collapse, Link, Stack } from '@mui/material';
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Chip,
+  CircularProgress,
+  Collapse,
+  Container,
+  Grid,
+  Link,
+  Paper,
+  Rating,
+  Stack,
+  Typography,
+} from '@mui/material';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { apiClient, withRetry } from '../services/apiClient';
 import { useNotifier } from '../context/NotificationProvider';
@@ -83,74 +101,142 @@ function ProductDetails({ addToCart }) {
   const [userRating, setUserRating] = useState(0);
   const [recommended, setRecommended] = useState([]);
   const [recLoading, setRecLoading] = useState(true);
+  const [similarError, setSimilarError] = useState(false);
   const { notify } = useNotifier();
 
-  useEffect(() => {
-    async function fetchProduct() {
-      try {
-        const { data } = await withRetry(() => apiClient.get(`products/${id}`));
-        if (data) {
-          setProduct(data);
-          setUserRating(data.rating);
-          trackVisit(data);
-          fetchRecommended();
+  const normalizeProduct = useCallback(prod => {
+    if (!prod || typeof prod !== 'object') return null;
+    const candidate = prod._id ?? prod.id ?? prod.mongoId ?? prod?.metadata?.mongoId;
+    const normalizedId = candidate !== undefined && candidate !== null ? `${candidate}` : undefined;
+
+    return normalizedId
+      ? {
+          ...prod,
+          id: normalizedId,
+          _id: normalizedId,
         }
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    }
+      : { ...prod };
+  }, []);
 
-    async function fetchRecommended() {
-      setRecLoading(true);
+  const recordVisit = useCallback(
+    prod => {
       try {
-        const { data: recs } = await withRetry(() => apiClient.get(`products/${id}/similar`));
-        setRecommended(recs || []);
-      } catch (err) {
-        console.error('Error fetching recommendations:', err);
-      } finally {
-        setRecLoading(false);
+        const normalized = normalizeProduct(prod);
+        if (!normalized?.id) return;
+
+        const key = 'visitedProducts';
+        const raw = localStorage.getItem(key);
+        const parsed = raw ? JSON.parse(raw) : [];
+        const stored = Array.isArray(parsed) ? parsed : [];
+        const filtered = stored.filter(item => item.id !== normalized.id);
+        const next = [
+          ...filtered,
+          {
+            id: normalized.id,
+            name: normalized.name,
+            image: normalized.image,
+            price: normalized.price,
+            visitedAt: Date.now(),
+          },
+        ].slice(-12);
+        localStorage.setItem(key, JSON.stringify(next));
+      } catch (storageError) {
+        console.warn('Unable to track visited product', storageError);
       }
-    }
+    },
+    [normalizeProduct]
+  );
 
-    fetchProduct();
-  }, [id]);
-
-  const trackVisit = prod => {
+  const fetchRecommended = useCallback(async () => {
+    setRecLoading(true);
+    setSimilarError(false);
     try {
-      const key = 'visitedProducts';
-      const stored = JSON.parse(localStorage.getItem(key)) || [];
-
-      const exists = stored.find(p => p.id === (prod._id || prod.id));
-      if (!exists) {
-        stored.push({
-          id: prod._id || prod.id,
-          name: prod.name,
-          image: prod.image,
-          price: prod.price,
-        });
-        localStorage.setItem(key, JSON.stringify(stored));
+      const { data: recs } = await withRetry(() => apiClient.get(`products/${id}/similar`));
+      if (!Array.isArray(recs)) {
+        setRecommended([]);
+        return;
       }
-    } catch (e) {
-      // silently ignore localStorage errors (e.g., quota exceeded)
-      console.warn('localStorage tracking failed:', e);
+      const normalized = recs
+        .map(item => normalizeProduct(item))
+        .filter(Boolean)
+        .filter((item, index, self) => item.id && self.findIndex(other => other.id === item.id) === index)
+        .filter(item => item.id !== `${id}`);
+      setRecommended(normalized);
+    } catch (err) {
+      console.error('Error fetching recommendations:', err);
+      setSimilarError(true);
+      setRecommended([]);
+    } finally {
+      setRecLoading(false);
     }
+  }, [id, normalizeProduct]);
+
+  const fetchProduct = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const { data } = await withRetry(() => apiClient.get(`products/${id}`));
+      const normalized = normalizeProduct(data);
+      if (!normalized?.id) {
+        throw new Error('Product not found');
+      }
+      setProduct(normalized);
+      setUserRating(normalized.rating || 0);
+      recordVisit(normalized);
+      fetchRecommended();
+    } catch (err) {
+      console.error('Error fetching product details:', err);
+      setProduct(null);
+      setError(err);
+      if (err?.response?.status === 404) {
+        try {
+          const key = 'visitedProducts';
+          const raw = localStorage.getItem(key);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              const filtered = parsed.filter(item => item?.id !== id);
+              localStorage.setItem(key, JSON.stringify(filtered));
+            }
+          }
+        } catch (storageError) {
+          console.warn('Unable to prune visitedProducts cache', storageError);
+        }
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchRecommended, id, normalizeProduct, recordVisit]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, [fetchProduct]);
+
+  const formatCategory = value => {
+    if (typeof value !== 'string' || !value.length) {
+      return 'Uncategorized';
+    }
+    return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
-  const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
-
-  const handleAddToCart = () => product && addToCart(product);
+  const handleAddToCart = useCallback(() => {
+    if (product) {
+      addToCart(product);
+    }
+  }, [addToCart, product]);
 
   const handleRatingChange = async (_e, newRating) => {
     setUserRating(newRating);
     try {
       await apiClient.put(`products/${id}/rating`, { rating: newRating });
-      setProduct(prev => ({
-        ...prev,
-        rating: newRating,
-        numReviews: prev.numReviews + 1,
-      }));
+      setProduct(prev => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          rating: newRating,
+          numReviews: (prev.numReviews || 0) + 1,
+        };
+      });
       notify({ severity: 'success', message: 'Thanks for the feedback!' });
     } catch (err) {
       console.error('Error updating rating:', err);
@@ -168,32 +254,44 @@ function ProductDetails({ addToCart }) {
 
   if (error || !product) {
     return (
-      <Typography variant="h4" align="center">
-        Error loading product details.
-      </Typography>
+      <Container maxWidth="sm" sx={{ py: 10 }}>
+        <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, textAlign: 'center', borderRadius: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            We could not load this product.
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+            The product may have been removed or is temporarily unavailable. Please refresh or browse the latest releases.
+          </Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
+            <Button variant="contained" onClick={fetchProduct} startIcon={<RefreshIcon />}>
+              Try again
+            </Button>
+            <Button variant="outlined" onClick={() => navigate('/shop')}>
+              Back to shop
+            </Button>
+          </Stack>
+        </Paper>
+      </Container>
     );
   }
 
   return (
     <Container maxWidth="md" sx={{ mt: 4, pb: 6 }}>
-      {/* ========== PRODUCT DETAILS ========== */}
       <Paper elevation={3} sx={{ p: 3 }}>
         <Grid container spacing={3}>
-          {/* image */}
           <Grid item xs={12} md={6}>
             <img src={product.image} alt={product.name} style={{ width: '100%', maxHeight: '400px', objectFit: 'contain' }} />
           </Grid>
 
-          {/* info */}
           <Grid item xs={12} md={6}>
             <Typography variant="h4" gutterBottom>
               {product.name}
             </Typography>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Brand: {product.brand}
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              Brand: {product.brand || 'Fusion Electronics'}
             </Typography>
-            <Typography variant="h6" color="textSecondary" gutterBottom>
-              Category: {capitalizeFirstLetter(product.category)}
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              Category: {formatCategory(product.category)}
             </Typography>
             <Typography variant="h6" color="primary" gutterBottom>
               ${product.price}
@@ -203,7 +301,7 @@ function ProductDetails({ addToCart }) {
             </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
-              <Typography variant="body2" color="textSecondary" sx={{ mr: 1 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
                 In Stock:
               </Typography>
               <Chip
@@ -215,8 +313,8 @@ function ProductDetails({ addToCart }) {
 
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, mb: 2 }}>
               <Rating value={userRating} precision={0.5} onChange={handleRatingChange} sx={{ mr: 1 }} />
-              <Typography variant="body2" color="textSecondary">
-                ({product.numReviews} Reviews)
+              <Typography variant="body2" color="text.secondary">
+                ({product.numReviews || 0} Reviews)
               </Typography>
             </Box>
 
@@ -227,7 +325,6 @@ function ProductDetails({ addToCart }) {
         </Grid>
       </Paper>
 
-      {/* ========== RECOMMENDED SECTION ========== */}
       <Box sx={{ mt: 5 }}>
         <Typography variant="h5" gutterBottom>
           Recommended for you
@@ -238,7 +335,13 @@ function ProductDetails({ addToCart }) {
             <CircularProgress size={32} />
           </Box>
         ) : recommended.length === 0 ? (
-          <SimilarProductsError onRetry={() => navigate(0)} />
+          similarError ? (
+            <SimilarProductsError onRetry={fetchRecommended} />
+          ) : (
+            <Typography variant="body2" color="text.secondary">
+              We are curating recommendations for this product. Check back soon for more gear.
+            </Typography>
+          )
         ) : (
           <Grid container spacing={3}>
             {recommended.map(rec => (

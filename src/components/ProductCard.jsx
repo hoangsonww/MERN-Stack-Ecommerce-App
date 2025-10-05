@@ -21,14 +21,17 @@ export default function ProductCard({ product, addToCart }) {
   const reviewCount = typeof product?.numReviews === 'number' ? product.numReviews : null;
 
   const handleViewDetails = () => {
-    navigate(`/product/${product._id}`);
+    if (!canonicalId) {
+      return;
+    }
+    navigate(`/product/${canonicalId}`);
   };
 
   const handleCardClick = event => {
-    // Prevent navigation if the "Add to Cart" button is clicked
-    if (event.target.tagName !== 'BUTTON') {
-      handleViewDetails();
-    }
+    if (!canonicalId) return;
+    const button = event.target.closest('button');
+    if (button) return;
+    handleViewDetails();
   };
 
   return (

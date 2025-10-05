@@ -17,6 +17,10 @@ import NotFoundPage from './pages/NotFoundPage';
 import Footer from './components/Footer';
 import About from './pages/About';
 import Support from './pages/Support';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import ShippingReturns from './pages/ShippingReturns';
+import OrderTracking from './pages/OrderTracking';
 import ScrollToTop from './components/ScrollToTop';
 import { apiClient, withRetry } from './services/apiClient';
 import { useNotifier } from './context/NotificationProvider';
@@ -132,6 +136,22 @@ function App() {
         });
         if (active) {
           setProducts(normalized);
+
+          let removedCount = 0;
+          setCart(prevCart => {
+            if (!Array.isArray(prevCart) || !prevCart.length) return prevCart;
+            const validIds = new Set(normalized.map(item => String(item.id)));
+            const sanitized = prevCart.filter(item => {
+              const itemId = item?._id || item?.id;
+              return itemId && validIds.has(String(itemId));
+            });
+            removedCount = prevCart.length - sanitized.length;
+            return sanitized;
+          });
+
+          if (removedCount > 0) {
+            notify({ severity: 'info', message: 'We refreshed your cart to remove items that are no longer available.' });
+          }
         }
       } catch (err) {
         if (!active) return;
@@ -196,6 +216,14 @@ function App() {
               <Route path="/about" element={<About />} />
 
               <Route path="/support" element={<Support />} />
+
+              <Route path="/terms" element={<Terms />} />
+
+              <Route path="/privacy" element={<Privacy />} />
+
+              <Route path="/shipping-returns" element={<ShippingReturns />} />
+
+              <Route path="/order-tracking" element={<OrderTracking />} />
 
               <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
 

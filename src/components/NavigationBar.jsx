@@ -216,8 +216,9 @@ function NavigationBar({ cartItemCount }) {
                   handleClose();
                   handleSearchModalOpen();
                 }}
+                sx={{ gap: 1 }}
               >
-                <ListItemIcon>
+                <ListItemIcon sx={{ minWidth: 30, color: 'inherit' }}>
                   <SearchIcon fontSize="small" />
                 </ListItemIcon>
                 Search

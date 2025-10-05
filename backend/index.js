@@ -7,6 +7,7 @@ const seedDB = require('./seed/productSeeds');
 const syncPinecone = require('./sync/syncPinecone');
 const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
+const orderRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
 const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./docs/swagger');
 
@@ -66,6 +67,7 @@ setupSwaggerUi(app);
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/checkout', checkoutRoutes);
+app.use('/api/orders', orderRoutes);
 app.use('/api/search', require('./routes/search'));
 app.use('/api/auth', authRoutes);
 

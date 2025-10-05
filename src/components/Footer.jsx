@@ -2,10 +2,10 @@ import * as React from 'react';
 import { Box, Container, Grid, Typography, Link as MuiLink, Stack, TextField, IconButton, Divider, Chip } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import SendIcon from '@mui/icons-material/Send';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import EmailIcon from '@mui/icons-material/Email';
+import LanguageIcon from '@mui/icons-material/Language';
 import { useNotifier } from '../context/NotificationProvider';
 
 const quickLinks = [
@@ -17,17 +17,19 @@ const quickLinks = [
 ];
 
 const helpLinks = [
-  { label: 'Order Tracking', to: '/support#orders' },
-  { label: 'Shipping & Returns', to: '/support#shipping' },
+  { label: 'Order Tracking', to: '/order-tracking' },
+  { label: 'Shipping & Returns', to: '/shipping-returns' },
+  { label: 'Terms & Conditions', to: '/terms' },
+  { label: 'Privacy Policy', to: '/privacy' },
   { label: 'FAQ', to: '/support#faq' },
   { label: 'Contact Us', to: '/support#contact' },
 ];
 
 const socialLinks = [
-  { icon: <InstagramIcon />, label: 'Instagram', href: 'https://instagram.com' },
-  { icon: <FacebookIcon />, label: 'Facebook', href: 'https://facebook.com' },
-  { icon: <TwitterIcon />, label: 'Twitter', href: 'https://twitter.com' },
-  { icon: <LinkedInIcon />, label: 'LinkedIn', href: 'https://linkedin.com' },
+  { icon: <GitHubIcon />, label: 'GitHub', href: 'https://github.com/hoangsonww' },
+  { icon: <LinkedInIcon />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/hoangsonw/' },
+  { icon: <LanguageIcon />, label: 'Portfolio', href: 'https://sonnguyenhoang.com/' },
+  { icon: <EmailIcon />, label: 'Email', href: 'mailto:hoangson091104@gmail.com' },
 ];
 
 function Footer() {
@@ -73,6 +75,7 @@ function Footer() {
                   rel="noopener"
                   color="inherit"
                   size="small"
+                  aria-label={link.label}
                   sx={{
                     bgcolor: 'rgba(255,255,255,0.08)',
                     '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
@@ -157,11 +160,17 @@ function Footer() {
             © {new Date().getFullYear()} Fusion Electronics. Crafted in California & powered worldwide.
           </Typography>
           <Stack direction="row" spacing={2} sx={{ color: 'rgba(226,232,240,0.7)' }}>
-            <MuiLink component={RouterLink} to="/support#privacy" color="inherit" underline="none">
+            <MuiLink component={RouterLink} to="/privacy" color="inherit" underline="none">
               Privacy
             </MuiLink>
-            <MuiLink component={RouterLink} to="/support#terms" color="inherit" underline="none">
+            <MuiLink component={RouterLink} to="/terms" color="inherit" underline="none">
               Terms
+            </MuiLink>
+            <MuiLink component={RouterLink} to="/shipping-returns" color="inherit" underline="none">
+              Shipping & Returns
+            </MuiLink>
+            <MuiLink component={RouterLink} to="/order-tracking" color="inherit" underline="none">
+              Track Order
             </MuiLink>
             <MuiLink component={RouterLink} to="/support#contact" color="inherit" underline="none">
               Contact

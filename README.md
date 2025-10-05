@@ -201,6 +201,36 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     <img src="docs/about-ui.png" alt="Fusion Electronics About Page" style="border-radius: 10px" width="100%"/>
 </p>
 
+### Order Confirmation
+
+<p align="center">
+    <img src="docs/order-ui.png" alt="Fusion Electronics Order Success Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Order Tracking
+
+<p align="center">
+    <img src="docs/order-tracking-ui.png" alt="Fusion Electronics Order Tracking Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Shipping & Returns
+
+<p align="center">
+    <img src="docs/shipping-ui.png" alt="Fusion Electronics Shipping & Returns Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Terms of Service
+
+<p align="center">
+    <img src="docs/terms-ui.png" alt="Fusion Electronics Terms of Service Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Privacy Policy
+
+<p align="center">
+    <img src="docs/privacy-ui.png" alt="Fusion Electronics Privacy Policy Page" style="border-radius: 10px" width="100%"/>
+</p>
+
 ### Login Page
 
 <p align="center">
@@ -223,12 +253,6 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 
 <p align="center">
     <img src="docs/reset-password-ui.png" alt="Fusion Electronics Reset Password Page" style="border-radius: 10px" width="100%"/>
-</p>
-
-### Order Confirmation
-
-<p align="center">
-    <img src="docs/order-ui.png" alt="Fusion Electronics Order Success Page" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Footer
@@ -261,6 +285,45 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - Simulate the order creation process on the backend.
     - Receive confirmation of order success.
 
+> [!TIP]
+> When testing the checkout process, you can use the following test credit card number: `4242 4242 4242 4242` with any future expiry date and any CVC code. This is because we use Luhn algorithm validation for card number verification only, and no actual payment processing is done.
+
+- **User Authentication:**
+    - User registration and login.
+    - Password hashing for security.
+    - Protected routes for authenticated users.
+    - JWT-based authentication.
+    - Forgot and reset password functionality.
+    - User profile management (view and update profile information).
+    - Order history (view past orders).
+
+- **Product Recommendations:**
+    - Vector-based product recommendations using Pinecone (with optional Weaviate support).
+    - Similar products displayed on product detail pages.
+
+- **Search Functionality:**
+    - Search products by name, description, brand, or category.
+    - Real-time search suggestions.
+    - Filter and sort search results.
+    - Pagination for search results.
+    - Debounced search input to optimize performance.
+
+- **Order Tracking:**
+    - View order status and details.
+    - Get estimated delivery date and tracking information.
+
+- **Terms of Service & Privacy Policy:**
+    - Inform users about terms of service and privacy policy.
+
+- **Support Page:**
+    - Provide contact information and support resources.
+    - FAQ section.
+    - Contact form for user inquiries.
+
+- **Responsive Design:**
+    - Mobile-friendly layout.
+    - Responsive components for various screen sizes.
+
 ## Technologies Used
 
 - **Frontend:**
@@ -288,6 +351,8 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - **Pinecone** and **Weaviate** for product recommendations with vector databases
     - **FAISS & LangChain** for efficient similarity search
     - Jest for unit and integration testing
+    - Supertest for API endpoint testing
+    - Cross-env for setting environment variables in scripts
 
 - **Development Tools:**
     - Jetbrains WebStorm (IDE)
@@ -295,6 +360,8 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - Git (version control)
     - npm (package manager)
     - Docker (for containerization)
+    - GitHub Actions (for CI/CD)
+    - Vercel and Render (for deployment)
 
 ## Project Structure
 

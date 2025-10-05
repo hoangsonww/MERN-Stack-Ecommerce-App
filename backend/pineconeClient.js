@@ -32,6 +32,24 @@ const upsertVectors = async (vectors, namespace = defaultNamespace) => {
   });
 };
 
+const describeIndexStats = async () => {
+  const { data } = await getHttpClient().post('/describe_index_stats', {});
+  return data;
+};
+
+const getNamespaceVectorCount = async (namespace = defaultNamespace) => {
+  try {
+    const stats = await describeIndexStats();
+    return stats?.namespaces?.[namespace]?.vectorCount || 0;
+  } catch (error) {
+    if (error?.response?.status === 404) {
+      return 0;
+    }
+    console.warn('⚠️  Unable to load Pinecone index stats:', error.message || error);
+    return 0;
+  }
+};
+
 const fetchVectors = async (ids, namespace = defaultNamespace) => {
   if (!Array.isArray(ids) || !ids.length) return {};
   const { data } = await getHttpClient().post('/vectors/fetch', {
@@ -85,4 +103,5 @@ module.exports = {
   queryByVector,
   deleteVectors,
   purgeNamespace,
+  getNamespaceVectorCount,
 };

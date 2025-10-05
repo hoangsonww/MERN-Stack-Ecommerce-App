@@ -84,6 +84,15 @@ const swaggerDefinition = {
           createdAt: '2023-10-21T14:21:00Z',
         },
       },
+      OrderStatus: {
+        type: 'object',
+        properties: {
+          code: { type: 'string' },
+          label: { type: 'string' },
+          description: { type: 'string' },
+          enteredAt: { type: 'string', format: 'date-time' },
+        },
+      },
     },
   },
   security: [{ BearerAuth: [] }],
