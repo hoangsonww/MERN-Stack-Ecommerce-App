@@ -32,9 +32,9 @@ describe('<Checkout />', () => {
     // loading spinner should appear
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
 
-    // advance the 1ms timeout
+    // advance the 400ms timeout as per the actual implementation
     await act(async () => {
-      jest.advanceTimersByTime(1);
+      jest.advanceTimersByTime(400);
     });
 
     // after timeout, navigate should have been called

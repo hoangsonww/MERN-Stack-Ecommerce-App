@@ -5,11 +5,13 @@ const weaviate = weaviateModule.default || weaviateModule;
 const { ApiKey } = weaviateModule;
 
 const { MONGO_URI, WEAVIATE_HOST, WEAVIATE_API_KEY } = process.env;
-if (!MONGO_URI || !WEAVIATE_HOST || !WEAVIATE_API_KEY) {
-  throw new Error('You must set MONGO_URI, WEAVIATE_HOST & WEAVIATE_API_KEY in .env');
-}
 
 module.exports = async function syncWeaviate() {
+  if (!MONGO_URI || !WEAVIATE_HOST || !WEAVIATE_API_KEY) {
+    console.log('ℹ️  Weaviate sync skipped: missing configuration');
+    return;
+  }
+
   // 0. Grab the Product model only if it's not already defined
   let Product;
   if (mongoose.models.Product) {

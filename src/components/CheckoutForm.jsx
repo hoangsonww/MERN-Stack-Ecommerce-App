@@ -2,8 +2,73 @@ import React, { useState } from 'react';
 import { TextField, Button, Typography, Grid, CircularProgress, Box } from '@mui/material';
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/dist/es/styles-compiled.css';
+import { useNotifier } from '../context/NotificationProvider';
 
-function CheckoutForm({ onSubmit }) {
+// Luhn algorithm for credit card validation
+const luhnCheck = cardNumber => {
+  const digits = cardNumber.replace(/\D/g, '');
+  let sum = 0;
+  let isEven = false;
+
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let digit = parseInt(digits[i], 10);
+
+    if (isEven) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+
+    sum += digit;
+    isEven = !isEven;
+  }
+
+  return sum % 10 === 0;
+};
+
+// Detect card type
+const getCardType = cardNumber => {
+  const number = cardNumber.replace(/\D/g, '');
+
+  if (/^4/.test(number)) return 'Visa';
+  if (/^5[1-5]/.test(number)) return 'Mastercard';
+  if (/^3[47]/.test(number)) return 'American Express';
+  if (/^6(?:011|5)/.test(number)) return 'Discover';
+  if (/^3(?:0[0-5]|[68])/.test(number)) return 'Diners Club';
+  if (/^(?:2131|1800|35)/.test(number)) return 'JCB';
+
+  return 'Unknown';
+};
+
+// Get expected card length
+const getCardLength = cardType => {
+  if (cardType === 'American Express') return 15;
+  if (cardType === 'Diners Club') return 14;
+  return 16;
+};
+
+// Validate expiry date
+const validateExpiry = expiry => {
+  const cleaned = expiry.replace(/\D/g, '');
+  if (cleaned.length < 4) return { valid: false, message: 'Incomplete expiry date' };
+
+  const month = parseInt(cleaned.substring(0, 2), 10);
+  const yearDigits = cleaned.substring(2);
+  const year = yearDigits.length === 2 ? 2000 + parseInt(yearDigits, 10) : parseInt(yearDigits, 10);
+
+  if (month < 1 || month > 12) return { valid: false, message: 'Invalid month' };
+
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth() + 1;
+
+  if (year < currentYear || (year === currentYear && month < currentMonth)) {
+    return { valid: false, message: 'Card has expired' };
+  }
+
+  return { valid: true, message: '' };
+};
+
+function CheckoutForm({ onSubmit, submitting = false }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,27 +81,78 @@ function CheckoutForm({ onSubmit }) {
   const [cardFocused, setCardFocused] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [validationErrors, setValidationErrors] = useState({
+    cardNumber: '',
+    expiry: '',
+    cvc: '',
+    email: '',
+  });
+  const { notify } = useNotifier();
 
   const handleInputChange = e => {
     const { name, value } = e.target;
     let sanitizedValue = value;
+    const newValidationErrors = { ...validationErrors };
 
     switch (name) {
       case 'cardNumber':
         sanitizedValue = value.replace(/\D/g, '');
+        if (sanitizedValue.length >= 13) {
+          const cardType = getCardType(sanitizedValue);
+          const expectedLength = getCardLength(cardType);
+
+          if (sanitizedValue.length === expectedLength) {
+            if (luhnCheck(sanitizedValue)) {
+              newValidationErrors.cardNumber = '';
+            } else {
+              newValidationErrors.cardNumber = 'Invalid card number';
+            }
+          } else if (sanitizedValue.length > expectedLength) {
+            sanitizedValue = sanitizedValue.slice(0, expectedLength);
+          } else {
+            newValidationErrors.cardNumber = '';
+          }
+        } else {
+          newValidationErrors.cardNumber = '';
+        }
         break;
       case 'expiry':
         sanitizedValue = value.replace(/[^0-9/]/g, '');
         if (sanitizedValue.length > 7) sanitizedValue = sanitizedValue.slice(0, 7);
+
+        if (sanitizedValue.length >= 4) {
+          const expiryValidation = validateExpiry(sanitizedValue);
+          newValidationErrors.expiry = expiryValidation.valid ? '' : expiryValidation.message;
+        } else {
+          newValidationErrors.expiry = '';
+        }
         break;
       case 'cvc':
         sanitizedValue = value.replace(/\D/g, '');
         if (sanitizedValue.length > 4) sanitizedValue = sanitizedValue.slice(0, 4);
+
+        const cardType = getCardType(formData.cardNumber);
+        const requiredCvcLength = cardType === 'American Express' ? 4 : 3;
+
+        if (sanitizedValue.length > 0 && sanitizedValue.length < requiredCvcLength) {
+          newValidationErrors.cvc = `CVC must be ${requiredCvcLength} digits`;
+        } else {
+          newValidationErrors.cvc = '';
+        }
+        break;
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (value && !emailRegex.test(value)) {
+          newValidationErrors.email = 'Invalid email address';
+        } else {
+          newValidationErrors.email = '';
+        }
         break;
       default:
         break;
     }
 
+    setValidationErrors(newValidationErrors);
     setFormData({ ...formData, [name]: sanitizedValue });
   };
 
@@ -46,6 +162,44 @@ function CheckoutForm({ onSubmit }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    if (loading || submitting) return;
+
+    // Validate all fields before submission
+    const errors = {};
+
+    // Card number validation
+    const cardType = getCardType(formData.cardNumber);
+    const expectedLength = getCardLength(cardType);
+    if (formData.cardNumber.length !== expectedLength) {
+      errors.cardNumber = `Card number must be ${expectedLength} digits`;
+    } else if (!luhnCheck(formData.cardNumber)) {
+      errors.cardNumber = 'Invalid card number';
+    }
+
+    // Expiry validation
+    const expiryValidation = validateExpiry(formData.expiry);
+    if (!expiryValidation.valid) {
+      errors.expiry = expiryValidation.message;
+    }
+
+    // CVC validation
+    const requiredCvcLength = cardType === 'American Express' ? 4 : 3;
+    if (formData.cvc.length !== requiredCvcLength) {
+      errors.cvc = `CVC must be ${requiredCvcLength} digits`;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors);
+      notify({ severity: 'error', message: 'Please fix validation errors before submitting' });
+      return;
+    }
+
     setLoading(true);
     setErrorMessage('');
 
@@ -54,7 +208,9 @@ function CheckoutForm({ onSubmit }) {
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      setErrorMessage(error.response.data.error || 'An error occurred');
+      const message = error?.response?.data?.error || error?.message || 'An error occurred';
+      setErrorMessage(message);
+      notify({ severity: 'error', message });
     }
   };
 
@@ -69,7 +225,18 @@ function CheckoutForm({ onSubmit }) {
           <TextField required id="name" name="name" label="Full Name" fullWidth variant="standard" value={formData.name} onChange={handleInputChange} />
         </Grid>
         <Grid item xs={12}>
-          <TextField required id="email" name="email" label="Email Address" fullWidth variant="standard" value={formData.email} onChange={handleInputChange} />
+          <TextField
+            required
+            id="email"
+            name="email"
+            label="Email Address"
+            fullWidth
+            variant="standard"
+            value={formData.email}
+            onChange={handleInputChange}
+            error={!!validationErrors.email}
+            helperText={validationErrors.email}
+          />
         </Grid>
       </Grid>
 
@@ -106,12 +273,14 @@ function CheckoutForm({ onSubmit }) {
             required
             id="cardNumber"
             name="cardNumber"
-            label="Card Number"
+            label={`Card Number${formData.cardNumber ? ` (${getCardType(formData.cardNumber)})` : ''}`}
             fullWidth
             variant="standard"
             value={formData.cardNumber}
             onChange={handleInputChange}
             onFocus={handleInputFocus}
+            error={!!validationErrors.cardNumber}
+            helperText={validationErrors.cardNumber}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -139,6 +308,8 @@ function CheckoutForm({ onSubmit }) {
             value={formData.expiry}
             onChange={handleInputChange}
             onFocus={handleInputFocus}
+            error={!!validationErrors.expiry}
+            helperText={validationErrors.expiry}
           />
         </Grid>
         <Grid item xs={6}>
@@ -153,14 +324,20 @@ function CheckoutForm({ onSubmit }) {
             placeholder="3 or 4 digits"
             onChange={handleInputChange}
             onFocus={handleInputFocus}
+            error={!!validationErrors.cvc}
+            helperText={validationErrors.cvc}
           />
         </Grid>
       </Grid>
 
-      {loading && <CircularProgress />}
-      {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+      {(loading || submitting) && <CircularProgress sx={{ mt: 2 }} />}
+      {errorMessage && (
+        <Typography color="error" sx={{ display: 'none' }}>
+          {errorMessage}
+        </Typography>
+      )}
 
-      <Button type="submit" variant="contained" color="primary" sx={{ mt: 4, mb: 4 }} disabled={loading}>
+      <Button type="submit" variant="contained" color="primary" sx={{ mt: 4, mb: 4 }} disabled={loading || submitting}>
         Place Order
       </Button>
     </form>

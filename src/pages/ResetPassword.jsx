@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
+import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment, Stack } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from 'axios';
+import { apiClient } from '../services/apiClient';
 import { useNavigate } from 'react-router-dom';
+import { useNotifier } from '../context/NotificationProvider';
 
 function ResetPassword() {
   const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ function ResetPassword() {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { notify } = useNotifier();
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -29,16 +31,20 @@ function ResetPassword() {
 
     try {
       // Make request to reset password
-      await axios.post('https://fusion-electronics-api.vercel.app/api/auth/reset-password', { email, password });
+      await apiClient.post('auth/reset-password', { email, password });
       setSuccess('Password successfully reset. Redirecting to login...');
-      setTimeout(() => navigate('/login'), 2000); // Redirect after 2 seconds
+      notify({ severity: 'success', message: 'Password updated! Sign in with your new credentials.' });
+      setTimeout(() => navigate('/login'), 1200);
     } catch (err) {
       if (err.response?.data?.errors) {
         // Extract and display only the error message(s)
         const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
         setError(errorMessages);
+        notify({ severity: 'error', message: errorMessages });
       } else {
-        setError(err.response?.data?.msg || 'Failed to reset password. Please try again.');
+        const message = err.response?.data?.msg || 'Failed to reset password. Please try again.';
+        setError(message);
+        notify({ severity: 'error', message });
       }
     } finally {
       setLoading(false);
@@ -54,20 +60,25 @@ function ResetPassword() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Reset Password
-        </Typography>
+    <Container maxWidth="sm" sx={{ mt: 6, mb: 8 }}>
+      <Paper elevation={3} sx={{ p: { xs: 4, md: 5 }, borderRadius: 3 }}>
+        <Stack spacing={1} sx={{ mb: 3 }}>
+          <Typography variant="h4" align="center" fontWeight={700}>
+            Reset Password
+          </Typography>
+          <Typography variant="body2" align="center" color="text.secondary">
+            Create a strong password you haven’t used before.
+          </Typography>
+        </Stack>
 
         {success && (
-          <Typography variant="body2" color="success" sx={{ mb: 2, textAlign: 'center' }}>
+          <Typography variant="body2" color="success" sx={{ display: 'none' }}>
             {success}
           </Typography>
         )}
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
+          <Typography variant="body2" color="error" sx={{ display: 'none' }}>
             {error}
           </Typography>
         )}

@@ -6,7 +6,8 @@ describe('<OrderSuccess />', () => {
   it('renders the success heading and message', () => {
     render(<OrderSuccess />);
     expect(screen.getByText(/Order Successful!/i)).toBeInTheDocument();
-    expect(screen.getByText(/Thank you for your purchase\. Your order is being processed\./i)).toBeInTheDocument();
+    expect(screen.getByText(/Thank you for your purchase/i)).toBeInTheDocument();
+    expect(screen.getByText(/prepping your order/i)).toBeInTheDocument();
   });
 
   it('renders the success icon', () => {

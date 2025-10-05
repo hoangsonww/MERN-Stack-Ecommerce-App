@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
+import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment, Stack } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { apiClient } from '../services/apiClient';
+import { useNotifier } from '../context/NotificationProvider';
 
 function Register() {
   const [name, setName] = useState('');
@@ -12,6 +14,8 @@ function Register() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { notify } = useNotifier();
+  const navigate = useNavigate();
 
   const handleRegister = async e => {
     e.preventDefault();
@@ -20,22 +24,27 @@ function Register() {
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
+      notify({ severity: 'error', message: 'Passwords do not match.' });
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.post('https://fusion-electronics-api.vercel.app/api/auth/register', { name, email, password });
+      const response = await apiClient.post('auth/register', { name, email, password });
       const token = response.data.token;
       localStorage.setItem('token', token);
-      window.location.href = '/';
+      notify({ severity: 'success', message: 'Account created! Redirecting you home…' });
+      navigate('/', { replace: true });
     } catch (err) {
       if (err.response?.data?.errors) {
         // Format the error messages for display
         const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
         setError(errorMessages);
+        notify({ severity: 'error', message: errorMessages });
       } else {
-        setError(err.response?.data?.msg || 'Registration failed');
+        const message = err.response?.data?.msg || 'Registration failed';
+        setError(message);
+        notify({ severity: 'error', message });
       }
     } finally {
       setLoading(false);
@@ -51,14 +60,19 @@ function Register() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Register
-        </Typography>
+    <Container maxWidth="sm" sx={{ mt: 6, mb: 8 }}>
+      <Paper elevation={3} sx={{ p: { xs: 4, md: 5 }, borderRadius: 3 }}>
+        <Stack spacing={1} sx={{ mb: 3 }}>
+          <Typography variant="h4" align="center" fontWeight={700}>
+            Create your account
+          </Typography>
+          <Typography variant="body2" align="center" color="text.secondary">
+            Save wishlists, track orders, and unlock member-only drops.
+          </Typography>
+        </Stack>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
+          <Typography variant="body2" color="error" sx={{ display: 'none' }}>
             {error}
           </Typography>
         )}
