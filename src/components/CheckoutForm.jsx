@@ -46,7 +46,66 @@ const getCardLength = cardType => {
   return 16;
 };
 
+const formatCardNumber = (cardNumber, cardType) => {
+  const digits = cardNumber.replace(/\D/g, '');
+  if (!digits) return '';
+
+  let groupSizes;
+  switch (cardType) {
+    case 'American Express':
+      groupSizes = [4, 6, 5];
+      break;
+    case 'Diners Club':
+      groupSizes = [4, 6, 4];
+      break;
+    default:
+      groupSizes = [4, 4, 4, 4];
+      break;
+  }
+
+  const groups = [];
+  let index = 0;
+  for (const size of groupSizes) {
+    if (index >= digits.length) break;
+    groups.push(digits.slice(index, index + size));
+    index += size;
+  }
+
+  return groups.join(' ').trim();
+};
+
 // Validate expiry date
+const normalizeExpiryInput = value => {
+  const digitsOnly = value.replace(/\D/g, '');
+  if (!digitsOnly) return '';
+
+  const month = digitsOnly.slice(0, 2);
+  let year = digitsOnly.slice(2, 6);
+
+  let formattedMonth = month;
+  if (month.length === 1) {
+    if (parseInt(month, 10) > 1) {
+      formattedMonth = `0${month}`;
+    }
+  } else if (month.length === 2) {
+    const monthValue = parseInt(month, 10);
+    if (Number.isNaN(monthValue) || monthValue < 1) {
+      formattedMonth = '01';
+    } else if (monthValue > 12) {
+      formattedMonth = '12';
+    }
+  }
+
+  if (formattedMonth.length === 2 && digitsOnly.length > 2) {
+    if (year.length > 4) {
+      year = year.slice(0, 4);
+    }
+    return `${formattedMonth}/${year}`;
+  }
+
+  return formattedMonth;
+};
+
 const validateExpiry = expiry => {
   const cleaned = expiry.replace(/\D/g, '');
   if (cleaned.length < 4) return { valid: false, message: 'Incomplete expiry date' };
@@ -95,29 +154,27 @@ function CheckoutForm({ onSubmit, submitting = false }) {
     const newValidationErrors = { ...validationErrors };
 
     switch (name) {
-      case 'cardNumber':
-        sanitizedValue = value.replace(/\D/g, '');
-        if (sanitizedValue.length >= 13) {
-          const cardType = getCardType(sanitizedValue);
-          const expectedLength = getCardLength(cardType);
+      case 'cardNumber': {
+        const digitsOnly = value.replace(/\D/g, '');
+        const numberCardType = getCardType(digitsOnly);
+        const expectedLength = getCardLength(numberCardType);
 
-          if (sanitizedValue.length === expectedLength) {
-            if (luhnCheck(sanitizedValue)) {
-              newValidationErrors.cardNumber = '';
-            } else {
-              newValidationErrors.cardNumber = 'Invalid card number';
-            }
-          } else if (sanitizedValue.length > expectedLength) {
-            sanitizedValue = sanitizedValue.slice(0, expectedLength);
-          } else {
-            newValidationErrors.cardNumber = '';
-          }
+        let trimmed = digitsOnly;
+        if (trimmed.length > expectedLength) {
+          trimmed = trimmed.slice(0, expectedLength);
+        }
+
+        if (trimmed.length === expectedLength) {
+          newValidationErrors.cardNumber = luhnCheck(trimmed) ? '' : 'Invalid card number';
         } else {
           newValidationErrors.cardNumber = '';
         }
+
+        sanitizedValue = formatCardNumber(trimmed, numberCardType);
         break;
+      }
       case 'expiry':
-        sanitizedValue = value.replace(/[^0-9/]/g, '');
+        sanitizedValue = normalizeExpiryInput(value);
         if (sanitizedValue.length > 7) sanitizedValue = sanitizedValue.slice(0, 7);
 
         if (sanitizedValue.length >= 4) {
@@ -127,12 +184,13 @@ function CheckoutForm({ onSubmit, submitting = false }) {
           newValidationErrors.expiry = '';
         }
         break;
-      case 'cvc':
+      case 'cvc': {
         sanitizedValue = value.replace(/\D/g, '');
         if (sanitizedValue.length > 4) sanitizedValue = sanitizedValue.slice(0, 4);
 
-        const cardType = getCardType(formData.cardNumber);
-        const requiredCvcLength = cardType === 'American Express' ? 4 : 3;
+        const cardDigits = formData.cardNumber.replace(/\D/g, '');
+        const cardTypeForCvc = getCardType(cardDigits);
+        const requiredCvcLength = cardTypeForCvc === 'American Express' ? 4 : 3;
 
         if (sanitizedValue.length > 0 && sanitizedValue.length < requiredCvcLength) {
           newValidationErrors.cvc = `CVC must be ${requiredCvcLength} digits`;
@@ -140,6 +198,7 @@ function CheckoutForm({ onSubmit, submitting = false }) {
           newValidationErrors.cvc = '';
         }
         break;
+      }
       case 'email':
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (value && !emailRegex.test(value)) {
@@ -168,11 +227,12 @@ function CheckoutForm({ onSubmit, submitting = false }) {
     const errors = {};
 
     // Card number validation
-    const cardType = getCardType(formData.cardNumber);
-    const expectedLength = getCardLength(cardType);
-    if (formData.cardNumber.length !== expectedLength) {
+    const digitsOnlyCardNumber = formData.cardNumber.replace(/\D/g, '');
+    const submissionCardType = getCardType(digitsOnlyCardNumber);
+    const expectedLength = getCardLength(submissionCardType);
+    if (digitsOnlyCardNumber.length !== expectedLength) {
       errors.cardNumber = `Card number must be ${expectedLength} digits`;
-    } else if (!luhnCheck(formData.cardNumber)) {
+    } else if (!luhnCheck(digitsOnlyCardNumber)) {
       errors.cardNumber = 'Invalid card number';
     }
 
@@ -183,7 +243,7 @@ function CheckoutForm({ onSubmit, submitting = false }) {
     }
 
     // CVC validation
-    const requiredCvcLength = cardType === 'American Express' ? 4 : 3;
+    const requiredCvcLength = submissionCardType === 'American Express' ? 4 : 3;
     if (formData.cvc.length !== requiredCvcLength) {
       errors.cvc = `CVC must be ${requiredCvcLength} digits`;
     }
@@ -204,7 +264,10 @@ function CheckoutForm({ onSubmit, submitting = false }) {
     setErrorMessage('');
 
     try {
-      await onSubmit(formData);
+      await onSubmit({
+        ...formData,
+        cardNumber: digitsOnlyCardNumber,
+      });
       setLoading(false);
     } catch (error) {
       setLoading(false);

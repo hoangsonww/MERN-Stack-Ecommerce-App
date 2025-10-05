@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { upsertVectors, purgeNamespace } = require('../pineconeClient');
+const { upsertVectors, purgeNamespace, getNamespaceVectorCount } = require('../pineconeClient');
 
 const {
   MONGO_URI,
@@ -60,12 +60,23 @@ module.exports = async function syncPinecone() {
     return;
   }
 
+  const namespace = process.env.PINECONE_NAMESPACE || '';
+  const existingVectorCount = await getNamespaceVectorCount(namespace);
+
+  if (existingVectorCount && existingVectorCount === products.length) {
+    console.log(`ℹ️  Pinecone namespace already contains ${existingVectorCount} vectors. Skipping purge and upsert.`);
+    if (shouldDisconnect) {
+      await mongoose.disconnect();
+    }
+    return;
+  }
+
   console.log(`🚀 Syncing ${products.length} products to Pinecone...`);
 
   const shouldPurge = PINECONE_PURGE_ON_SYNC !== 'false';
   if (shouldPurge) {
     try {
-      await purgeNamespace(process.env.PINECONE_NAMESPACE || '');
+      await purgeNamespace(namespace);
       console.log('🧹 Cleared existing Pinecone vectors for namespace');
     } catch (err) {
       console.error('⚠️  Failed to purge Pinecone namespace:', err);
@@ -104,7 +115,7 @@ module.exports = async function syncPinecone() {
 
     if (!vectors.length) continue;
 
-    await upsertVectors(vectors, process.env.PINECONE_NAMESPACE || '');
+    await upsertVectors(vectors, namespace);
 
     if (syncedIds.length) {
       await Product.bulkWrite(

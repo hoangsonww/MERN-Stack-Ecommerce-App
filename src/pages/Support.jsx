@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useLocation } from 'react-router-dom';
 import { Container, Typography, Accordion, AccordionSummary, AccordionDetails, TextField, Button, Grid, Paper, Stack, Chip } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PhoneForwardedIcon from '@mui/icons-material/PhoneForwarded';
@@ -48,6 +49,7 @@ const faqs = [
 function Support() {
   const [form, setForm] = React.useState({ name: '', email: '', topic: '', message: '' });
   const { notify } = useNotifier();
+  const location = useLocation();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -58,9 +60,10 @@ function Support() {
     event.preventDefault();
     const name = form.name.trim();
     const email = form.email.trim();
+    const topic = form.topic.trim();
     const message = form.message.trim();
 
-    if (!name || !email || !message) {
+    if (!name || !email || !topic || !message) {
       notify({ severity: 'warning', message: 'Please complete all required fields.' });
       return;
     }
@@ -72,9 +75,32 @@ function Support() {
     }
 
     notify({ severity: 'info', message: 'Submitting your request…', autoHideDuration: 2200 });
+    setTimeout(() => {
+      notify({ severity: 'success', message: 'Contact request submitted! A specialist will reach out within 24 hours.' });
+    }, 350);
     setForm({ name: '', email: '', topic: '', message: '' });
-    notify({ severity: 'success', message: 'Thanks for contacting us! A specialist will respond within 24 hours.' });
   };
+
+  React.useEffect(() => {
+    const { hash } = location;
+    if (!hash || hash === '#faq') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const targetId = hash.replace('#', '');
+    const scrollToSection = () => {
+      const node = document.getElementById(targetId);
+      if (node) {
+        const offset = 96;
+        const nodeTop = node.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: nodeTop, behavior: 'smooth' });
+      }
+    };
+
+    const timeout = window.setTimeout(scrollToSection, 120);
+    return () => window.clearTimeout(timeout);
+  }, [location]);
 
   return (
     <Container maxWidth="lg" sx={{ pb: 10 }}>
@@ -175,7 +201,15 @@ function Support() {
                   <TextField label="Email" name="email" type="email" value={form.email} onChange={handleChange} fullWidth required />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField label="Topic" name="topic" value={form.topic} onChange={handleChange} placeholder="Orders, returns, product advice" fullWidth />
+                  <TextField
+                    label="Topic"
+                    name="topic"
+                    value={form.topic}
+                    onChange={handleChange}
+                    placeholder="Orders, returns, product advice"
+                    fullWidth
+                    required
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField label="How can we help?" name="message" value={form.message} onChange={handleChange} multiline rows={4} fullWidth required />
