@@ -156,7 +156,7 @@ function Support() {
         </Grid>
       </Grid>
 
-      <Stack spacing={2} sx={{ mt: 8 }} id="faq">
+      <Stack spacing={2} sx={{ mt: 8, mb: 2 }} id="faq">
         <Typography variant="h4" fontWeight={700}>
           Frequently asked questions
         </Typography>
@@ -192,7 +192,7 @@ function Support() {
             </Stack>
           </Grid>
           <Grid item xs={12} md={7}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField label="Name" name="name" value={form.name} onChange={handleChange} fullWidth required />

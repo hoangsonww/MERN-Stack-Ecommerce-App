@@ -546,17 +546,29 @@ const productSeeds = [
   },
 ];
 
-const seedDB = async () => {
-  await Product.deleteMany({});
-  await Product.insertMany(productSeeds);
-  console.log('Products data seeded successfully!');
+const seedDB = async ({ force = false, skipIfExists = true } = {}) => {
+  const existingCount = await Product.estimatedDocumentCount();
+
+  if (!force && skipIfExists && existingCount > 0) {
+    console.log(`Products already exist (count=${existingCount}). Skipping seed.`);
+    return { seeded: false, skipped: true, existingCount };
+  }
+
+  if (force) {
+    await Product.deleteMany({});
+  }
+
+  const insertedDocs = await Product.insertMany(productSeeds, { ordered: false });
+  console.log(`Products data seeded successfully! Inserted ${insertedDocs.length} records.`);
+
+  return { seeded: true, skipped: false, inserted: insertedDocs.length };
 };
 
 // Only runs when the "node productSeeds.js dev" command is executed manually
 if (process.argv[2] == 'dev') {
   dotenv.config({ path: path.resolve(__dirname, '../.env') });
   mongoose.connect(process.env.MONGO_URI, {}).then(async () => {
-    await seedDB();
+    await seedDB({ force: true, skipIfExists: false });
     process.exit();
   });
 }

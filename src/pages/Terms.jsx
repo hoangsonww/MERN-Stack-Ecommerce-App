@@ -51,7 +51,7 @@ function Terms() {
         </Typography>
       </Stack>
 
-      <Paper elevation={0} sx={{ p: { xs: 3, md: 5 }, borderRadius: 4 }}>
+      <Paper elevation={0} sx={{ pr: 4, pt: 1, borderRadius: 4 }}>
         <Stack spacing={4}>
           {termsSections.map(section => (
             <Grid container spacing={3} key={section.title} alignItems="flex-start">
@@ -72,10 +72,10 @@ function Terms() {
           <Divider />
 
           <Box>
-            <Typography variant="h6" fontWeight={700} gutterBottom>
+            <Typography variant="h6" fontWeight={700} gutterBottom sx={{ pl: 4 }}>
               Your responsibilities
             </Typography>
-            <List dense sx={{ pl: 0 }}>
+            <List dense sx={{ pl: 4, pb: 4 }}>
               <ListItem disableGutters>
                 <ListItemIcon sx={{ minWidth: 32 }}>
                   <GavelIcon color="primary" fontSize="small" />
