@@ -1,9 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { apiClient } from '../services/apiClient';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Register from '../pages/Register';
 
-jest.mock('axios');
+jest.mock('../services/apiClient', () => {
+  const actual = jest.requireActual('../services/apiClient');
+  return {
+    ...actual,
+    apiClient: { post: jest.fn() },
+  };
+});
 
 describe('<Register />', () => {
   beforeEach(() => {
@@ -60,12 +66,12 @@ describe('<Register />', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /register/i }));
 
-    expect(axios.post).not.toHaveBeenCalled();
+    expect(apiClient.post).not.toHaveBeenCalled();
     expect(await screen.findByText(/passwords do not match/i)).toBeInTheDocument();
   });
 
   it('on success stores token & redirects', async () => {
-    axios.post.mockResolvedValueOnce({ data: { token: 'tok123' } });
+    apiClient.post.mockResolvedValueOnce({ data: { token: 'tok123' } });
 
     render(<Register />);
     fireEvent.change(screen.getByLabelText(/name/i, { selector: 'input' }), {
@@ -80,13 +86,13 @@ describe('<Register />', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /register/i }));
 
-    await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(apiClient.post).toHaveBeenCalledTimes(1));
     await waitFor(() => expect(localStorage.getItem('token')).toBe('tok123'));
     await waitFor(() => expect(window.location.href).toBe('/'));
   });
 
   it('renders concatenated validation errors from server', async () => {
-    axios.post.mockRejectedValueOnce({
+    apiClient.post.mockRejectedValueOnce({
       response: { data: { errors: [{ msg: 'Err1' }, { msg: 'Err2' }] } },
     });
 
@@ -101,7 +107,7 @@ describe('<Register />', () => {
   });
 
   it('renders single server error message', async () => {
-    axios.post.mockRejectedValueOnce({
+    apiClient.post.mockRejectedValueOnce({
       response: { data: { msg: 'Single error' } },
     });
 

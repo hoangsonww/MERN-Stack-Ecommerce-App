@@ -1,7 +1,8 @@
 # Fusion Electronics: A MERN-Stack E-commerce Application
 
 Welcome to **Fusion Electronics**, a **MERN-Stack E-commerce Application**! This project is a working demo of a full-stack web application that was built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Additionally, it also includes features such as user authentication, checkout process, product recommendations with vector search, and more!
-It aims to provide a comprehensive example of building a modern e-commerce platform, covering frontend user interface, backend server logic, database management, and integration with third-party libraries.
+
+It also aims to provide a comprehensive example of building a modern e-commerce platform, covering frontend user interface, backend server logic, database management, and integration with third-party libraries. Let's dive in!
 
 <p align="center">
   <a href="https://fusion-ecommerce-app.vercel.app/" target="_blank">
@@ -44,7 +45,7 @@ It aims to provide a comprehensive example of building a modern e-commerce platf
 
 This project is a demonstration of building an e-commerce application using the MERN stack, which consists of MongoDB (database), Express.js (server), React.js (frontend), and Node.js (runtime environment). The application allows users to browse products, add them to a shopping cart, proceed to checkout, and simulate the order processing. It includes comprehensive validations for user inputs and simulates the checkout process on the backend.
 
-The application is designed to be user-friendly and responsive, providing a seamless shopping experience. It also includes features such as product search, user authentication, and order confirmation. Additionally, it uses Weaviate for product recommendations based on vector search, enhancing the user experience by suggesting relevant products.
+The application is designed to be user-friendly and responsive, providing a seamless shopping experience. It also includes features such as product search, user authentication, and order confirmation. Additionally, it uses Pinecone (with optional Weaviate support) for product recommendations based on vector search, enhancing the user experience by suggesting relevant products.
 
 <p align="center">
   <a href="https://react.dev">
@@ -67,6 +68,9 @@ The application is designed to be user-friendly and responsive, providing a seam
   </a>
   <a href="https://weaviate.io/">
     <img src="https://img.shields.io/badge/Weaviate-Vector%20Database-FF6F00?logo=weblate&logoColor=white" alt="Weaviate badge" />
+  </a>
+  <a href="https://www.pinecone.io/">
+    <img src="https://img.shields.io/badge/Pinecone-Vector%20Database-0f9d58?logo=pinecone&logoColor=white" alt="Pinecone badge" />
   </a>
   <a href="https://https://ai.meta.com/tools/faiss/">
     <img src="https://img.shields.io/badge/FAISS-Vector%20Search-00A4FF?logo=facebook&logoColor=white" alt="FAISS badge" />
@@ -139,7 +143,7 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 > **Note**: The backend server may take a few seconds to wake up if it has been inactive for a while. For your information, it is hosted on the free tier of Render, with 0.1 CPU and 512 MB of memory only, so it may take a bit longer to respond to requests, especially after periods of inactivity.
 
 > [!CAUTION]
-> **Warning**: We are currently on the free trial of Weaviate. Once we run out of the free credits, the product recommendations feature will not work until we upgrade to a paid plan (but I'm a college student, so I don't have the budget to do that right now...) However, you can still run the application locally and set up your own Weaviate instance to enable product recommendations - please refer to the [Product Recommendations with Vector Database](#product-recommendations-with-vector-database) section for more details.
+> **Warning**: The vector recommendation pipeline relies on Pinecone's serverless index (free tier). Please make sure your Pinecone project has enough credits and remains active; otherwise, recommendation calls may fall back to heuristic suggestions. You can always run the application locally and provision your own Pinecone and/or Weaviate instances—see [Product Recommendations with Vector Database](#product-recommendations-with-vector-database) for setup details.
 
 ## User Interface
 
@@ -183,6 +187,18 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 
 <p align="center">
     <img src="docs/checkout-ui.png" alt="Fusion Electronics Checkout Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### Support Page
+
+<p align="center">
+    <img src="docs/support-ui.png" alt="Fusion Electronics Support Page" style="border-radius: 10px" width="100%"/>
+</p>
+
+### About Page
+
+<p align="center">
+    <img src="docs/about-ui.png" alt="Fusion Electronics About Page" style="border-radius: 10px" width="100%"/>
 </p>
 
 ### Login Page
@@ -235,6 +251,13 @@ The **backup** backend server is deployed on Render and can be accessed at the f
 
 - **Checkout Process:**
     - Enter billing, shipping, and payment information.
+    - **Client-side credit card validation:**
+        - Luhn algorithm validation for card number verification
+        - Automatic card type detection (Visa, Mastercard, Amex, Discover, Diners Club, JCB)
+        - Real-time validation with visual error feedback
+        - Expiry date validation (checks for valid month and ensures card hasn't expired)
+        - CVC validation (3 digits for most cards, 4 for American Express)
+        - Email format validation
     - Simulate the order creation process on the backend.
     - Receive confirmation of order success.
 
@@ -262,7 +285,7 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - Swagger for API documentation
     - Nodemon for server hot-reloading
     - **Middleware**: JWT for securing API endpoints
-    - **Weaviate** for product recommendations with vector database
+    - **Pinecone** and **Weaviate** for product recommendations with vector databases
     - **FAISS & LangChain** for efficient similarity search
     - Jest for unit and integration testing
 
@@ -298,10 +321,13 @@ fullstack-ecommerce/
 │   │   ├── search-faiss-index.js  # Script to search FAISS index
 │   │   ├── query-weaviate.js      # Script to query Weaviate
 │   │   ├── weaviate-upsert.js     # Script to upsert products to Weaviate
-│   │   └── sync-weaviate.js       # Script to synchronize products with Weaviate
+│   │   ├── sync-weaviate.js       # Script to synchronize products with Weaviate
+│   │   └── sync-pinecone.js       # Script to synchronize products with Pinecone
 │   ├── seed/                      # Database seed data
 │   │   └── productSeeds.js        # Product seed data
+│   ├── services/                  # Shared services (e.g., Pinecone sync helpers)
 │   ├── weaviateClient.js          # Weaviate client setup
+│   ├── pineconeClient.js          # Pinecone client setup
 │   ├── faiss.sh                   # FAISS index setup script
 │   ├── .env                       # Environment variables
 │   └── index.js                   # Server entry point
@@ -424,62 +450,54 @@ Before running this project, ensure you have the following installed:
 
 ## Product Recommendations with Vector Database
 
-The application uses **Weaviate & FAISS** as vector databases/stores to provide product recommendations based on vector search. The product data is indexed in Weaviate, allowing for efficient similarity searches and recommendations.
+The application uses **Pinecone** as the primary vector database while still supporting **Weaviate**, **FAISS**, and **LangChain** for additional experimentation. Pinecone keeps MongoDB products and vector embeddings in sync automatically, ensuring recommendations remain fresh.
 
-To set up **Weaviate** for product recommendations, follow these steps:
+### Configure Pinecone (required)
 
-1. **Sign up for a Weaviate account** at [Weaviate Cloud](https://console.weaviate.io/).
-2. **Create a new Weaviate instance** and note the API endpoint.
-3. **Get your Weaviate API key** from the Weaviate console.
-4. **Update the `.env` file in the `backend/` directory** with your Weaviate API endpoint and API key:
+1. **Create a Pinecone project and serverless index** (e.g., `ecommerce-products`) in the AWS `us-east-1` region.
+2. **Add the following variables to `backend/.env`**:
+   ```
+   PINECONE_API_KEY=your_pinecone_api_key
+   PINECONE_HOST=https://your-index.svc.YOUR-REGION.pinecone.io
+   PINECONE_INDEX=ecommerce-products
+   PINECONE_NAMESPACE=ecommerce-products # optional
+   GOOGLE_AI_API_KEY=your_google_ai_api_key
+   PINECONE_PURGE_ON_SYNC=true # set to false to skip clearing existing vectors during sync
+   ```
+   The Google AI key powers the embedding model (`text-embedding-004`).
+3. **Sync MongoDB products into Pinecone**:
+   ```bash
+   cd backend
+   npm run sync-pinecone
+   ```
+   The backend also runs this sync during startup and re-syncs vectors automatically whenever products are created, updated (name/description/price/brand/image/category), or deleted. When `PINECONE_PURGE_ON_SYNC` is true (default), the sync clears the namespace first to prevent stale vectors building up.
+
+### Optional: Configure Weaviate & FAISS
+
+1. **Provision a Weaviate instance** at [Weaviate Cloud](https://console.weaviate.io/) and collect the host + API key.
+2. **Add the variables to `backend/.env`**:
    ```
    WEAVIATE_HOST=https://your-weaviate-instance.weaviate.network
    WEAVIATE_API_KEY=your_weaviate_api_key
    ```
-5. **Run the Weaviate client script** to index the product data:
+3. **Index existing products in Weaviate**:
    ```bash
    cd backend
    npm run weaviate-upsert
-   ```
-6. **Synchronize the product data** with Weaviate by running the following command:
-   ```bash
    npm run sync-weaviate
    ```
-7. **Start or restart the backend server** to apply the changes:
-   ```bash
-   npm start
-   ```
-   
-Additionally, to set up FAISS & LangChain for efficient similarity search, you can run the following commands in the `backend/scripts/` directory:
-   
-1. **Build the FAISS index**:
+   If you want the recommendation endpoints to prioritize Weaviate responses, set `RECOMMENDATION_PREFER_WEAVIATE=true` in `backend/.env`.
+4. *(Optional)* **Build and query the FAISS index**:
    ```bash
    cd backend
-   node build-faiss-index.js
+   node scripts/build-faiss-index.js
+   npm run faiss-search -- "your search text" 5
    ```
-   
-2. **Search efficiently with LangChain**:
-   ```bash
-     npm run faiss-search -- "your search text" 5
-    ```
-   
-Replace `"your search text"` with the text you want to search for, and `5` with the number of results you want to retrieve. It should return something like:
 
-```plaintext
-🔍 Top 5 results for "your search text 5":
-
-1. id=6874a44ee237afdff3374d27    distance=1.2893
-2. id=6874a44ee237afdff3374d25    distance=1.3328
-3. id=6874a44ee237afdff3374d23    distance=1.3522
-4. id=6874a44ee237afdff3374d2e    distance=1.3739
-5. id=6874a44ee237afdff3374d28    distance=1.3753
-```
-
-Now, the application will use Weaviate & FAISS & LangChain to provide product recommendations based on vector search. When users view a product, they will see recommended products based on similarity to the viewed product.
-Try going to the product details page of any product, and you will see a list of recommended products based on the current product!
+With Pinecone configured, product pages and bundles leverage vector similarity for recommendations. When Pinecone or Weaviate lookups have no matches, the API falls back to metadata-based heuristics to ensure users always see relevant suggestions.
 
 > [!TIP]
-> For now, the free trial of Weaviate would suffice for testing purposes. However, if you want to run your own Weaviate instance, you can follow the [Weaviate documentation](https://weaviate.io/developers/weaviate/current/getting-started/installation.html) to set it up locally or on a cloud provider.
+> Pinecone, Weaviate, and FAISS can comfortably coexist—keep your Pinecone index active for production traffic, and spin up Weaviate/FAISS locally when you want to compare engines or run experiments.
 
 ## Testing the APIs
 

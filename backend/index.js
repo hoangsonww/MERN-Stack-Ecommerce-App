@@ -4,7 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const seedDB = require('./seed/productSeeds');
-const syncWeaviate = require('./sync/syncWeaviate');
+const syncPinecone = require('./sync/syncPinecone');
 const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const authRoutes = require('./routes/auth');
@@ -14,7 +14,7 @@ const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Database Connection + Seed + Weaviate Sync + Server Start
+// Database Connection + Seed + Vector Sync + Server Start
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
@@ -31,12 +31,12 @@ mongoose
       console.error('❌ Seeding error:', err);
     }
 
-    // 2. Sync with Weaviate
+    // 2. Sync with Pinecone (primary recommendation engine)
     try {
-      await syncWeaviate();
-      console.log('✅ Weaviate synced');
+      await syncPinecone();
+      console.log('✅ Pinecone synced');
     } catch (err) {
-      console.error('❌ Weaviate sync error:', err);
+      console.error('❌ Pinecone sync error (continuing with fallbacks):', err);
     }
 
     // 3. Start Express server

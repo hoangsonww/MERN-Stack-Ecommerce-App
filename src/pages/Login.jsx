@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment } from '@mui/material';
+import { Box, Container, TextField, Typography, Button, CircularProgress, Paper, IconButton, InputAdornment, Stack } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import axios from 'axios';
+import { apiClient } from '../services/apiClient';
+import { useNotifier } from '../context/NotificationProvider';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { notify } = useNotifier();
 
   const handleLogin = async e => {
     e.preventDefault();
@@ -16,17 +18,23 @@ function Login() {
     setError(null);
 
     try {
-      const response = await axios.post('https://fusion-electronics-api.vercel.app/api/auth/login', { email, password });
+      const response = await apiClient.post('auth/login', { email, password });
       const token = response.data.token;
       localStorage.setItem('MERNEcommerceToken', token);
-      window.location.href = '/';
+      notify({ severity: 'success', message: 'Welcome back! Redirecting…' });
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 400);
     } catch (err) {
       if (err.response?.data?.errors) {
         // Format the error messages for display
         const errorMessages = err.response.data.errors.map(error => error.msg).join(', ');
         setError(errorMessages);
+        notify({ severity: 'error', message: errorMessages });
       } else {
-        setError(err.response?.data?.msg || 'Login failed');
+        const message = err.response?.data?.msg || 'Login failed';
+        setError(message);
+        notify({ severity: 'error', message });
       }
     } finally {
       setLoading(false);
@@ -39,14 +47,19 @@ function Login() {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 4 }}>
-      <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Login
-        </Typography>
+    <Container maxWidth="sm" sx={{ mt: 6, mb: 8 }}>
+      <Paper elevation={3} sx={{ p: { xs: 4, md: 5 }, borderRadius: 3 }}>
+        <Stack spacing={1} sx={{ mb: 3 }}>
+          <Typography variant="h4" align="center" fontWeight={700}>
+            Welcome back
+          </Typography>
+          <Typography variant="body2" align="center" color="text.secondary">
+            Sign in to access your saved carts, orders, and personalised picks.
+          </Typography>
+        </Stack>
 
         {error && (
-          <Typography variant="body2" color="error" sx={{ mb: 2, textAlign: 'center' }}>
+          <Typography variant="body2" color="error" sx={{ display: 'none' }}>
             {error}
           </Typography>
         )}

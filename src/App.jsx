@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Container, CssBaseline } from '@mui/material';
+import { Box, Container, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import NavigationBar from './components/NavigationBar';
 import Home from './pages/Home';
@@ -15,6 +15,11 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import NotFoundPage from './pages/NotFoundPage';
 import Footer from './components/Footer';
+import About from './pages/About';
+import Support from './pages/Support';
+import ScrollToTop from './components/ScrollToTop';
+import { apiClient, withRetry } from './services/apiClient';
+import { useNotifier } from './context/NotificationProvider';
 
 const theme = createTheme({
   palette: {
@@ -24,9 +29,64 @@ const theme = createTheme({
     secondary: {
       main: '#f50057',
     },
+    background: {
+      default: '#f4f7fb',
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#1f2933',
+      secondary: '#4b5563',
+    },
   },
   typography: {
     fontFamily: 'Poppins, sans-serif',
+    h3: {
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 700,
+    },
+    button: {
+      fontWeight: 600,
+      textTransform: 'none',
+    },
+  },
+  shape: {
+    borderRadius: 14,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 999,
+          textTransform: 'none',
+          paddingInline: 20,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 18,
+          boxShadow: '0 16px 30px rgba(40, 116, 240, 0.08)',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 18,
+          boxShadow: '0 18px 42px rgba(15, 23, 42, 0.08)',
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: '#f4f7fb',
+        },
+      },
+    },
   },
 });
 
@@ -34,58 +94,129 @@ function App() {
   const [products, setProducts] = React.useState([]);
   const [cart, setCart] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const { notify } = useNotifier();
 
   React.useEffect(() => {
+    try {
+      const storedCart = JSON.parse(localStorage.getItem('fusionCart'));
+      if (Array.isArray(storedCart) && storedCart.length) {
+        setCart(storedCart);
+      }
+    } catch (storageError) {
+      console.warn('Unable to restore saved cart', storageError);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem('fusionCart', JSON.stringify(cart));
+  }, [cart]);
+
+  React.useEffect(() => {
+    let active = true;
+
     const fetchProducts = async () => {
+      setError(null);
       try {
-        // Be sure to replace the endpoint if your API (backend server) is running on a different port or domain
-        const response = await fetch('https://fusion-electronics-api.vercel.app/api/products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching products:', error);
+        const { data } = await withRetry(() => apiClient.get('products'));
+        if (!Array.isArray(data)) {
+          throw new Error('Unexpected products response.');
+        }
+        const normalized = data.map(product => {
+          const canonicalId = product?._id || product?.id;
+          return {
+            ...product,
+            _id: canonicalId,
+            id: canonicalId,
+          };
+        });
+        if (active) {
+          setProducts(normalized);
+        }
+      } catch (err) {
+        if (!active) return;
+        console.error('Error fetching products:', err);
+        setProducts([]);
+        setError(err);
+        notify({ severity: 'error', message: 'Unable to load products. Please try again shortly.' });
       } finally {
-        setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProducts();
-  }, []);
 
-  const addToCart = product => {
-    setCart([...cart, product]);
-  };
+    return () => {
+      active = false;
+    };
+  }, [notify]);
+
+  const addToCart = React.useCallback(
+    product => {
+      if (!product) return;
+      const canonicalId = product._id || product.id;
+      if (!canonicalId) {
+        notify({ severity: 'error', message: 'Unable to add this product right now.' });
+        return;
+      }
+      setCart(prevCart => {
+        const alreadyInCart = prevCart.some(item => item.id === canonicalId || item._id === canonicalId);
+        if (alreadyInCart) {
+          notify({ severity: 'info', message: 'Item is already in your cart.' });
+          return prevCart;
+        }
+        notify({ severity: 'success', message: 'Added to cart!' });
+        const normalized = { ...product, id: canonicalId, _id: canonicalId };
+        return [...prevCart, normalized];
+      });
+    },
+    [notify]
+  );
+
+  const handleOrderComplete = React.useCallback(() => {
+    setCart([]);
+    notify({ severity: 'success', message: 'Thank you for your order!' });
+  }, [notify]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <ScrollToTop />
         <NavigationBar cartItemCount={cart.length} />
-        <Container>
-          <Routes>
-            <Route path="/" element={<Home products={products} loading={loading} addToCart={addToCart} />} />
+        <Box component="main" sx={{ minHeight: 'calc(100vh - 200px)' }}>
+          <Container maxWidth="xl" sx={{ pb: 8 }}>
+            <Routes>
+              <Route path="/" element={<Home products={products} loading={loading} error={error} addToCart={addToCart} />} />
 
-            <Route path="/shop" element={<Shop products={products} addToCart={addToCart} loading={loading} />} />
+              <Route path="/shop" element={<Shop products={products} addToCart={addToCart} loading={loading} error={error} />} />
 
-            <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
+              <Route path="/about" element={<About />} />
 
-            <Route path="/checkout" element={<Checkout />} />
+              <Route path="/support" element={<Support />} />
 
-            <Route path="/order-success" element={<OrderSuccess />} />
+              <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
 
-            <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
+              <Route path="/checkout" element={<Checkout cartItems={cart} onOrderComplete={handleOrderComplete} />} />
 
-            <Route path="/login" element={<Login />} />
+              <Route path="/order-success" element={<OrderSuccess />} />
 
-            <Route path="/register" element={<Register />} />
+              <Route path="/product/:id" element={<ProductDetails addToCart={addToCart} />} />
 
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/login" element={<Login />} />
 
-            <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/register" element={<Register />} />
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Container>
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+
+              <Route path="/reset-password" element={<ResetPassword />} />
+
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Container>
+        </Box>
         <Footer />
       </BrowserRouter>
     </ThemeProvider>

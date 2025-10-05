@@ -4,9 +4,10 @@ import { Alert, AlertTitle, Collapse, Link, Stack } from '@mui/material';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import axios from 'axios';
 import { Typography, Container, Grid, Paper, Button, CircularProgress, Rating, Chip, Box, Card, CardActionArea, CardMedia, CardContent } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { apiClient, withRetry } from '../services/apiClient';
+import { useNotifier } from '../context/NotificationProvider';
 
 function SimilarProductsError({ onRetry }) {
   const [showDetails, setShowDetails] = React.useState(false);
@@ -82,11 +83,12 @@ function ProductDetails({ addToCart }) {
   const [userRating, setUserRating] = useState(0);
   const [recommended, setRecommended] = useState([]);
   const [recLoading, setRecLoading] = useState(true);
+  const { notify } = useNotifier();
 
   useEffect(() => {
     async function fetchProduct() {
       try {
-        const { data } = await axios.get(`https://fusion-electronics-api.vercel.app/api/products/${id}`);
+        const { data } = await withRetry(() => apiClient.get(`products/${id}`));
         if (data) {
           setProduct(data);
           setUserRating(data.rating);
@@ -103,7 +105,7 @@ function ProductDetails({ addToCart }) {
     async function fetchRecommended() {
       setRecLoading(true);
       try {
-        const { data: recs } = await axios.get(`https://fusion-electronics-api.vercel.app/api/products/${id}/similar`);
+        const { data: recs } = await withRetry(() => apiClient.get(`products/${id}/similar`));
         setRecommended(recs || []);
       } catch (err) {
         console.error('Error fetching recommendations:', err);
@@ -143,14 +145,16 @@ function ProductDetails({ addToCart }) {
   const handleRatingChange = async (_e, newRating) => {
     setUserRating(newRating);
     try {
-      await axios.put(`https://fusion-electronics-api.vercel.app/api/products/${id}/rating`, { rating: newRating });
+      await apiClient.put(`products/${id}/rating`, { rating: newRating });
       setProduct(prev => ({
         ...prev,
         rating: newRating,
         numReviews: prev.numReviews + 1,
       }));
+      notify({ severity: 'success', message: 'Thanks for the feedback!' });
     } catch (err) {
       console.error('Error updating rating:', err);
+      notify({ severity: 'error', message: 'Could not update your rating right now.' });
     }
   };
 

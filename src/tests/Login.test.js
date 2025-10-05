@@ -1,9 +1,15 @@
 import React from 'react';
-import axios from 'axios';
+import { apiClient } from '../services/apiClient';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Login from '../pages/Login';
 
-jest.mock('axios');
+jest.mock('../services/apiClient', () => {
+  const actual = jest.requireActual('../services/apiClient');
+  return {
+    ...actual,
+    apiClient: { post: jest.fn() },
+  };
+});
 
 describe('<Login />', () => {
   beforeEach(() => {
@@ -36,7 +42,7 @@ describe('<Login />', () => {
   });
 
   it('on success stores token and redirects', async () => {
-    axios.post.mockResolvedValueOnce({ data: { token: 'abc123' } });
+    apiClient.post.mockResolvedValueOnce({ data: { token: 'abc123' } });
 
     render(<Login />);
     fireEvent.change(screen.getByLabelText(/email/i, { selector: 'input' }), {
@@ -48,7 +54,7 @@ describe('<Login />', () => {
 
     // wait for the axios call
     await waitFor(() => {
-      expect(axios.post).toHaveBeenCalledTimes(1);
+      expect(apiClient.post).toHaveBeenCalledTimes(1);
     });
 
     // now wait for localStorage to be updated
@@ -63,7 +69,7 @@ describe('<Login />', () => {
   });
 
   it('displays concatenated validation errors from server', async () => {
-    axios.post.mockRejectedValueOnce({
+    apiClient.post.mockRejectedValueOnce({
       response: { data: { errors: [{ msg: 'Bad email' }, { msg: 'Short pw' }] } },
     });
 
@@ -74,7 +80,7 @@ describe('<Login />', () => {
   });
 
   it('displays single error message from server', async () => {
-    axios.post.mockRejectedValueOnce({
+    apiClient.post.mockRejectedValueOnce({
       response: { data: { msg: 'Invalid credentials' } },
     });
 
