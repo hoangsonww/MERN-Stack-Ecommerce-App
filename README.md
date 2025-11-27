@@ -679,7 +679,9 @@ This guide enables you to view, test, and utilize the API. You can generate clie
 
 ## Deployment
 
+Fusion Electronics supports a wide range of deployment platforms, including Vercel, Render, AWS, and more. You can deploy both the frontend and backend servers to your preferred cloud provider. 
 
+It also supports containerized and enterprise-grade deployments (blue/green deployments, canary releases, etc.) using Docker and Kubernetes. For more details on deployments, see the [DEPLOYMENT GUIDE](DEPLOYMENT.md) file.
 
 ## Containerization
 
