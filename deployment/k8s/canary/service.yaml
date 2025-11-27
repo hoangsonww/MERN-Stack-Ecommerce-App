@@ -1,0 +1,45 @@
+---
+# Frontend Service - Routes to both stable and canary based on weights
+apiVersion: v1
+kind: Service
+metadata:
+  name: fusion-electronics-frontend
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: fusion-electronics
+    component: frontend
+    # No version selector - will route to both stable and canary
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  sessionAffinity: None  # Required for proper canary distribution
+
+---
+# Backend Service - Routes to both stable and canary based on weights
+apiVersion: v1
+kind: Service
+metadata:
+  name: fusion-electronics-backend
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: backend
+spec:
+  type: LoadBalancer
+  selector:
+    app: fusion-electronics
+    component: backend
+    # No version selector - will route to both stable and canary
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+    protocol: TCP
+  sessionAffinity: None  # Required for proper canary distribution

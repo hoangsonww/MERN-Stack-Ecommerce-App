@@ -81,6 +81,12 @@ The application is designed to be user-friendly and responsive, providing a seam
   <a href="https://www.npmjs.com/">
     <img src="https://img.shields.io/badge/npm-Node%20Package%20Manager-CB3837?logo=npm&logoColor=white" alt="npm badge" />
   </a>
+  <a href="https://kubernetes.io/">
+    <img src="https://img.shields.io/badge/Kubernetes-Container%20Orchestration-326CE5?logo=kubernetes&logoColor=white" alt="Kubernetes badge" />
+  </a>
+  <a href="https://aws.amazon.com/">
+    <img src="https://img.shields.io/badge/AWS-Cloud%20Platform-FF9900?logo=amazonaws&logoColor=white" alt="AWS badge" />
+  </a>
   <a href="https://vercel.com/">
     <img src="https://img.shields.io/badge/Vercel-Deploy-000000?logo=vercel&logoColor=white" alt="Vercel badge" />
   </a>
@@ -673,9 +679,9 @@ This guide enables you to view, test, and utilize the API. You can generate clie
 
 ## Deployment
 
-To deploy the application:
+Fusion Electronics supports a wide range of deployment platforms, including Vercel, Render, AWS, and more. You can deploy both the frontend and backend servers to your preferred cloud provider. 
 
-- Configure deployment settings for both frontend (React) and backend (Node.js) according to your chosen hosting provider (e.g., AWS, Heroku, Netlify).
+It also supports containerized and enterprise-grade deployments (blue/green deployments, canary releases, etc.) using Docker and Kubernetes. For more details on deployments, see the [DEPLOYMENT GUIDE](DEPLOYMENT.md) file.
 
 ## Containerization
 
