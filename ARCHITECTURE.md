@@ -1159,7 +1159,9 @@ graph TB
     end
 ```
 
-### Production Environment
+### Production Environment (Serverless)
+
+The production deployment leverages Vercel for frontend and API routes, with Render as a backup backend. MongoDB Atlas and Pinecone provide managed database services.
 
 ```mermaid
 graph TB
@@ -1178,7 +1180,191 @@ graph TB
     Render --> PineconeProd
 ```
 
-### CI/CD Pipeline
+### Enterprise Kubernetes Deployment
+
+Fusion Electronics also fully supports an enterprise-grade deployment architecture using Kubernetes for high availability, scalability, and advanced deployment strategies.
+
+```mermaid
+graph TB
+    subgraph Jenkins["Jenkins CI/CD Pipeline"]
+        Build["Build Stage<br/>- Install deps<br/>- Run tests<br/>- Security scan"]
+        Docker["Docker Build<br/>- Frontend image<br/>- Backend image"]
+        Deploy["Deploy Stage<br/>- Blue-Green<br/>- Canary<br/>- Rolling"]
+
+        Build --> Docker
+        Docker --> Deploy
+    end
+
+    subgraph K8s["Kubernetes Cluster"]
+        subgraph Ingress["Ingress Layer"]
+            NGINX["NGINX Ingress<br/>- TLS termination<br/>- Rate limiting<br/>- Load balancing"]
+        end
+
+        subgraph BlueGreen["Blue-Green Deployment"]
+            BlueEnv["Blue Environment<br/>Frontend: 3 pods<br/>Backend: 3 pods"]
+            GreenEnv["Green Environment<br/>Frontend: 3 pods<br/>Backend: 3 pods"]
+            BGService["Service<br/>Selector: version=blue/green"]
+        end
+
+        subgraph Canary["Canary Deployment"]
+            Stable["Stable Environment<br/>90% traffic<br/>9 pods"]
+            CanaryEnv["Canary Environment<br/>10% traffic<br/>1 pod"]
+            CanaryService["Service<br/>Routes to both"]
+        end
+
+        subgraph Monitoring["Monitoring & Autoscaling"]
+            HPA["Horizontal Pod Autoscaler<br/>CPU: 70%<br/>Memory: 80%"]
+            Prometheus["Prometheus<br/>Metrics collection"]
+            HealthChecks["Health Checks<br/>Liveness & Readiness"]
+        end
+    end
+
+    subgraph External["External Services"]
+        MongoAtlas["MongoDB Atlas<br/>Primary database"]
+        PineconeK8s["Pinecone<br/>Vector database"]
+        Registry["Container Registry<br/>Docker images"]
+    end
+
+    Deploy --> NGINX
+    NGINX --> BlueGreen
+    NGINX --> Canary
+
+    BlueEnv --> MongoAtlas
+    GreenEnv --> MongoAtlas
+    Stable --> MongoAtlas
+    CanaryEnv --> MongoAtlas
+
+    BlueEnv --> PineconeK8s
+    GreenEnv --> PineconeK8s
+    Stable --> PineconeK8s
+    CanaryEnv --> PineconeK8s
+
+    HPA -.-> BlueEnv
+    HPA -.-> GreenEnv
+    HPA -.-> Stable
+
+    Prometheus -.-> HealthChecks
+```
+
+### Deployment Strategies
+
+#### Blue-Green Deployment Architecture
+
+```mermaid
+sequenceDiagram
+    participant Jenkins
+    participant K8s as Kubernetes
+    participant Blue as Blue Environment
+    participant Green as Green Environment
+    participant Service as Load Balancer
+    participant Users
+
+    Note over Blue: Running v1.0<br/>Active
+    Note over Green: Idle
+
+    Jenkins->>K8s: Deploy v1.1 to Green
+    K8s->>Green: Create pods (v1.1)
+    Green-->>K8s: Pods ready
+
+    Jenkins->>Green: Run health checks
+    Green-->>Jenkins: All checks passed
+
+    Jenkins->>Service: Update selector to "green"
+
+    Note over Service: Traffic switches instantly
+
+    Service->>Green: Route 100% traffic
+    Users->>Service: Requests
+    Service->>Green: Forward requests
+
+    Note over Blue: v1.0 (standby)<br/>Ready for rollback
+
+    Jenkins->>Blue: Cleanup (optional)
+```
+
+#### Canary Deployment Architecture
+
+```mermaid
+sequenceDiagram
+    participant Jenkins
+    participant K8s as Kubernetes
+    participant Stable as Stable (v1.0)
+    participant Canary as Canary (v1.1)
+    participant Monitor as Monitoring
+    participant Users
+
+    Note over Stable: 100% traffic
+
+    Jenkins->>K8s: Deploy v1.1 canary
+    K8s->>Canary: Create 1 pod (v1.1)
+    Canary-->>K8s: Pod ready
+
+    Jenkins->>K8s: Route 10% to canary
+
+    Users->>K8s: 100 requests
+    K8s->>Stable: 90 requests
+    K8s->>Canary: 10 requests
+
+    Monitor->>Canary: Collect metrics
+    Monitor->>Stable: Collect metrics
+    Monitor-->>Jenkins: Error rate: 2%<br/>Latency: +5ms
+
+    Jenkins->>K8s: Increase to 25%
+
+    Users->>K8s: 100 requests
+    K8s->>Stable: 75 requests
+    K8s->>Canary: 25 requests
+
+    Note over Monitor: Continue monitoring...
+
+    Jenkins->>K8s: Promote to 100%
+    K8s->>Stable: Update to v1.1
+    K8s->>Canary: Scale down
+
+    Note over Stable: Now running v1.1
+```
+
+### High Availability Architecture
+
+```mermaid
+graph TB
+    subgraph Region1["AWS us-east-1"]
+        subgraph K8sCluster["Kubernetes Cluster"]
+            subgraph Zone1["Availability Zone 1"]
+                Node1["Worker Node 1<br/>Frontend: 1 pod<br/>Backend: 1 pod"]
+            end
+
+            subgraph Zone2["Availability Zone 2"]
+                Node2["Worker Node 2<br/>Frontend: 1 pod<br/>Backend: 1 pod"]
+            end
+
+            subgraph Zone3["Availability Zone 3"]
+                Node3["Worker Node 3<br/>Frontend: 1 pod<br/>Backend: 1 pod"]
+            end
+        end
+
+        LB["LoadBalancer<br/>Health check enabled"]
+
+        LB --> Node1
+        LB --> Node2
+        LB --> Node3
+    end
+
+    subgraph Data["Data Layer (Multi-AZ)"]
+        MongoCluster["MongoDB Atlas<br/>3-node replica set<br/>Auto-failover"]
+        PineconeIdx["Pinecone Serverless<br/>Multi-AZ replication"]
+    end
+
+    Node1 --> MongoCluster
+    Node2 --> MongoCluster
+    Node3 --> MongoCluster
+
+    Node1 --> PineconeIdx
+    Node2 --> PineconeIdx
+    Node3 --> PineconeIdx
+```
+
+### CI/CD Pipeline (GitHub Actions)
 
 ```mermaid
 flowchart TD
@@ -1194,6 +1380,189 @@ flowchart TD
     J --> K[Build static assets]
     J --> L[Deploy to CDN]
     J --> M[Configure API routes]
+```
+
+### CI/CD Pipeline (Jenkins - Kubernetes)
+
+For enterprise Kubernetes deployments, a Jenkins pipeline can be used:
+
+```mermaid
+flowchart TD
+    A[Git Push] -->|webhook| B[Jenkins Pipeline]
+
+    B --> C[Initialize]
+    C --> D[Install Dependencies]
+
+    D --> E[Code Quality]
+    E --> E1[Linting]
+    E --> E2[Security Scan]
+    E --> E3[Code Coverage]
+
+    E1 --> F[Run Tests]
+    E2 --> F
+    E3 --> F
+
+    F --> F1[Frontend Tests]
+    F --> F2[Backend Tests]
+    F --> F3[Integration Tests]
+
+    F1 --> G[Build Docker Images]
+    F2 --> G
+    F3 --> G
+
+    G --> G1[Frontend Image]
+    G --> G2[Backend Image]
+
+    G1 --> H[Push to Registry]
+    G2 --> H
+
+    H --> I{Deployment Strategy}
+
+    I -->|Blue-Green| J1[Deploy to Green]
+    I -->|Canary| J2[Deploy Canary]
+    I -->|Rolling| J3[Rolling Update]
+
+    J1 --> K1[Health Check Green]
+    J2 --> K2[Monitor Canary]
+    J3 --> K3[Verify Rollout]
+
+    K1 --> L1{Manual Approval}
+    K2 --> L2{Metrics OK?}
+    K3 --> M[Smoke Tests]
+
+    L1 -->|Approve| M1[Switch to Green]
+    L1 -->|Reject| R1[Rollback]
+
+    L2 -->|Yes| M2[Increase Traffic]
+    L2 -->|No| R2[Rollback Canary]
+
+    M1 --> M
+    M2 --> M
+
+    M --> N{Tests Pass?}
+
+    N -->|Yes| O[Deployment Complete]
+    N -->|No| R3[Automatic Rollback]
+
+    R1 --> P[Notify Team]
+    R2 --> P
+    R3 --> P
+
+    O --> Q[Send Success Notification]
+```
+
+### Deployment Infrastructure Components
+
+| Component | Purpose | Technology | Configuration |
+|-----------|---------|------------|---------------|
+| **Container Registry** | Store Docker images | Docker Hub / ECR | Private registry with RBAC |
+| **Kubernetes Cluster** | Orchestration platform | K8s v1.25+ | 3+ nodes, multi-AZ |
+| **Ingress Controller** | Traffic routing & TLS | NGINX Ingress | Rate limiting, CORS enabled |
+| **Load Balancer** | External access | Cloud LB | Health checks, session affinity |
+| **Horizontal Pod Autoscaler** | Auto-scaling | K8s HPA | CPU 70%, Memory 80% |
+| **Pod Disruption Budget** | High availability | K8s PDB | minAvailable: 2 |
+| **Network Policies** | Security | K8s NetworkPolicy | Segmented traffic |
+| **ConfigMaps** | Configuration | K8s ConfigMap | Non-sensitive config |
+| **Secrets** | Credentials | K8s Secrets | MongoDB, Pinecone, JWT |
+| **Persistent Volumes** | Data persistence | K8s PV/PVC | For logs, temporary data |
+
+### Deployment Scripts Overview
+
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `blue-green-deploy.sh` | Orchestrate blue-green deployment | `bash blue-green-deploy.sh deploy-green` |
+| `canary-deploy.sh` | Manage canary deployment | `bash canary-deploy.sh deploy-canary` |
+| `health-check.sh` | Comprehensive health validation | `bash health-check.sh green` |
+| `monitor-canary.sh` | Real-time canary monitoring | `bash monitor-canary.sh` |
+| `rollback.sh` | Automated rollback procedures | `bash rollback.sh auto` |
+| `smoke-tests.sh` | Post-deployment smoke tests | `bash smoke-tests.sh` |
+| `performance-tests.sh` | Load and performance testing | `bash performance-tests.sh` |
+
+### Monitoring Architecture
+
+```mermaid
+graph TB
+    subgraph Apps["Application Pods"]
+        Frontend["Frontend Pods<br/>Port 3000"]
+        Backend["Backend Pods<br/>Port 5000"]
+    end
+
+    subgraph Monitoring["Monitoring Stack"]
+        Prometheus["Prometheus<br/>Metrics collection<br/>Port 9090"]
+        Grafana["Grafana<br/>Visualization<br/>Port 3000"]
+        AlertManager["AlertManager<br/>Alerting<br/>Port 9093"]
+    end
+
+    subgraph Logging["Logging Stack"]
+        Fluent["Fluentd<br/>Log aggregation"]
+        Elastic["Elasticsearch<br/>Log storage"]
+        Kibana["Kibana<br/>Log visualization"]
+    end
+
+    subgraph Tracing["Tracing"]
+        Jaeger["Jaeger<br/>Distributed tracing"]
+    end
+
+    Frontend -->|/metrics| Prometheus
+    Backend -->|/metrics| Prometheus
+
+    Prometheus --> Grafana
+    Prometheus --> AlertManager
+
+    Frontend --> Fluent
+    Backend --> Fluent
+    Fluent --> Elastic
+    Elastic --> Kibana
+
+    Frontend --> Jaeger
+    Backend --> Jaeger
+
+    AlertManager -->|Slack/Email| Notifications["Notifications"]
+```
+
+### Rollback Strategies
+
+| Strategy | Rollback Method | Time to Rollback | Data Consistency |
+|----------|----------------|------------------|------------------|
+| **Blue-Green** | Switch service selector to blue | Instant (< 5s) | No issues |
+| **Canary** | Set traffic to 0%, scale down canary | < 30s | No issues |
+| **Rolling** | `kubectl rollout undo` | 2-5 minutes | Potential mixed versions |
+
+### Security Architecture
+
+```mermaid
+graph TB
+    subgraph Edge["Edge Security"]
+        WAF["WAF<br/>Web Application Firewall"]
+        DDoS["DDoS Protection"]
+    end
+
+    subgraph Network["Network Security"]
+        Ingress["Ingress<br/>TLS termination"]
+        NetPol["Network Policies<br/>Pod-to-pod rules"]
+    end
+
+    subgraph Pod["Pod Security"]
+        RBAC["RBAC<br/>Role-based access"]
+        PodSec["Pod Security Standards<br/>Restricted"]
+        Secrets["Secrets Management<br/>Encrypted at rest"]
+    end
+
+    subgraph App["Application Security"]
+        Auth["JWT Authentication"]
+        Input["Input Validation"]
+        Encrypt["Data Encryption"]
+    end
+
+    WAF --> Ingress
+    DDoS --> Ingress
+    Ingress --> NetPol
+    NetPol --> RBAC
+    RBAC --> PodSec
+    PodSec --> Secrets
+    Secrets --> Auth
+    Auth --> Input
+    Input --> Encrypt
 ```
 
 ---

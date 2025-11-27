@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fusion-electronics-frontend
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: frontend
+    version: stable
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: fusion-electronics
+      component: frontend
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: fusion-electronics
+        component: frontend
+        version: stable
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "3000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: frontend
+        image: <DOCKER_REGISTRY>/fusion-electronics-frontend:stable
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: fusion-electronics-config
+              key: NODE_ENV
+        - name: REACT_APP_API_URL
+          value: "http://fusion-electronics-backend:5000"
+        - name: VERSION
+          value: "stable"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

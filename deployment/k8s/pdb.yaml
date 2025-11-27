@@ -1,0 +1,29 @@
+---
+# Pod Disruption Budget for Frontend
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fusion-electronics-frontend-pdb
+  namespace: fusion-ecommerce
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: fusion-electronics
+      component: frontend
+  unhealthyPodEvictionPolicy: AlwaysAllow
+
+---
+# Pod Disruption Budget for Backend
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: fusion-electronics-backend-pdb
+  namespace: fusion-ecommerce
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: fusion-electronics
+      component: backend
+  unhealthyPodEvictionPolicy: AlwaysAllow

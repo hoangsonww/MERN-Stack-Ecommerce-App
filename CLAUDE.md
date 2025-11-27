@@ -240,6 +240,8 @@ Common issue: **Purge flag is true** by default. If `PINECONE_PURGE_ON_SYNC=true
 
 ## Deployment Architecture
 
+### Current Production Deployments
+
 **Frontend**: Deployed on Vercel with automatic builds on push to `main`. Build command: `npm run build`, output directory: `build/`.
 
 **Backend**: Primary deployment on Vercel (serverless functions), backup on Render (Docker container, free tier with cold starts).
@@ -249,6 +251,165 @@ Common issue: **Purge flag is true** by default. If `PINECONE_PURGE_ON_SYNC=true
 **Vector DB**: Pinecone serverless index (AWS us-east-1, free tier with 100K vectors).
 
 **CI/CD**: GitHub Actions workflow runs linting, testing, and builds on every push.
+
+### Enterprise Kubernetes Deployment (New)
+
+The application now supports production-ready Kubernetes deployments with advanced deployment strategies:
+
+#### Deployment Strategies
+
+1. **Blue-Green Deployment**
+   - Zero-downtime deployments
+   - Instant rollback capability
+   - Two identical environments (blue and green)
+   - Traffic switching via service selector update
+   - Scripts: `deployment/scripts/blue-green-deploy.sh`
+   - Manifests: `deployment/k8s/blue-green/`
+
+2. **Canary Deployment**
+   - Gradual traffic shifting (10% → 25% → 50% → 75% → 100%)
+   - Real-time monitoring and automatic rollback
+   - Progressive validation before full rollout
+   - Scripts: `deployment/scripts/canary-deploy.sh`
+   - Manifests: `deployment/k8s/canary/`
+
+3. **Rolling Update**
+   - Standard Kubernetes rolling update
+   - Configurable max surge and max unavailable
+   - Automatic health checks during rollout
+
+#### Jenkins CI/CD Pipeline
+
+The `Jenkinsfile` provides a comprehensive CI/CD pipeline with:
+
+- **Build Stages**: Dependency installation, linting, testing, Docker image building
+- **Security**: Vulnerability scanning with `npm audit`
+- **Testing**: Unit, integration, and API tests
+- **Deployment**: Parameterized deployment strategy selection
+- **Health Checks**: Automated health verification after deployment
+- **Smoke Tests**: Critical functionality validation
+- **Rollback**: Automatic rollback on failure
+
+**Usage**:
+```bash
+# Via Jenkins UI: Select deployment strategy and parameters
+# Via CLI:
+jenkins-cli build fusion-electronics \
+  -p DEPLOYMENT_STRATEGY=blue-green \
+  -p RUN_SMOKE_TESTS=true
+```
+
+#### Infrastructure Components
+
+**Kubernetes Manifests**:
+- **Namespace**: `deployment/k8s/namespace.yaml`
+- **ConfigMap**: Application configuration
+- **Secrets**: Sensitive credentials (template provided)
+- **Deployments**: Blue/Green and Canary variants
+- **Services**: LoadBalancer services for frontend and backend
+- **Ingress**: NGINX ingress with TLS and rate limiting
+- **HPA**: Horizontal Pod Autoscaler (CPU and memory-based)
+- **PDB**: Pod Disruption Budget for high availability
+- **Network Policies**: Network segmentation and security
+
+**Deployment Scripts**:
+- `blue-green-deploy.sh`: Blue-green deployment orchestration
+- `canary-deploy.sh`: Canary deployment with traffic management
+- `health-check.sh`: Comprehensive health validation
+- `monitor-canary.sh`: Real-time canary monitoring
+- `rollback.sh`: Automated rollback procedures
+- `smoke-tests.sh`: Post-deployment smoke tests
+- `performance-tests.sh`: Load and performance testing
+
+#### Monitoring and Health Checks
+
+**Health Check Endpoints**:
+- `/health`: Basic liveness check
+- `/health/ready`: Readiness check (includes DB connectivity)
+- `/health/db`: Database connectivity check
+- `/health/pinecone`: Vector DB connectivity check
+
+**Monitoring Metrics**:
+- Pod CPU and memory usage
+- Request rate and error rate
+- Response time (p50, p95, p99)
+- Database connection pool status
+- Vector search latency
+
+**Probes Configuration**:
+```yaml
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 5000
+  initialDelaySeconds: 60
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 5000
+  initialDelaySeconds: 30
+  periodSeconds: 5
+```
+
+#### Rollback Procedures
+
+**Automatic Rollback**:
+- Triggered on failed health checks
+- Triggered on failed smoke tests
+- Triggered on error rate > 5%
+- Triggered on deployment timeout
+
+**Manual Rollback**:
+```bash
+# Blue-green rollback
+bash deployment/scripts/blue-green-deploy.sh switch-to-blue
+
+# Canary rollback
+bash deployment/scripts/canary-deploy.sh rollback
+
+# Auto-detect and rollback
+bash deployment/scripts/rollback.sh auto
+```
+
+#### Deployment Workflow Example
+
+**Blue-Green Deployment**:
+```bash
+# 1. Deploy to green environment
+bash deployment/scripts/blue-green-deploy.sh deploy-green
+
+# 2. Health check
+bash deployment/scripts/health-check.sh green
+
+# 3. Smoke tests
+bash deployment/scripts/smoke-tests.sh
+
+# 4. Switch traffic (requires approval in Jenkins)
+bash deployment/scripts/blue-green-deploy.sh switch-to-green
+
+# 5. Cleanup old environment
+bash deployment/scripts/blue-green-deploy.sh cleanup-blue
+```
+
+**Canary Deployment**:
+```bash
+# 1. Deploy canary with 10% traffic
+export CANARY_PERCENTAGE=10
+bash deployment/scripts/canary-deploy.sh deploy-canary
+
+# 2. Monitor for 5 minutes
+bash deployment/scripts/monitor-canary.sh
+
+# 3. Gradually increase traffic (25%, 50%, 75%)
+# ... monitoring at each stage ...
+
+# 4. Promote to 100%
+bash deployment/scripts/canary-deploy.sh promote-canary
+```
+
+For complete deployment documentation, see [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ## Performance Considerations
 

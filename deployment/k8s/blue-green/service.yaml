@@ -1,0 +1,51 @@
+---
+# Frontend Service - Routes to active blue or green deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: fusion-electronics-frontend
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: frontend
+spec:
+  type: LoadBalancer
+  selector:
+    app: fusion-electronics
+    component: frontend
+    version: blue  # Change to 'green' to switch traffic
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000
+    protocol: TCP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+
+---
+# Backend Service - Routes to active blue or green deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: fusion-electronics-backend
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: backend
+spec:
+  type: LoadBalancer
+  selector:
+    app: fusion-electronics
+    component: backend
+    version: blue  # Change to 'green' to switch traffic
+  ports:
+  - name: http
+    port: 80
+    targetPort: 5000
+    protocol: TCP
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800

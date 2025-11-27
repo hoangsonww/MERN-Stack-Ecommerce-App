@@ -238,7 +238,21 @@ function NavigationBar({ cartItemCount }) {
                   navigate('/cart');
                 }}
               >
-                Cart
+                <Badge
+                  badgeContent={cartItemCount}
+                  color="secondary"
+                  showZero
+                  sx={{
+                    '& .MuiBadge-badge': {
+                      top: 4,
+                      right: -16,
+                      minWidth: 20,
+                      height: 20,
+                    },
+                  }}
+                >
+                  <Typography component="span">Cart</Typography>
+                </Badge>
               </MenuItem>
               <MenuItem
                 onClick={() => {

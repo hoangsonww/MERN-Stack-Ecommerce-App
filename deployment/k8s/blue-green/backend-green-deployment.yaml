@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fusion-electronics-backend-green
+  namespace: fusion-ecommerce
+  labels:
+    app: fusion-electronics
+    component: backend
+    version: green
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: fusion-electronics
+      component: backend
+      version: green
+  template:
+    metadata:
+      labels:
+        app: fusion-electronics
+        component: backend
+        version: green
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: backend
+        image: <DOCKER_REGISTRY>/fusion-electronics-backend:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: fusion-electronics-config
+              key: NODE_ENV
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: fusion-electronics-config
+              key: PORT
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: fusion-electronics-secrets
+              key: MONGO_URI
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: fusion-electronics-secrets
+              key: JWT_SECRET
+        - name: PINECONE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fusion-electronics-secrets
+              key: PINECONE_API_KEY
+        - name: PINECONE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: fusion-electronics-secrets
+              key: PINECONE_HOST
+        - name: PINECONE_INDEX
+          valueFrom:
+            configMapKeyRef:
+              name: fusion-electronics-config
+              key: PINECONE_INDEX
+        - name: GOOGLE_AI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: fusion-electronics-secrets
+              key: GOOGLE_AI_API_KEY
+        - name: VERSION
+          value: "green"
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 1000m
+            memory: 1Gi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
