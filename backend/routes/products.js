@@ -668,8 +668,16 @@ router.patch('/:id', async (req, res) => {
   try {
     const { price, stock } = req.body;
     const updates = {};
-    if (price !== undefined) updates.price = Number(price);
-    if (stock !== undefined) updates.stock = Number(stock);
+    if (price !== undefined) {
+      const p = Number(price);
+      if (isNaN(p) || p < 0) return res.status(400).json({ msg: 'price must be a non-negative number' });
+      updates.price = p;
+    }
+    if (stock !== undefined) {
+      const s = Number(stock);
+      if (isNaN(s) || s < 0) return res.status(400).json({ msg: 'stock must be a non-negative integer' });
+      updates.stock = s;
+    }
 
     if (Object.keys(updates).length === 0) {
       return res.status(400).json({ msg: 'Provide price or stock to update' });

@@ -43,11 +43,8 @@ export function WishlistProvider({ children }) {
     }
   }, [authHeader, isLoggedIn]);
 
-  // Fetch on mount and whenever auth state changes
   React.useEffect(() => {
     refreshWishlist();
-    const interval = setInterval(refreshWishlist, 30000);
-    return () => clearInterval(interval);
   }, [refreshWishlist]);
 
   const isInWishlist = React.useCallback(

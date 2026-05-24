@@ -283,6 +283,7 @@ describe('evaluateSubscriptions service', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    User.findById = jest.fn().mockReturnValue({ lean: jest.fn().mockResolvedValue({ email: 'buyer@example.com' }) });
   });
 
   const makeProduct = overrides => ({
@@ -295,8 +296,8 @@ describe('evaluateSubscriptions service', () => {
 
   const makeSub = overrides => ({
     _id: 'sub1',
+    userId: 'user123',
     type: 'restock',
-    userEmail: 'buyer@example.com',
     status: 'ACTIVE',
     targetPrice: null,
     dropPercent: null,

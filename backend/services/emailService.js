@@ -1,5 +1,10 @@
 const isProd = process.env.NODE_ENV === 'production';
 
+const sgMail = require('@sendgrid/mail');
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+}
+
 const SUBJECTS = {
   restock: productName => `Back in stock: ${productName}`,
   price_drop: (productName, price) => `Price dropped to $${price}: ${productName}`,
@@ -29,9 +34,6 @@ async function _send({ to, subject, body }) {
     console.log(`[emailService] DEV — To: ${to} | Subject: ${subject}\n${body}`);
     return;
   }
-
-  const sgMail = require('@sendgrid/mail');
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   await sgMail.send({
     to,
