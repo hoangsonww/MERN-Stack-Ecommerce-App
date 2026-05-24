@@ -9,6 +9,8 @@ const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const orderRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
+const wishlistRoutes = require('./routes/wishlist');
+const alertsRoutes = require('./routes/alerts');
 const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./docs/swagger');
 
 // Create Express App
@@ -50,7 +52,31 @@ mongoose
       console.error('❌ Pinecone sync error (continuing with fallbacks):', err);
     }
 
-    // 3. Start Express server
+    // 3. Start cron sweeper for alert subscriptions (daily at 02:00)
+    if (process.env.FEATURE_ALERTS === 'true') {
+      try {
+        const cron = require('node-cron');
+        const { evaluateSubscriptions } = require('./services/evaluateSubscriptions');
+        const Product = require('./models/product');
+        cron.schedule('0 2 * * *', async () => {
+          console.log('[cron] Running daily alert subscription sweep…');
+          try {
+            const products = await Product.find({}).lean();
+            for (const p of products) {
+              await evaluateSubscriptions(p);
+            }
+            console.log(`[cron] Sweep complete — evaluated ${products.length} products.`);
+          } catch (cronErr) {
+            console.error('[cron] Sweep error:', cronErr.message);
+          }
+        });
+        console.log('⏰ Daily alert sweep scheduled at 02:00');
+      } catch (cronSetupErr) {
+        console.error('❌ Failed to schedule alert cron:', cronSetupErr.message);
+      }
+    }
+
+    // 4. Start Express server
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server ready on port ${PORT}.`);
     });
@@ -80,5 +106,7 @@ app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/search', require('./routes/search'));
 app.use('/api/auth', authRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/alerts', alertsRoutes);
 
 module.exports = app;

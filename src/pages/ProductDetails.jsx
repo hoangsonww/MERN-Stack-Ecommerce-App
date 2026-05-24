@@ -13,19 +13,36 @@ import {
   CircularProgress,
   Collapse,
   Container,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  FormControlLabel,
   Grid,
+  IconButton,
+  InputAdornment,
   Link,
   Paper,
+  Radio,
+  RadioGroup,
   Rating,
   Stack,
+  TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import CloudOffIcon from '@mui/icons-material/CloudOff';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsOffIcon from '@mui/icons-material/NotificationsOff';
 import { apiClient, withRetry } from '../services/apiClient';
 import { useNotifier } from '../context/NotificationProvider';
+import { useWishlist } from '../context/WishlistContext';
 
 function SimilarProductsError({ onRetry }) {
   const [showDetails, setShowDetails] = React.useState(false);
@@ -92,6 +109,86 @@ function SimilarProductsError({ onRetry }) {
   );
 }
 
+const ALERTS_ENABLED = process.env.REACT_APP_FEATURE_ALERTS === 'true';
+
+function PriceDropDialog({ open, onClose, onSubmit, currentPrice }) {
+  const [alertType, setAlertType] = useState('targetPrice');
+  const [targetPrice, setTargetPrice] = useState('');
+  const [dropPercent, setDropPercent] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const errs = {};
+    if (alertType === 'targetPrice') {
+      const val = parseFloat(targetPrice);
+      if (!targetPrice || isNaN(val) || val <= 0) errs.targetPrice = 'Enter a valid price greater than 0';
+      else if (val >= currentPrice) errs.targetPrice = `Must be less than current price ($${currentPrice})`;
+    } else {
+      const val = parseFloat(dropPercent);
+      if (!dropPercent || isNaN(val) || val < 1 || val > 99) errs.dropPercent = 'Enter a percentage between 1 and 99';
+    }
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (!validate()) return;
+    onSubmit({
+      type: 'price_drop',
+      targetPrice: alertType === 'targetPrice' ? parseFloat(targetPrice) : undefined,
+      dropPercent: alertType === 'dropPercent' ? parseFloat(dropPercent) : undefined,
+    });
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth>
+      <DialogTitle>Set price-drop alert</DialogTitle>
+      <DialogContent>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Current price: <strong>${currentPrice}</strong>
+        </Typography>
+        <FormControl component="fieldset" sx={{ mb: 2 }}>
+          <RadioGroup value={alertType} onChange={e => setAlertType(e.target.value)}>
+            <FormControlLabel value="targetPrice" control={<Radio />} label="Notify when price drops to" />
+            <FormControlLabel value="dropPercent" control={<Radio />} label="Notify when price drops by %" />
+          </RadioGroup>
+        </FormControl>
+        {alertType === 'targetPrice' ? (
+          <TextField
+            label="Target price"
+            type="number"
+            value={targetPrice}
+            onChange={e => setTargetPrice(e.target.value)}
+            fullWidth
+            error={Boolean(errors.targetPrice)}
+            helperText={errors.targetPrice}
+            InputProps={{ startAdornment: <InputAdornment position="start">$</InputAdornment> }}
+            inputProps={{ min: 0.01, step: 0.01 }}
+          />
+        ) : (
+          <TextField
+            label="Drop percentage"
+            type="number"
+            value={dropPercent}
+            onChange={e => setDropPercent(e.target.value)}
+            fullWidth
+            error={Boolean(errors.dropPercent)}
+            helperText={errors.dropPercent}
+            InputProps={{ endAdornment: <InputAdornment position="end">%</InputAdornment> }}
+            inputProps={{ min: 1, max: 99, step: 1 }}
+          />
+        )}
+      </DialogContent>
+      <DialogActions sx={{ px: 3, pb: 2 }}>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button variant="contained" onClick={handleSubmit}>
+          Set alert
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
 function ProductDetails({ addToCart }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -103,6 +200,17 @@ function ProductDetails({ addToCart }) {
   const [recLoading, setRecLoading] = useState(true);
   const [similarError, setSimilarError] = useState(false);
   const { notify } = useNotifier();
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
+  const [restockSubbed, setRestockSubbed] = useState(false);
+  const [priceDropDialogOpen, setPriceDropDialogOpen] = useState(false);
+  const [alertLoading, setAlertLoading] = useState(false);
+
+  const isLoggedIn = Boolean(localStorage.getItem('MERNEcommerceToken'));
+  const authHeader = () => {
+    const token = localStorage.getItem('MERNEcommerceToken');
+    return token ? { 'x-auth-token': token } : {};
+  };
 
   const normalizeProduct = useCallback(prod => {
     if (!prod || typeof prod !== 'object') return null;
@@ -219,6 +327,67 @@ function ProductDetails({ addToCart }) {
     return value.charAt(0).toUpperCase() + value.slice(1);
   };
 
+  // Sync restock subscription state when product loads
+  useEffect(() => {
+    if (!product || !isLoggedIn || !ALERTS_ENABLED) return;
+    apiClient
+      .get('alerts/mine', { headers: authHeader() })
+      .then(({ data }) => {
+        const active = data.find(
+          s => s.productId === (product._id || product.id) && s.type === 'restock' && s.status === 'ACTIVE'
+        );
+        setRestockSubbed(Boolean(active));
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product, isLoggedIn]);
+
+  const handleToggleRestock = async () => {
+    if (!isLoggedIn) {
+      notify({ severity: 'warning', message: 'Please sign in to set alerts.' });
+      return;
+    }
+    setAlertLoading(true);
+    try {
+      if (restockSubbed) {
+        await apiClient.post('alerts/cancel', { productId: product._id || product.id, type: 'restock' }, { headers: authHeader() });
+        setRestockSubbed(false);
+        notify({ severity: 'info', message: 'Restock alert cancelled.' });
+      } else {
+        await apiClient.post('alerts/subscribe', { productId: product._id || product.id, type: 'restock' }, { headers: authHeader() });
+        setRestockSubbed(true);
+        notify({ severity: 'success', message: "We'll notify you when this item is back in stock!" });
+      }
+    } catch (err) {
+      const msg = err?.response?.data?.msg || err?.response?.data?.errors?.[0]?.msg || 'Could not update alert.';
+      notify({ severity: 'error', message: msg });
+    } finally {
+      setAlertLoading(false);
+    }
+  };
+
+  const handlePriceDropSubmit = async ({ type, targetPrice, dropPercent }) => {
+    if (!isLoggedIn) {
+      notify({ severity: 'warning', message: 'Please sign in to set alerts.' });
+      return;
+    }
+    setPriceDropDialogOpen(false);
+    setAlertLoading(true);
+    try {
+      await apiClient.post(
+        'alerts/subscribe',
+        { productId: product._id || product.id, type, targetPrice, dropPercent },
+        { headers: authHeader() }
+      );
+      notify({ severity: 'success', message: "Price-drop alert set! We'll email you when the price falls." });
+    } catch (err) {
+      const msg = err?.response?.data?.msg || err?.response?.data?.errors?.[0]?.msg || 'Could not set price-drop alert.';
+      notify({ severity: 'error', message: msg });
+    } finally {
+      setAlertLoading(false);
+    }
+  };
+
   const handleAddToCart = useCallback(() => {
     if (product) {
       addToCart(product);
@@ -318,12 +487,59 @@ function ProductDetails({ addToCart }) {
               </Typography>
             </Box>
 
-            <Button variant="contained" color="primary" onClick={handleAddToCart} sx={{ mt: 2 }}>
-              Add to Cart
-            </Button>
+            <Stack direction="row" spacing={1} sx={{ mt: 2 }} flexWrap="wrap" gap={1}>
+              <Button variant="contained" color="primary" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
+
+              <Tooltip title={isInWishlist(product._id || product.id) ? 'Remove from wishlist' : 'Add to wishlist'}>
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    const pid = product._id || product.id;
+                    isInWishlist(pid) ? removeFromWishlist(pid) : addToWishlist(pid);
+                  }}
+                >
+                  {isInWishlist(product._id || product.id) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </IconButton>
+              </Tooltip>
+
+              {ALERTS_ENABLED && product.stock === 0 && (
+                <Button
+                  variant={restockSubbed ? 'outlined' : 'outlined'}
+                  color={restockSubbed ? 'warning' : 'secondary'}
+                  startIcon={restockSubbed ? <NotificationsOffIcon /> : <NotificationsActiveIcon />}
+                  onClick={handleToggleRestock}
+                  disabled={alertLoading}
+                >
+                  {restockSubbed ? 'Cancel restock alert' : 'Notify me when back in stock'}
+                </Button>
+              )}
+
+              {ALERTS_ENABLED && product.stock > 0 && (
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  startIcon={<NotificationsActiveIcon />}
+                  onClick={() => setPriceDropDialogOpen(true)}
+                  disabled={alertLoading}
+                >
+                  Price-drop alert
+                </Button>
+              )}
+            </Stack>
           </Grid>
         </Grid>
       </Paper>
+
+      {ALERTS_ENABLED && (
+        <PriceDropDialog
+          open={priceDropDialogOpen}
+          onClose={() => setPriceDropDialogOpen(false)}
+          onSubmit={handlePriceDropSubmit}
+          currentPrice={product.price}
+        />
+      )}
 
       <Box sx={{ mt: 5 }}>
         <Typography variant="h5" gutterBottom>
