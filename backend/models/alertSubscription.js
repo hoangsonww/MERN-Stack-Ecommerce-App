@@ -17,10 +17,6 @@ const AlertSubscriptionSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    userEmail: {
-      type: String,
-      required: true,
-    },
     type: {
       type: String,
       enum: ALERT_TYPES,

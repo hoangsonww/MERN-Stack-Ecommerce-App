@@ -5,7 +5,6 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../middleware/auth');
 const AlertSubscription = require('../models/alertSubscription');
 const Product = require('../models/product');
-const User = require('../models/user');
 
 /**
  * @swagger
@@ -71,9 +70,6 @@ router.post(
       const product = await Product.findById(productId).lean();
       if (!product) return res.status(404).json({ msg: 'Product not found' });
 
-      const user = await User.findById(req.user.id).lean();
-      if (!user) return res.status(404).json({ msg: 'User not found' });
-
       // Upsert: reactivate a cancelled/triggered sub or create fresh
       const existing = await AlertSubscription.findOne({
         userId: req.user.id,
@@ -97,7 +93,6 @@ router.post(
       const sub = new AlertSubscription({
         userId: req.user.id,
         productId,
-        userEmail: user.email,
         type,
         targetPrice: targetPrice ?? null,
         dropPercent: dropPercent ?? null,

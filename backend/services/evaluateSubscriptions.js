@@ -1,4 +1,5 @@
 const AlertSubscription = require('../models/alertSubscription');
+const User = require('../models/user');
 const { sendRestockEmail, sendPriceDropEmail } = require('./emailService');
 
 /**
@@ -50,15 +51,18 @@ async function _evaluate(sub, product) {
     // Another process already triggered it
     if (!claimed) return;
 
+    const user = await User.findById(sub.userId).lean();
+    if (!user) return;
+
     if (sub.type === 'restock') {
       await sendRestockEmail({
-        to: sub.userEmail,
+        to: user.email,
         productName: product.name,
         productId: product._id.toString(),
       });
     } else if (sub.type === 'price_drop') {
       await sendPriceDropEmail({
-        to: sub.userEmail,
+        to: user.email,
         productName: product.name,
         productId: product._id.toString(),
         price: product.price,
