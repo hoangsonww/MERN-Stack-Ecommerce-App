@@ -227,10 +227,10 @@ exports[`Footer snapshot matches the rendered markup 1`] = `
             Unlock early access to product drops, curated buying guides, and exclusive VIP offers.
           </p>
           <form
-            class="MuiBox-root css-1mcghfl"
+            class="MuiBox-root css-tmox95"
           >
             <div
-              class="MuiFormControl-root MuiTextField-root css-13brrgc-MuiFormControl-root-MuiTextField-root"
+              class="MuiFormControl-root MuiTextField-root css-7j3kjf-MuiFormControl-root-MuiTextField-root"
             >
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
@@ -261,7 +261,7 @@ exports[`Footer snapshot matches the rendered markup 1`] = `
               </div>
             </div>
             <button
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-iaznig-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-1ovcde6-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="submit"
             >

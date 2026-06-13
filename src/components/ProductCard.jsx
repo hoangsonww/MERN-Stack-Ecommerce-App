@@ -9,8 +9,12 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import Tooltip from '@mui/material/Tooltip';
+import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded';
 import { useNavigate } from 'react-router-dom';
+
+const ACCENT_GRADIENT = 'linear-gradient(120deg, #38bdf8 0%, #2874f0 45%, #f50057 100%)';
 
 export default function ProductCard({ product, addToCart }) {
   const navigate = useNavigate();
@@ -41,17 +45,31 @@ export default function ProductCard({ product, addToCart }) {
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        border: '1px solid rgba(15,23,42,0.06)',
+        transition: 'transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s ease, border-color 0.35s ease',
         '&:hover': {
-          transform: 'translateY(-6px)',
-          boxShadow: '0 24px 38px rgba(15, 23, 42, 0.12)',
+          transform: 'translateY(-8px)',
+          boxShadow: '0 28px 50px rgba(40, 116, 240, 0.18)',
+          borderColor: 'rgba(40,116,240,0.35)',
+        },
+        '&:hover .product-media': {
+          transform: 'scale(1.07)',
         },
       }}
       onClick={handleCardClick}
     >
-      <Box sx={{ position: 'relative', pt: '75%', overflow: 'hidden', borderRadius: '18px 18px 0 0' }}>
+      <Box
+        sx={{
+          position: 'relative',
+          pt: '75%',
+          overflow: 'hidden',
+          borderRadius: '18px 18px 0 0',
+          background: '#ffffff',
+        }}
+      >
         <CardMedia
           component="img"
+          className="product-media"
           alt={product.name}
           src={product.image}
           loading="eager"
@@ -62,10 +80,8 @@ export default function ProductCard({ product, addToCart }) {
             width: '100%',
             height: '100%',
             objectFit: 'contain',
-            transition: 'transform 0.3s ease',
-            '&:hover': {
-              transform: 'scale(1.04)',
-            },
+            p: 2,
+            transition: 'transform 0.45s cubic-bezier(0.22,1,0.36,1)',
           }}
         />
         {formattedCategory && (
@@ -84,6 +100,8 @@ export default function ProductCard({ product, addToCart }) {
           />
         )}
       </Box>
+
+      <Divider />
 
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
@@ -118,10 +136,12 @@ export default function ProductCard({ product, addToCart }) {
         <Button
           size="small"
           variant="contained"
+          startIcon={<AddShoppingCartRoundedIcon />}
           onClick={event => {
             event.stopPropagation();
             addToCart(product);
           }}
+          sx={{ background: ACCENT_GRADIENT, boxShadow: '0 10px 22px rgba(40,116,240,0.3)', '&:hover': { boxShadow: '0 14px 28px rgba(245,0,87,0.32)' } }}
         >
           Add to Cart
         </Button>

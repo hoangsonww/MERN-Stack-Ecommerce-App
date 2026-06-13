@@ -24,6 +24,8 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.15",
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@react-buddy/palette-mui": "^5.0.1",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
     "@stripe/react-stripe-js": "^2.7.1",
     "@stripe/stripe-js": "^3.5.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -43,6 +45,7 @@
     "react-material-ui-carousel": "^3.4.2",
     "react-router-dom": "^6.23.1",
     "react-scripts": "^5.0.1",
+    "three": "^0.169.0",
     "web-vitals": "^2.1.4"
   },
   "private": true,
