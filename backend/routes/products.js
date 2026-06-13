@@ -633,4 +633,68 @@ router.put('/:id/rating', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   patch:
+ *     summary: Update product price or stock (triggers alert evaluation)
+ *     tags: [Products]
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               price:
+ *                 type: number
+ *               stock:
+ *                 type: integer
+ *     responses:
+ *       200:
+ *         description: Product updated
+ *       400:
+ *         description: Nothing to update
+ *       404:
+ *         description: Product not found
+ */
+router.patch('/:id', async (req, res) => {
+  try {
+    const { price, stock } = req.body;
+    const updates = {};
+    if (price !== undefined) {
+      const p = Number(price);
+      if (isNaN(p) || p < 0) return res.status(400).json({ msg: 'price must be a non-negative number' });
+      updates.price = p;
+    }
+    if (stock !== undefined) {
+      const s = Number(stock);
+      if (isNaN(s) || s < 0) return res.status(400).json({ msg: 'stock must be a non-negative integer' });
+      updates.stock = s;
+    }
+
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ msg: 'Provide price or stock to update' });
+    }
+
+    const product = await Product.findByIdAndUpdate(
+      req.params.id,
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!product) return res.status(404).json({ msg: 'Product not found' });
+
+    res.json(product);
+  } catch (err) {
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;

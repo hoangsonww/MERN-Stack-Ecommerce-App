@@ -9,6 +9,8 @@ const productRoutes = require('./routes/products');
 const checkoutRoutes = require('./routes/checkout');
 const orderRoutes = require('./routes/orders');
 const authRoutes = require('./routes/auth');
+const wishlistRoutes = require('./routes/wishlist');
+const alertsRoutes = require('./routes/alerts');
 const { swaggerUi, swaggerSpec, setupSwaggerUi, setupSwaggerJson } = require('./docs/swagger');
 
 // Create Express App
@@ -80,5 +82,7 @@ app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/search', require('./routes/search'));
 app.use('/api/auth', authRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/alerts', alertsRoutes);
 
 module.exports = app;

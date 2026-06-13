@@ -21,9 +21,11 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import ShippingReturns from './pages/ShippingReturns';
 import OrderTracking from './pages/OrderTracking';
+import Wishlist from './pages/Wishlist';
 import ScrollToTop from './components/ScrollToTop';
 import { apiClient, withRetry } from './services/apiClient';
 import { useNotifier } from './context/NotificationProvider';
+import { WishlistProvider } from './context/WishlistContext';
 
 const theme = createTheme({
   palette: {
@@ -204,6 +206,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+      <WishlistProvider>
         <ScrollToTop />
         <NavigationBar cartItemCount={cart.length} />
         <Box component="main" sx={{ minHeight: 'calc(100vh - 200px)' }}>
@@ -241,11 +244,14 @@ function App() {
 
               <Route path="/reset-password" element={<ResetPassword />} />
 
+              <Route path="/wishlist" element={<Wishlist />} />
+
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Container>
         </Box>
         <Footer />
+      </WishlistProvider>
       </BrowserRouter>
     </ThemeProvider>
   );

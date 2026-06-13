@@ -216,7 +216,143 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Product'
+  /api/wishlist:
+    get:
+      summary: Get the current user's wishlist
+      tags: [Wishlist]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Wishlist with populated product objects
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+        '401':
+          description: Unauthorized
+    post:
+      summary: Add a product to the wishlist
+      tags: [Wishlist]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WishlistAddRequest'
+      responses:
+        '200':
+          description: Item added
+        '400':
+          description: Invalid productId or already in wishlist
+        '404':
+          description: Product not found
+        '401':
+          description: Unauthorized
+  /api/wishlist/{productId}:
+    delete:
+      summary: Remove a product from the wishlist
+      tags: [Wishlist]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Item removed
+        '400':
+          description: Invalid productId
+        '404':
+          description: Item or wishlist not found
+        '401':
+          description: Unauthorized
+  /api/alerts/subscribe:
+    post:
+      summary: Subscribe to a restock or price-drop alert
+      tags: [Alerts]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlertSubscribeRequest'
+      responses:
+        '201':
+          description: Subscription created or reactivated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSubscription'
+        '400':
+          description: Validation error or duplicate active subscription
+        '404':
+          description: Product not found
+        '401':
+          description: Unauthorized
+  /api/alerts/cancel:
+    post:
+      summary: Cancel an active alert subscription
+      tags: [Alerts]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [productId, type]
+              properties:
+                productId:
+                  type: string
+                type:
+                  type: string
+                  enum: [restock, price_drop]
+      responses:
+        '200':
+          description: Subscription cancelled
+        '400':
+          description: Invalid input
+        '404':
+          description: Active subscription not found
+        '401':
+          description: Unauthorized
+  /api/alerts/mine:
+    get:
+      summary: List all alert subscriptions for the current user
+      tags: [Alerts]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Array of subscriptions enriched with product details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AlertSubscription'
+        '401':
+          description: Unauthorized
 components:
+  securitySchemes:
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: x-auth-token
   schemas:
     Product:
       type: object
@@ -244,3 +380,61 @@ components:
           type: string
         password:
           type: string
+    WishlistAddRequest:
+      type: object
+      required: [productId]
+      properties:
+        productId:
+          type: string
+          description: MongoDB ObjectId of the product to add
+    AlertSubscribeRequest:
+      type: object
+      required: [productId, type]
+      properties:
+        productId:
+          type: string
+          description: MongoDB ObjectId of the product
+        type:
+          type: string
+          enum: [restock, price_drop]
+          description: Alert type
+        targetPrice:
+          type: number
+          description: (price_drop only) Notify when price falls to or below this value
+        dropPercent:
+          type: number
+          minimum: 1
+          maximum: 99
+          description: (price_drop only) Notify when price drops by this percentage from subscription-time price
+    AlertSubscription:
+      type: object
+      properties:
+        _id:
+          type: string
+        userId:
+          type: string
+        productId:
+          type: string
+        userEmail:
+          type: string
+        type:
+          type: string
+          enum: [restock, price_drop]
+        targetPrice:
+          type: number
+          nullable: true
+        dropPercent:
+          type: number
+          nullable: true
+        priceAtSubscription:
+          type: number
+          nullable: true
+        status:
+          type: string
+          enum: [ACTIVE, TRIGGERED, CANCELLED]
+        lastTriggeredAt:
+          type: string
+          format: date-time
+          nullable: true
+        product:
+          $ref: '#/components/schemas/Product'

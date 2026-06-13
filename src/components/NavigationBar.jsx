@@ -23,6 +23,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -36,6 +37,7 @@ import { debounce } from 'lodash';
 import SearchResults from './SearchResults';
 import { apiClient } from '../services/apiClient';
 import { useNotifier } from '../context/NotificationProvider';
+import { useWishlist } from '../context/WishlistContext';
 
 const navLinks = [
   { label: 'Home', to: '/', icon: <HomeRoundedIcon fontSize="small" /> },
@@ -58,6 +60,7 @@ function NavigationBar({ cartItemCount }) {
   const navigate = useNavigate();
   const isMobile = useMediaQuery('(max-width:1200px)');
   const { notify } = useNotifier();
+  const { wishlistCount } = useWishlist();
   const [searchModalOpen, setSearchModalOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -234,6 +237,21 @@ function NavigationBar({ cartItemCount }) {
               <MenuItem
                 onClick={() => {
                   handleClose();
+                  navigate('/wishlist');
+                }}
+              >
+                <Badge
+                  badgeContent={wishlistCount}
+                  color="error"
+                  showZero
+                  sx={{ '& .MuiBadge-badge': { top: 4, right: -16, minWidth: 20, height: 20 } }}
+                >
+                  <Typography component="span">Wishlist</Typography>
+                </Badge>
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
                   navigate('/cart');
                 }}
               >
@@ -353,6 +371,14 @@ function NavigationBar({ cartItemCount }) {
                   </Tooltip>
                 </>
               )}
+
+              <Tooltip title="View wishlist" arrow>
+                <IconButton color="inherit" component={Link} to="/wishlist" size="small">
+                  <Badge badgeContent={wishlistCount} color="error" overlap="circular">
+                    <FavoriteIcon fontSize="small" />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
 
               <Tooltip title="View cart" arrow>
                 <IconButton color="inherit" component={Link} to="/cart" size="small">

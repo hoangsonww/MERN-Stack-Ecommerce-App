@@ -303,6 +303,15 @@ The **backup** backend server is deployed on Render and can be accessed at the f
     - User profile management (view and update profile information).
     - Order history (view past orders).
 
+- **Wishlist & "Notify Me" Alerts** *(new in v1.2)*:
+    - Save any product to a personal wishlist with one click (heart icon on product detail pages and in the navbar badge).
+    - `/wishlist` page: grid view of saved items with name, price, stock status, quick-remove, and go-to-product link.
+    - **Restock alerts**: on out-of-stock products, click "Notify me when back in stock" to receive an email the moment inventory is replenished.
+    - **Price-drop alerts**: set a target price or a percentage drop threshold; get an email when the product price falls to your target.
+    - Alerts are evaluated automatically whenever a product is updated *and* via a daily sweep (02:00 cron job).
+    - Email delivery uses console logging in development; [SendGrid](https://sendgrid.com/) in production (`SENDGRID_API_KEY` env var).
+    - Entire feature is gated behind the `FEATURE_ALERTS=true` environment variable.
+
 - **Product Recommendations:**
     - Vector-based product recommendations using Pinecone (with optional Weaviate support).
     - Similar products displayed on product detail pages.
