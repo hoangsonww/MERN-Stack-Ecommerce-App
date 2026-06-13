@@ -130,3 +130,77 @@ button {
   animation: slideUp 0.5s ease-in-out;
   animation-fill-mode: forwards;
 }
+
+/* ---------- Home redesign: gentle one-shot entrance ----------
+   A load-time fade-up (never a stuck opacity:0 — content is always visible
+   even if JS / IntersectionObserver never run). */
+[data-reveal] {
+  animation: slideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Home redesign: brand marquee ---------- */
+@keyframes ecomMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ecom-marquee {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.ecom-marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+  animation: ecomMarquee 28s linear infinite;
+}
+.ecom-marquee:hover .ecom-marquee__track {
+  animation-play-state: paused;
+}
+
+/* ---------- Home redesign: soft page aurora ---------- */
+.home-aurora {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.home-aurora::before,
+.home-aurora::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.5;
+}
+.home-aurora::before {
+  width: 540px;
+  height: 540px;
+  top: 8%;
+  right: -160px;
+  background: radial-gradient(circle, rgba(40, 116, 240, 0.18), transparent 70%);
+}
+.home-aurora::after {
+  width: 480px;
+  height: 480px;
+  top: 55%;
+  left: -180px;
+  background: radial-gradient(circle, rgba(245, 0, 87, 0.12), transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    animation: none !important;
+  }
+  .ecom-marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

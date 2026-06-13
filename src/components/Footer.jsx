@@ -147,7 +147,7 @@ function Footer() {
             <Typography variant="body2" sx={{ color: 'rgba(226,232,240,0.78)', mb: 2 }}>
               Unlock early access to product drops, curated buying guides, and exclusive VIP offers.
             </Typography>
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 1, flexWrap: 'nowrap', alignItems: 'stretch' }}>
               <TextField
                 type="email"
                 required
@@ -156,9 +156,9 @@ function Footer() {
                 placeholder="your@email.com"
                 size="small"
                 variant="outlined"
-                sx={{ flexGrow: 1, minWidth: '220px', bgcolor: 'white', borderRadius: 1 }}
+                sx={{ flexGrow: 1, minWidth: 0, bgcolor: 'white', borderRadius: 1 }}
               />
-              <IconButton type="submit" color="primary" sx={{ bgcolor: 'white', '&:hover': { bgcolor: '#e2e8f0' } }}>
+              <IconButton type="submit" color="primary" sx={{ flexShrink: 0, borderRadius: 1.5, bgcolor: 'white', '&:hover': { bgcolor: '#e2e8f0' } }}>
                 <SendIcon />
               </IconButton>
             </Box>
