@@ -1,0 +1,424 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`About snapshot matches the rendered markup 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthLg css-1luz022-MuiContainer-root"
+  >
+    <div
+      class="MuiStack-root css-nx4is9-MuiStack-root"
+    >
+      <div
+        class="MuiChip-root MuiChip-outlined MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-outlinedPrimary css-1okyq69-MuiChip-root"
+      >
+        <span
+          class="MuiChip-label MuiChip-labelMedium css-1jzq0dw-MuiChip-label"
+        >
+          About Fusion
+        </span>
+      </div>
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-153g3uf-MuiTypography-root"
+      >
+        We exist to help you curate the future.
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-hsbfs4-MuiTypography-root"
+      >
+        Fusion Electronics is a collective of engineers, industrial designers, and experience strategists. We scout the highest performing gadgets, stress-test them in our lab, and package them into delightful experiences so you can focus on creating.
+      </p>
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-480o17-MuiGrid-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-vu3cv3-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-1h9mz9o-MuiStack-root"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-a0lbhu-MuiAvatar-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+                data-testid="EmojiObjectsIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 3c-.46 0-.93.04-1.4.14-2.76.53-4.96 2.76-5.48 5.52-.48 2.61.48 5.01 2.22 6.56.43.38.66.91.66 1.47V19c0 1.1.9 2 2 2h.28c.35.6.98 1 1.72 1s1.38-.4 1.72-1H14c1.1 0 2-.9 2-2v-2.31c0-.55.22-1.09.64-1.46C18.09 13.95 19 12.08 19 10c0-3.87-3.13-7-7-7m2 16h-4v-1h4zm0-2h-4v-1h4zm-1.5-5.59V14h-1v-2.59L9.67 9.59l.71-.71L12 10.5l1.62-1.62.71.71z"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+              >
+                Curated Tech Intelligence
+              </h6>
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+              >
+                Every product we list goes through hands-on testing by our lab team. If it doesn’t elevate your setup, it doesn’t make the cut.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-vu3cv3-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-1h9mz9o-MuiStack-root"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-a0lbhu-MuiAvatar-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+                data-testid="PrecisionManufacturingIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="m19.93 8.21-3.6 1.68L14 7.7V6.3l2.33-2.19 3.6 1.68c.38.18.82.01 1-.36.18-.38.01-.82-.36-1L16.65 2.6c-.38-.18-.83-.1-1.13.2l-1.74 1.6c-.18-.24-.46-.4-.78-.4-.55 0-1 .45-1 1v1H8.82C8.34 4.65 6.98 3.73 5.4 4.07c-1.16.25-2.15 1.25-2.36 2.43-.22 1.32.46 2.47 1.48 3.08L7.08 18H4v3h13v-3h-3.62L8.41 8.77c.17-.24.31-.49.41-.77H12v1c0 .55.45 1 1 1 .32 0 .6-.16.78-.4l1.74 1.6c.3.3.75.38 1.13.2l3.92-1.83c.38-.18.54-.62.36-1-.18-.37-.62-.54-1-.36M6 8c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+              >
+                Responsible Innovation
+              </h6>
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+              >
+                We partner with makers focused on energy efficiency, recycled materials, and ethical manufacturing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-vu3cv3-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-1h9mz9o-MuiStack-root"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-a0lbhu-MuiAvatar-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+                data-testid="FavoriteBorderIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3m-4.4 15.55-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+              >
+                Delightful Experiences
+              </h6>
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+              >
+                From packaging to post-purchase support, we obsess over surprise-and-delight moments that keep customers inspired.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-vu3cv3-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-1h9mz9o-MuiStack-root"
+          >
+            <div
+              class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-a0lbhu-MuiAvatar-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+                data-testid="RocketLaunchIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12C4.42 15.34 5.17 15 6 15c1.66 0 3 1.34 3 3m4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2"
+                />
+              </svg>
+            </div>
+            <div
+              class="MuiBox-root css-0"
+            >
+              <h6
+                class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+              >
+                Future-Ready Roadmap
+              </h6>
+              <p
+                class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+              >
+                We collaborate with venture labs and indie builders to pilot limited-run drops before they hit mainstream shelves.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiStack-root css-1yu64jq-MuiStack-root"
+    >
+      <h4
+        class="MuiTypography-root MuiTypography-h4 css-1313egv-MuiTypography-root"
+      >
+        Our Journey
+      </h4>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+      >
+        From humble beginnings to a global community of builders, here’s how we’ve evolved.
+      </p>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1n12kxc-MuiPaper-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-1xnaaoc-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 css-1b3l6lk-MuiGrid-root"
+        >
+          <div
+            class="MuiStack-root css-10kbc59-MuiStack-root"
+          >
+            <div
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1fmm6ef-MuiChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+              >
+                2018
+              </span>
+            </div>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              Launch
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Started Fusion Electronics with a mission to curate gear that empowers creators and everyday innovators.
+            </p>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 css-1b3l6lk-MuiGrid-root"
+        >
+          <div
+            class="MuiStack-root css-10kbc59-MuiStack-root"
+          >
+            <div
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1fmm6ef-MuiChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+              >
+                2020
+              </span>
+            </div>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              Global Warehouses
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Opened regional fulfillment hubs in Austin, Berlin, and Singapore to ship faster than ever.
+            </p>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 css-1b3l6lk-MuiGrid-root"
+        >
+          <div
+            class="MuiStack-root css-10kbc59-MuiStack-root"
+          >
+            <div
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1fmm6ef-MuiChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+              >
+                2022
+              </span>
+            </div>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              Creator Collective
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Introduced our invite-only creator program to co-design exclusive bundles and gear edits.
+            </p>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 css-1b3l6lk-MuiGrid-root"
+        >
+          <div
+            class="MuiStack-root css-10kbc59-MuiStack-root"
+          >
+            <div
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1fmm6ef-MuiChip-root"
+            >
+              <span
+                class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
+              >
+                2024
+              </span>
+            </div>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              50k+ Members
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Celebrated 50,000 VIP members and expanded our line to include modular smart home ecosystems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-w2hyz3-MuiPaper-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-1t31msg-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-8wqycu-MuiGrid-root"
+        >
+          <h4
+            class="MuiTypography-root MuiTypography-h4 MuiTypography-gutterBottom css-1np0xvr-MuiTypography-root"
+          >
+            The collective behind the brand
+          </h4>
+          <p
+            class="MuiTypography-root MuiTypography-body1 css-otmprn-MuiTypography-root"
+          >
+            Our team spans hardware engineers, firmware wizards, service designers, and stylists obsessed with making tech effortless. We source directly from makers and run micro-batch pilots before scaling popular favourites.
+          </p>
+          <div
+            class="MuiStack-root css-zommdg-MuiStack-root"
+          >
+            <div
+              class="MuiBox-root css-xi606m"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                38
+              </h5>
+              <span
+                class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+              >
+                Specialists across 5 disciplines
+              </span>
+            </div>
+            <div
+              class="MuiBox-root css-xi606m"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                72%
+              </h5>
+              <span
+                class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+              >
+                Products scored 4.5★ or higher
+              </span>
+            </div>
+            <div
+              class="MuiBox-root css-xi606m"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                12
+              </h5>
+              <span
+                class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+              >
+                Partner labs worldwide
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+        >
+          <div
+            class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1fyrrpu-MuiPaper-root"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+            >
+              What we believe
+            </h6>
+            <hr
+              class="MuiDivider-root MuiDivider-fullWidth css-un862l-MuiDivider-root"
+            />
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-1c6za42-MuiTypography-root"
+            >
+              • Technology should feel warm, human, and designed for real life.
+              <br />
+              • Transparency matters. We publish sourcing notes and lifecycle scores.
+              <br />
+              • Community wins. Co-designing with our members leads to breakthrough ideas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Privacy snapshot matches the rendered markup 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthMd css-doq7n0-MuiContainer-root"
+  >
+    <div
+      class="MuiStack-root css-fb8lv7-MuiStack-root"
+    >
+      <div
+        class="MuiChip-root MuiChip-outlined MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-outlinedPrimary css-gww9aq-MuiChip-root"
+      >
+        <span
+          class="MuiChip-label MuiChip-labelMedium css-1jzq0dw-MuiChip-label"
+        >
+          Privacy Policy
+        </span>
+      </div>
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1ey9xtw-MuiTypography-root"
+      >
+        Your trust is the most valuable tech we protect
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-81jeky-MuiTypography-root"
+      >
+        We collect only what we need to ship exceptional products and continuously improve the Fusion experience. The details below outline exactly how it works.
+      </p>
+      <span
+        class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+      >
+        Last updated: April 7, 2025
+      </span>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-11h37pt-MuiPaper-root"
+    >
+      <div
+        class="MuiStack-root css-1nza621-MuiStack-root"
+      >
+        <div
+          class="MuiBox-root css-0"
+        >
+          <div
+            class="MuiStack-root css-1mxayi3-MuiStack-root"
+          >
+            <div
+              class="MuiStack-root css-144f7r9-MuiStack-root"
+            >
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                Data lifecycle in plain English
+              </h5>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+              >
+                From checkout to delivery alerts, our systems keep your information close and locked. We will never sell or rent your personal data.
+              </p>
+            </div>
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeMedium css-rbfayx-MuiSvgIcon-root"
+              data-testid="ShieldIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5z"
+              />
+            </svg>
+          </div>
+          <span
+            aria-valuemax="100"
+            aria-valuemin="0"
+            aria-valuenow="100"
+            class="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-determinate css-crr046-MuiLinearProgress-root"
+            role="progressbar"
+          >
+            <span
+              class="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate css-5xe99f-MuiLinearProgress-bar1"
+              style="transform: translateX(0%);"
+            />
+          </span>
+        </div>
+        <hr
+          class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+        />
+        <div
+          class="MuiStack-root css-8mcjw0-MuiStack-root"
+        >
+          <div
+            class="MuiStack-root css-u0ooju-MuiStack-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+              data-testid="AnalyticsIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2M9 17H7v-5h2zm4 0h-2v-3h2zm0-5h-2v-2h2zm4 5h-2V7h2z"
+              />
+            </svg>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              What we collect
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Account details (name, email, password hash), shipping addresses, order history, and optional preferences when you opt into personalization.
+            </p>
+          </div>
+          <div
+            class="MuiStack-root css-u0ooju-MuiStack-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+              data-testid="LockIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2m-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1z"
+              />
+            </svg>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              How we protect it
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              All sensitive data is encrypted in transit and at rest. We partner with SOC 2 Type II certified providers and review access logs weekly.
+            </p>
+          </div>
+          <div
+            class="MuiStack-root css-u0ooju-MuiStack-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+              data-testid="SettingsBackupRestoreIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M14 12c0-1.1-.9-2-2-2s-2 .9-2 2 .9 2 2 2 2-.9 2-2m-2-9c-4.97 0-9 4.03-9 9H0l4 4 4-4H5c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.51 0-2.91-.49-4.06-1.3l-1.42 1.44C8.04 20.3 9.94 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9"
+              />
+            </svg>
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              Your controls
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Export or delete your account anytime from the profile dashboard. Marketing preferences can be adjusted at the bottom of every email.
+            </p>
+          </div>
+        </div>
+        <hr
+          class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+        />
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <h5
+            class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+          >
+            Third-party services we rely on
+          </h5>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+          >
+            Trusted partners such as Stripe, Pinecone, and Google Cloud act as processors under strict data processing agreements. Only the bare minimum required to power payments, recommendations, or analytics is shared.
+          </p>
+        </div>
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <h5
+            class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+          >
+            Requesting access or deletion
+          </h5>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+          >
+            Email privacy@fusionelectronics.io with the subject “Data Request” and our privacy desk will validate your identity before fulfilling the request within 30 days.
+          </p>
+        </div>
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+          >
+            Questions about this policy? Reach out through the Support Centre or email privacy@fusionelectronics.io so we can help.
+          </p>
+          <div
+            class="MuiStack-root css-o0avyz-MuiStack-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+              data-testid="VisibilityOffIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7M2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2m4.31-.78 3.15 3.15.02-.16c0-1.66-1.34-3-3-3z"
+              />
+            </svg>
+            <span
+              class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+            >
+              We routinely review this policy to keep it aligned with new regulations and features.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

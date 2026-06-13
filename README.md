@@ -611,6 +611,20 @@ npm run test:watch
 npm run test:coverage
 ```
 
+#### Snapshot Tests
+
+Alongside the behavioral suites, every screen has a **snapshot test** under `src/tests/snapshots/` (one file per screen — Home, Shop, Product Details, Cart, Checkout, Order Success, Order Tracking, Login, Register, Forgot/Reset Password, About, Privacy, Terms-style pages, Support, Shipping & Returns, Not Found, plus the Navigation Bar and Footer). Each renders the component with the props/providers it needs (router, mocked `apiClient`, stubbed `ProductCard`/carousel) and asserts the rendered markup with `toMatchSnapshot()`, so unintended UI changes surface as a diff.
+
+The snapshots are deterministic — the API client is mocked, images/carousel/product cards are stubbed, `autoFocus` is neutralized, and `Date` is frozen where it's rendered (the footer year) — so they pass identically on local machines and CI regardless of timezone or run time.
+
+```bash
+# Run only the snapshot suites
+npm test -- src/tests/snapshots
+
+# Update the baselines after an intentional UI change, then commit the .snap files
+npm test -- -u
+```
+
 > [!NOTE]
 > If you encounter any issues when running the tests, ensure that you have run `npm install` in both the `backend` and `root` (frontend) directories to install all necessary dependencies.
 >

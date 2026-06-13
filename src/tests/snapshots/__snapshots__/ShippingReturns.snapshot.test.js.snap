@@ -1,0 +1,630 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShippingReturns snapshot matches the rendered markup 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthMd css-doq7n0-MuiContainer-root"
+  >
+    <div
+      class="MuiStack-root css-fb8lv7-MuiStack-root"
+    >
+      <div
+        class="MuiChip-root MuiChip-outlined MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-outlinedPrimary css-gww9aq-MuiChip-root"
+      >
+        <span
+          class="MuiChip-label MuiChip-labelMedium css-1jzq0dw-MuiChip-label"
+        >
+          Shipping & Returns
+        </span>
+      </div>
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1ey9xtw-MuiTypography-root"
+      >
+        From our warehouse to your setup, on your terms
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-81jeky-MuiTypography-root"
+      >
+        Precision logistics, proactive updates, and a no-drama return policy make gearing up with Fusion Electronics effortless.
+      </p>
+    </div>
+    <div
+      class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-480o17-MuiGrid-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1yl6qxb-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-v2woy3-MuiStack-root"
+          >
+            <div
+              class="MuiStack-root css-1sos3zc-MuiStack-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+                data-testid="LocalShippingIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
+                />
+              </svg>
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                Fast, insured delivery
+              </h5>
+            </div>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Orders ship within 24 hours on business days. We partner with UPS Premier, FedEx Priority, and DHL Express to guarantee rapid, insured delivery in over 190 markets.
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Tracking links are sent automatically via email and SMS. Preferred delivery windows are available in select metro areas—look for the ”white glove” badge at checkout.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1yl6qxb-MuiPaper-root"
+        >
+          <div
+            class="MuiStack-root css-v2woy3-MuiStack-root"
+          >
+            <div
+              class="MuiStack-root css-1sos3zc-MuiStack-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+                data-testid="FlightTakeoffIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2.5 19h19v2h-19zm19.57-9.36c-.21-.8-1.04-1.28-1.84-1.06L14.92 10l-6.9-6.43-1.93.51 4.14 7.17-4.97 1.33-1.97-1.54-1.45.39 2.59 4.49s7.12-1.9 16.57-4.43c.81-.23 1.28-1.05 1.07-1.85"
+                />
+              </svg>
+              <h5
+                class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+              >
+                International ready
+              </h5>
+            </div>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Duties and taxes are calculated and paid up front for most destinations, eliminating surprise fees at delivery. For remote regions we ship via consolidated weekly flights to ensure consistent timelines.
+            </p>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              Need expedited delivery for a launch or event? Contact Support and our logistics desk will orchestrate the best route.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1fql2dk-MuiPaper-root"
+    >
+      <div
+        class="MuiStack-root css-v2woy3-MuiStack-root"
+      >
+        <div
+          class="MuiStack-root css-1sos3zc-MuiStack-root"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeLarge css-bsqp9w-MuiSvgIcon-root"
+            data-testid="Inventory2Icon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2m-5 12H9v-2h6zm5-7H4V4h16z"
+            />
+          </svg>
+          <h5
+            class="MuiTypography-root MuiTypography-h5 css-bezmlo-MuiTypography-root"
+          >
+            Packaging that protects
+          </h5>
+        </div>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+        >
+          Every shipment leaves our facility with impact-tested packaging and tamper seals. If your gear arrives damaged, document it within 48 hours and we will handle the claim end-to-end.
+        </p>
+        <hr
+          class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+        />
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+          >
+            Our return promise
+          </h6>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+          >
+            Returns are simple. Initiate a return within 30 days for a prepaid label. Refunds are issued 2-3 business days after inspection. Exchanges ship immediately subject to inventory availability.
+          </p>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+          >
+            For bundles or limited releases, we offer instant store credit so you can pick an alternative without waiting for payment processing.
+          </p>
+          <div
+            class="MuiStack-root css-kdc3n8-MuiStack-root"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+              data-testid="ReplayIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8"
+              />
+            </svg>
+            <span
+              class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+            >
+              Pro tip: keep original packaging for the smoothest return experience.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1fql2dk-MuiPaper-root"
+    >
+      <h6
+        class="MuiTypography-root MuiTypography-h6 MuiTypography-gutterBottom css-sskem8-MuiTypography-root"
+      >
+        Standard delivery journey
+      </h6>
+      <p
+        class="MuiTypography-root MuiTypography-body2 css-7dlf9o-MuiTypography-root"
+      >
+        Tap any milestone to see what happens behind the scenes and how we keep you updated.
+      </p>
+      <div
+        class="MuiStack-root css-10kbc59-MuiStack-root"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded css-1d9bfw6-MuiPaper-root-MuiAccordion-root"
+        >
+          <div
+            aria-expanded="false"
+            class="MuiButtonBase-root MuiAccordionSummary-root css-1pvvkxv-MuiButtonBase-root-MuiAccordionSummary-root"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="MuiAccordionSummary-content css-1betqn-MuiAccordionSummary-content"
+            >
+              <div
+                class="MuiStack-root css-1hyf038-MuiStack-root"
+              >
+                <div
+                  class="MuiChip-root MuiChip-outlined MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-outlinedPrimary css-1y6wsfa-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelSmall css-rrn746-MuiChip-label"
+                  >
+                    1
+                  </span>
+                </div>
+                <div
+                  class="MuiBox-root css-axw7ok"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+                    data-testid="VerifiedIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="m23 12-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48z"
+                    />
+                  </svg>
+                  <h6
+                    class="MuiTypography-root MuiTypography-subtitle1 css-1isisa7-MuiTypography-root"
+                  >
+                    Order confirmed
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiAccordionSummary-expandIconWrapper css-yw020d-MuiAccordionSummary-expandIconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="ExpandMoreIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
+            style="min-height: 0px;"
+          >
+            <div
+              class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+            >
+              <div
+                class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+              >
+                <div
+                  class="MuiAccordion-region"
+                  role="region"
+                >
+                  <div
+                    class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-afy0d9-MuiTypography-root"
+                    >
+                      Inventory is allocated instantly and you receive your confirmation email with the FE order number.
+                    </p>
+                    <ul
+                      class="MuiStack-root css-vk5bob-MuiStack-root"
+                    >
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Payment is verified in real time to lock in limited-release items.
+                      </li>
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Any personalised engraving or bundle notes are routed to the production queue.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded css-1d9bfw6-MuiPaper-root-MuiAccordion-root"
+        >
+          <div
+            aria-expanded="false"
+            class="MuiButtonBase-root MuiAccordionSummary-root css-1pvvkxv-MuiButtonBase-root-MuiAccordionSummary-root"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="MuiAccordionSummary-content css-1betqn-MuiAccordionSummary-content"
+            >
+              <div
+                class="MuiStack-root css-1hyf038-MuiStack-root"
+              >
+                <div
+                  class="MuiChip-root MuiChip-outlined MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-outlinedPrimary css-1y6wsfa-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelSmall css-rrn746-MuiChip-label"
+                  >
+                    2
+                  </span>
+                </div>
+                <div
+                  class="MuiBox-root css-axw7ok"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+                    data-testid="ChecklistIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M22 7h-9v2h9zm0 8h-9v2h9zM5.54 11 2 7.46l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41zm0 8L2 15.46l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41z"
+                    />
+                  </svg>
+                  <h6
+                    class="MuiTypography-root MuiTypography-subtitle1 css-1isisa7-MuiTypography-root"
+                  >
+                    Packed at our HQ
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiAccordionSummary-expandIconWrapper css-yw020d-MuiAccordionSummary-expandIconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="ExpandMoreIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
+            style="min-height: 0px;"
+          >
+            <div
+              class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+            >
+              <div
+                class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+              >
+                <div
+                  class="MuiAccordion-region"
+                  role="region"
+                >
+                  <div
+                    class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-afy0d9-MuiTypography-root"
+                    >
+                      Products move through our smart line for protective packaging and quality checks.
+                    </p>
+                    <ul
+                      class="MuiStack-root css-vk5bob-MuiStack-root"
+                    >
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Technicians run diagnostics on smart devices and capture serial numbers for your warranty locker.
+                      </li>
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Impact-tested packaging and climate inserts are added based on the gear in your cart.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded css-1d9bfw6-MuiPaper-root-MuiAccordion-root"
+        >
+          <div
+            aria-expanded="false"
+            class="MuiButtonBase-root MuiAccordionSummary-root css-1pvvkxv-MuiButtonBase-root-MuiAccordionSummary-root"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="MuiAccordionSummary-content css-1betqn-MuiAccordionSummary-content"
+            >
+              <div
+                class="MuiStack-root css-1hyf038-MuiStack-root"
+              >
+                <div
+                  class="MuiChip-root MuiChip-outlined MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-outlinedPrimary css-1y6wsfa-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelSmall css-rrn746-MuiChip-label"
+                  >
+                    3
+                  </span>
+                </div>
+                <div
+                  class="MuiBox-root css-axw7ok"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+                    data-testid="AirportShuttleIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M17 5H3c-1.1 0-2 .89-2 2v9h2c0 1.65 1.34 3 3 3s3-1.35 3-3h5.5c0 1.65 1.34 3 3 3s3-1.35 3-3H23v-5zM3 11V7h4v4zm3 6.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m7-6.5H9V7h4zm4.5 6.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5M15 11V7h1l4 4z"
+                    />
+                  </svg>
+                  <h6
+                    class="MuiTypography-root MuiTypography-subtitle1 css-1isisa7-MuiTypography-root"
+                  >
+                    In transit
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiAccordionSummary-expandIconWrapper css-yw020d-MuiAccordionSummary-expandIconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="ExpandMoreIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
+            style="min-height: 0px;"
+          >
+            <div
+              class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+            >
+              <div
+                class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+              >
+                <div
+                  class="MuiAccordion-region"
+                  role="region"
+                >
+                  <div
+                    class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-afy0d9-MuiTypography-root"
+                    >
+                      The carrier begins the journey and hands off milestone scans to your tracking dashboard.
+                    </p>
+                    <ul
+                      class="MuiStack-root css-vk5bob-MuiStack-root"
+                    >
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        You receive SMS/email updates for each hub the parcel visits.
+                      </li>
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Need a delivery hold? Reply to any notification and our concierge will coordinate it for you.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiAccordion-root MuiAccordion-rounded css-1d9bfw6-MuiPaper-root-MuiAccordion-root"
+        >
+          <div
+            aria-expanded="false"
+            class="MuiButtonBase-root MuiAccordionSummary-root css-1pvvkxv-MuiButtonBase-root-MuiAccordionSummary-root"
+            role="button"
+            tabindex="0"
+          >
+            <div
+              class="MuiAccordionSummary-content css-1betqn-MuiAccordionSummary-content"
+            >
+              <div
+                class="MuiStack-root css-1hyf038-MuiStack-root"
+              >
+                <div
+                  class="MuiChip-root MuiChip-outlined MuiChip-sizeSmall MuiChip-colorPrimary MuiChip-outlinedPrimary css-1y6wsfa-MuiChip-root"
+                >
+                  <span
+                    class="MuiChip-label MuiChip-labelSmall css-rrn746-MuiChip-label"
+                  >
+                    4
+                  </span>
+                </div>
+                <div
+                  class="MuiBox-root css-axw7ok"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+                    data-testid="HomeIcon"
+                    focusable="false"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"
+                    />
+                  </svg>
+                  <h6
+                    class="MuiTypography-root MuiTypography-subtitle1 css-1isisa7-MuiTypography-root"
+                  >
+                    Out for delivery
+                  </h6>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiAccordionSummary-expandIconWrapper css-yw020d-MuiAccordionSummary-expandIconWrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="ExpandMoreIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div
+            class="MuiCollapse-root MuiCollapse-vertical MuiCollapse-hidden css-bz4dnt-MuiCollapse-root"
+            style="min-height: 0px;"
+          >
+            <div
+              class="MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"
+            >
+              <div
+                class="MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"
+              >
+                <div
+                  class="MuiAccordion-region"
+                  role="region"
+                >
+                  <div
+                    class="MuiAccordionDetails-root css-15v22id-MuiAccordionDetails-root"
+                  >
+                    <p
+                      class="MuiTypography-root MuiTypography-body2 css-afy0d9-MuiTypography-root"
+                    >
+                      The final courier run happens and proof of delivery is captured where available.
+                    </p>
+                    <ul
+                      class="MuiStack-root css-vk5bob-MuiStack-root"
+                    >
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        Choose doorstep, mailroom, or signature-required drop-offs in the tracking portal.
+                      </li>
+                      <li
+                        class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+                      >
+                        We keep a delivery photo on file for 14 days in case you need additional verification.
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
