@@ -435,7 +435,13 @@ function Home({ products, addToCart, error, loading }) {
               <Chip
                 icon={<AutoAwesomeRoundedIcon sx={{ color: 'white !important' }} />}
                 label="Summer Tech Edit"
-                sx={{ bgcolor: 'rgba(255,255,255,0.12)', color: 'white', fontWeight: 600, backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.18)' }}
+                sx={{
+                  bgcolor: 'rgba(255,255,255,0.12)',
+                  color: 'white',
+                  fontWeight: 600,
+                  backdropFilter: 'blur(6px)',
+                  border: '1px solid rgba(255,255,255,0.18)',
+                }}
               />
               <Typography
                 variant={isSmall ? 'h3' : 'h2'}
@@ -445,7 +451,13 @@ function Home({ products, addToCart, error, loading }) {
                 Gear that upgrades every{' '}
                 <Box
                   component="span"
-                  sx={{ background: ACCENT_GRADIENT, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', color: 'transparent' }}
+                  sx={{
+                    background: ACCENT_GRADIENT,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    color: 'transparent',
+                  }}
                 >
                   moment
                 </Box>{' '}
@@ -461,7 +473,13 @@ function Home({ products, addToCart, error, loading }) {
                   endIcon={<ArrowForwardIcon />}
                   component={RouterLink}
                   to="/shop"
-                  sx={{ px: 3.5, py: 1.4, background: ACCENT_GRADIENT, boxShadow: '0 16px 38px rgba(40,116,240,0.45)', '&:hover': { boxShadow: '0 20px 46px rgba(245,0,87,0.4)' } }}
+                  sx={{
+                    px: 3.5,
+                    py: 1.4,
+                    background: ACCENT_GRADIENT,
+                    boxShadow: '0 16px 38px rgba(40,116,240,0.45)',
+                    '&:hover': { boxShadow: '0 20px 46px rgba(245,0,87,0.4)' },
+                  }}
                 >
                   Shop best sellers
                 </Button>
@@ -476,7 +494,12 @@ function Home({ products, addToCart, error, loading }) {
                   Learn our story
                 </Button>
               </Stack>
-              <Stack direction="row" spacing={4} sx={{ pt: 1 }} divider={<Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.18)' }} />}>
+              <Stack
+                direction="row"
+                spacing={4}
+                sx={{ pt: 1 }}
+                divider={<Divider orientation="vertical" flexItem sx={{ borderColor: 'rgba(255,255,255,0.18)' }} />}
+              >
                 <Stack spacing={0.3}>
                   <Typography variant="h5" fontWeight={800}>
                     4.8/5
@@ -566,7 +589,18 @@ function Home({ products, addToCart, error, loading }) {
                 }}
               >
                 <Stack spacing={1.5}>
-                  <Box sx={{ display: 'grid', placeItems: 'center', width: 52, height: 52, borderRadius: 3, color: 'white', background: ACCENT_GRADIENT, boxShadow: '0 12px 24px rgba(40,116,240,0.3)' }}>
+                  <Box
+                    sx={{
+                      display: 'grid',
+                      placeItems: 'center',
+                      width: 52,
+                      height: 52,
+                      borderRadius: 3,
+                      color: 'white',
+                      background: ACCENT_GRADIENT,
+                      boxShadow: '0 12px 24px rgba(40,116,240,0.3)',
+                    }}
+                  >
                     {card.icon}
                   </Box>
                   <Typography variant="subtitle1" fontWeight={700}>
@@ -618,7 +652,10 @@ function Home({ products, addToCart, error, loading }) {
           }}
         >
           {/* Crisp, contained accents — a soft top-right sheen + a fading dot grid (no blurry splotches). */}
-          <Box aria-hidden="true" sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(55% 120% at 100% 0%, rgba(56,189,248,0.30), transparent 55%)' }} />
+          <Box
+            aria-hidden="true"
+            sx={{ position: 'absolute', inset: 0, background: 'radial-gradient(55% 120% at 100% 0%, rgba(56,189,248,0.30), transparent 55%)' }}
+          />
           <Box
             aria-hidden="true"
             sx={{
@@ -633,7 +670,20 @@ function Home({ products, addToCart, error, loading }) {
           />
           <Grid container spacing={3} alignItems="center" sx={{ position: 'relative', zIndex: 1 }}>
             <Grid item xs={12} md={8}>
-              <Typography component="span" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, mb: 1.5, fontSize: 12, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)' }}>
+              <Typography
+                component="span"
+                sx={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 0.75,
+                  mb: 1.5,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.85)',
+                }}
+              >
                 <LocalOfferRoundedIcon sx={{ fontSize: 16 }} /> Member exclusive
               </Typography>
               <Typography variant="h3" fontWeight={800} sx={{ color: '#fff', letterSpacing: '-0.02em', mb: 1.5, fontSize: { xs: '2rem', md: '2.6rem' } }}>
@@ -644,7 +694,14 @@ function Home({ products, addToCart, error, loading }) {
               </Typography>
             </Grid>
             <Grid item xs={12} md={4} sx={{ textAlign: { md: 'right' } }}>
-              <Button variant="contained" size="large" component={RouterLink} to="/shop" endIcon={<ArrowForwardIcon />} sx={{ px: 4, py: 1.4, bgcolor: '#fff', color: '#0b1124', fontWeight: 700, '&:hover': { bgcolor: 'rgba(255,255,255,0.88)' } }}>
+              <Button
+                variant="contained"
+                size="large"
+                component={RouterLink}
+                to="/shop"
+                endIcon={<ArrowForwardIcon />}
+                sx={{ px: 4, py: 1.4, bgcolor: '#fff', color: '#0b1124', fontWeight: 700, '&:hover': { bgcolor: 'rgba(255,255,255,0.88)' } }}
+              >
                 Shop the collection
               </Button>
             </Grid>
@@ -653,9 +710,26 @@ function Home({ products, addToCart, error, loading }) {
 
         {/* ====================== NEW ARRIVALS ====================== */}
         <Box sx={{ mt: 10 }} data-reveal="true">
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems={{ xs: 'flex-start', md: 'flex-end' }} justifyContent="space-between" sx={{ mb: 3 }}>
+          <Stack
+            direction={{ xs: 'column', md: 'row' }}
+            spacing={2}
+            alignItems={{ xs: 'flex-start', md: 'flex-end' }}
+            justifyContent="space-between"
+            sx={{ mb: 3 }}
+          >
             <Box>
-              <Typography component="span" sx={{ display: 'inline-block', mb: 1, fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'primary.main' }}>
+              <Typography
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  mb: 1,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  color: 'primary.main',
+                }}
+              >
                 Just landed
               </Typography>
               <Typography variant="h4" fontWeight={800} sx={{ letterSpacing: '-0.02em' }}>
@@ -705,7 +779,12 @@ function Home({ products, addToCart, error, loading }) {
                     }}
                   >
                     <Box sx={{ p: '3px', borderRadius: '50%', width: 'fit-content', mx: 'auto', mb: 2, background: ACCENT_GRADIENT }}>
-                      <Avatar variant="circular" src={category.thumbnail} alt={category.label} sx={{ width: 84, height: 84, border: '3px solid #fff', bgcolor: 'primary.light' }}>
+                      <Avatar
+                        variant="circular"
+                        src={category.thumbnail}
+                        alt={category.label}
+                        sx={{ width: 84, height: 84, border: '3px solid #fff', bgcolor: 'primary.light' }}
+                      >
                         {category.label.charAt(0)}
                       </Avatar>
                     </Box>
@@ -713,7 +792,15 @@ function Home({ products, addToCart, error, loading }) {
                     <Typography
                       className="cat-cta"
                       variant="caption"
-                      sx={{ display: 'block', mt: 0.5, color: 'primary.main', fontWeight: 600, opacity: 0, transform: 'translateY(4px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}
+                      sx={{
+                        display: 'block',
+                        mt: 0.5,
+                        color: 'primary.main',
+                        fontWeight: 600,
+                        opacity: 0,
+                        transform: 'translateY(4px)',
+                        transition: 'opacity 0.3s ease, transform 0.3s ease',
+                      }}
                     >
                       Shop now →
                     </Typography>
@@ -757,7 +844,11 @@ function Home({ products, addToCart, error, loading }) {
 
         {/* ====================== TESTIMONIALS ====================== */}
         <Box sx={{ mt: 12 }} data-reveal="true">
-          <SectionHeading eyebrow="Social proof" title="Loved by creators & innovators" subtitle="Real stories from customers building their dream setups with Fusion Electronics." />
+          <SectionHeading
+            eyebrow="Social proof"
+            title="Loved by creators & innovators"
+            subtitle="Real stories from customers building their dream setups with Fusion Electronics."
+          />
           <Grid container spacing={3}>
             {testimonials.map(testimonial => (
               <Grid item xs={12} md={4} key={testimonial.name}>
@@ -811,7 +902,11 @@ function Home({ products, addToCart, error, loading }) {
           <Grid container spacing={4} alignItems="center" sx={{ position: 'relative', zIndex: 1 }}>
             <Grid item xs={12} md={7}>
               <Stack spacing={2}>
-                <Chip icon={<StarIcon fontSize="small" />} label="Join 50k+ tech enthusiasts" sx={{ alignSelf: 'flex-start', bgcolor: 'rgba(255,255,255,0.16)', color: 'white' }} />
+                <Chip
+                  icon={<StarIcon fontSize="small" />}
+                  label="Join 50k+ tech enthusiasts"
+                  sx={{ alignSelf: 'flex-start', bgcolor: 'rgba(255,255,255,0.16)', color: 'white' }}
+                />
                 <Typography variant="h4" fontWeight={800} sx={{ letterSpacing: '-0.02em' }}>
                   Unlock curated buying guides and exclusive launch alerts.
                 </Typography>
@@ -877,7 +972,7 @@ function Home({ products, addToCart, error, loading }) {
                   label={brand}
                   sx={{ bgcolor: 'rgba(37, 99, 235, 0.08)', fontWeight: 600, px: 0.5, flex: '0 0 auto' }}
                 />
-              )),
+              ))
             )}
           </Box>
         </Box>
@@ -891,7 +986,14 @@ function Home({ products, addToCart, error, loading }) {
             Explore thousands of curated products, backed by concierge support and hassle-free returns.
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="center" spacing={2}>
-            <Button variant="contained" size="large" component={RouterLink} to="/shop" endIcon={<ArrowForwardIcon />} sx={{ px: 4, py: 1.3, background: ACCENT_GRADIENT, boxShadow: '0 16px 38px rgba(40,116,240,0.35)' }}>
+            <Button
+              variant="contained"
+              size="large"
+              component={RouterLink}
+              to="/shop"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ px: 4, py: 1.3, background: ACCENT_GRADIENT, boxShadow: '0 16px 38px rgba(40,116,240,0.35)' }}
+            >
               View More Products
             </Button>
             <Button variant="outlined" size="large" component={RouterLink} to="/support" sx={{ px: 4, py: 1.3 }}>

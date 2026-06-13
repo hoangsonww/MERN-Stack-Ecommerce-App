@@ -32,12 +32,7 @@ function SignatureKnot({ quality }) {
     <Float speed={1.4} rotationIntensity={0.5} floatIntensity={0.9}>
       <mesh ref={ref} scale={1.15}>
         <torusKnotGeometry args={[1.1, 0.34, seg[0], seg[1]]} />
-        <meshStandardMaterial
-          color={BLUE}
-          metalness={0.95}
-          roughness={0.12}
-          envMapIntensity={1.6}
-        />
+        <meshStandardMaterial color={BLUE} metalness={0.95} roughness={0.12} envMapIntensity={1.6} />
       </mesh>
     </Float>
   );
@@ -53,7 +48,7 @@ function FloatingShapes() {
       { type: 'ico', pos: [-1.6, 2.6, -2], scale: 0.42, color: SKY },
       { type: 'octa', pos: [2.0, 2.5, -2.4], scale: 0.5, color: PINK },
     ],
-    [],
+    []
   );
   return (
     <>
@@ -113,7 +108,14 @@ const HeroScene = ({ quality = 'mid', onLost }) => {
       camera={{ position: [0, 0, 8], fov: 42 }}
       gl={{ antialias: quality === 'high', alpha: true, powerPreference: 'high-performance', failIfMajorPerformanceCaveat: false }}
       onCreated={({ gl }) => {
-        gl.domElement.addEventListener('webglcontextlost', e => { e.preventDefault(); if (onLost) onLost(); }, { once: true });
+        gl.domElement.addEventListener(
+          'webglcontextlost',
+          e => {
+            e.preventDefault();
+            if (onLost) onLost();
+          },
+          { once: true }
+        );
       }}
       style={{ width: '100%', height: '100%', pointerEvents: 'none' }}
     >
