@@ -1,0 +1,471 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer snapshot matches the rendered markup 1`] = `
+<DocumentFragment>
+  <footer
+    class="MuiBox-root css-3ipibt"
+  >
+    <div
+      class="MuiContainer-root MuiContainer-maxWidthXl css-1fvyq0v-MuiContainer-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-5 css-1ld3b9g-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-4 css-1lj5egr-MuiGrid-root"
+        >
+          <h5
+            class="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom css-138iese-MuiTypography-root"
+          >
+            FUSION ELECTRONICS
+          </h5>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-1umgtit-MuiTypography-root"
+          >
+            Curating cutting-edge gadgets, smart home essentials, and premium accessories to help you live smarter every day.
+          </p>
+          <div
+            class="MuiStack-root css-sqavbv-MuiStack-root"
+          >
+            <a
+              aria-label="GitHub"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-18i5sz4-MuiButtonBase-root-MuiIconButton-root"
+              href="https://github.com/hoangsonww"
+              rel="noopener"
+              tabindex="0"
+              target="_blank"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="GitHubIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </a>
+            <a
+              aria-label="LinkedIn"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-18i5sz4-MuiButtonBase-root-MuiIconButton-root"
+              href="https://www.linkedin.com/in/hoangsonw/"
+              rel="noopener"
+              tabindex="0"
+              target="_blank"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="LinkedInIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </a>
+            <a
+              aria-label="Portfolio"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-18i5sz4-MuiButtonBase-root-MuiIconButton-root"
+              href="https://sonnguyenhoang.com/"
+              rel="noopener"
+              tabindex="0"
+              target="_blank"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="LanguageIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2m6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56M12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96M4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56m2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8M12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96M14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2m.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56M16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </a>
+            <a
+              aria-label="Email"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-18i5sz4-MuiButtonBase-root-MuiIconButton-root"
+              href="mailto:hoangson091104@gmail.com"
+              rel="noopener"
+              tabindex="0"
+              target="_blank"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="EmailIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 4-8 5-8-5V6l8 5 8-5z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </a>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-2.5 css-ege0n6-MuiGrid-root"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1 css-gt8unb-MuiTypography-root"
+          >
+            Explore
+          </h6>
+          <div
+            class="MuiStack-root css-1l9qugs-MuiStack-root"
+          >
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/"
+            >
+              Home
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/shop"
+            >
+              Shop
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/about"
+            >
+              About
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/support"
+            >
+              Support
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/cart"
+            >
+              Cart
+            </a>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-2.5 css-ege0n6-MuiGrid-root"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1 css-gt8unb-MuiTypography-root"
+          >
+            Customer Care
+          </h6>
+          <div
+            class="MuiStack-root css-1l9qugs-MuiStack-root"
+          >
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/order-tracking"
+            >
+              Order Tracking
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/shipping-returns"
+            >
+              Shipping & Returns
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/terms"
+            >
+              Terms & Conditions
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/privacy"
+            >
+              Privacy Policy
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/support#faq"
+            >
+              FAQ
+            </a>
+            <a
+              class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-1um91sf-MuiTypography-root-MuiLink-root"
+              href="/support#contact"
+            >
+              Contact Us
+            </a>
+          </div>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-3 css-iv7vbz-MuiGrid-root"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-subtitle1 css-gt8unb-MuiTypography-root"
+          >
+            Join the Insider List
+          </h6>
+          <p
+            class="MuiTypography-root MuiTypography-body2 css-1gcl4hm-MuiTypography-root"
+          >
+            Unlock early access to product drops, curated buying guides, and exclusive VIP offers.
+          </p>
+          <form
+            class="MuiBox-root css-1mcghfl"
+          >
+            <div
+              class="MuiFormControl-root MuiTextField-root css-13brrgc-MuiFormControl-root-MuiTextField-root"
+            >
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-sizeSmall css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputSizeSmall css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input"
+                  id=":r0:"
+                  placeholder="your@email.com"
+                  required=""
+                  type="email"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-r01yff-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-1whs34k-MuiNotchedOutlined-root"
+                  >
+                    <span
+                      class="notranslate"
+                    >
+                      ​
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <button
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-iaznig-MuiButtonBase-root-MuiIconButton-root"
+              tabindex="0"
+              type="submit"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="SendIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"
+                />
+              </svg>
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </form>
+          <div
+            class="MuiChip-root MuiChip-filled MuiChip-sizeSmall MuiChip-colorDefault MuiChip-filledDefault css-1v11a1q-MuiChip-root"
+          >
+            <span
+              class="MuiChip-label MuiChip-labelSmall css-wjsjww-MuiChip-label"
+            >
+              We respect your inbox
+            </span>
+          </div>
+        </div>
+      </div>
+      <hr
+        class="MuiDivider-root MuiDivider-fullWidth css-1nbnshm-MuiDivider-root"
+      />
+      <div
+        class="MuiStack-root css-1l4iccl-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-dmkgkt-MuiTypography-root"
+        >
+          © 2024 Fusion Electronics. Crafted in California & powered worldwide.
+        </p>
+        <div
+          class="MuiStack-root css-1dy84pg-MuiStack-root"
+        >
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-19qjfsi-MuiTypography-root-MuiLink-root"
+            href="/privacy"
+          >
+            Privacy
+          </a>
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-19qjfsi-MuiTypography-root-MuiLink-root"
+            href="/terms"
+          >
+            Terms
+          </a>
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-19qjfsi-MuiTypography-root-MuiLink-root"
+            href="/shipping-returns"
+          >
+            Shipping & Returns
+          </a>
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-19qjfsi-MuiTypography-root-MuiLink-root"
+            href="/order-tracking"
+          >
+            Track Order
+          </a>
+          <a
+            class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-19qjfsi-MuiTypography-root-MuiLink-root"
+            href="/support#contact"
+          >
+            Contact
+          </a>
+        </div>
+        <div
+          class="MuiStack-root css-ch105z-MuiStack-root"
+        >
+          <a
+            aria-label="Privacy"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-1ikphq4-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            href="/privacy"
+            tabindex="0"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="PrivacyTipOutlinedIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m12 3.19 7 3.11V11c0 4.52-2.98 8.69-7 9.93-4.02-1.24-7-5.41-7-9.93V6.3zM12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5zm-1 6h2v2h-2zm0 4h2v6h-2z"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+          <a
+            aria-label="Terms"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-1ikphq4-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            href="/terms"
+            tabindex="0"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="GavelIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="m5.2494 8.0688 2.83-2.8269 14.1343 14.15-2.83 2.8269zm4.2363-4.2415 2.828-2.8289 5.6577 5.656-2.828 2.8289zM.9989 12.3147l2.8284-2.8285 5.6569 5.6569-2.8285 2.8284zM1 21h12v2H1z"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+          <a
+            aria-label="Shipping & Returns"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-1ikphq4-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            href="/shipping-returns"
+            tabindex="0"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="LocalShippingIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13.5-9 1.96 2.5H17V9.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+          <a
+            aria-label="Track Order"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-1ikphq4-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            href="/order-tracking"
+            tabindex="0"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="LocationSearchingIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20.94 11c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+          <a
+            aria-label="Contact"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeSmall css-1ikphq4-MuiButtonBase-root-MuiIconButton-root"
+            data-mui-internal-clone-element="true"
+            href="/support#contact"
+            tabindex="0"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall css-ptiqhd-MuiSvgIcon-root"
+              data-testid="SupportAgentIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M21 12.22C21 6.73 16.74 3 12 3c-4.69 0-9 3.65-9 9.28-.6.34-1 .98-1 1.72v2c0 1.1.9 2 2 2h1v-6.1c0-3.87 3.13-7 7-7s7 3.13 7 7V19h-8v2h8c1.1 0 2-.9 2-2v-1.22c.59-.31 1-.92 1-1.64v-2.3c0-.7-.41-1.31-1-1.62"
+              />
+              <circle
+                cx="9"
+                cy="13"
+                r="1"
+              />
+              <circle
+                cx="15"
+                cy="13"
+                r="1"
+              />
+              <path
+                d="M18 11.03C17.52 8.18 15.04 6 12.05 6c-3.03 0-6.29 2.51-6.03 6.45 2.47-1.01 4.33-3.21 4.86-5.89 1.31 2.63 4 4.44 7.12 4.47"
+              />
+            </svg>
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</DocumentFragment>
+`;

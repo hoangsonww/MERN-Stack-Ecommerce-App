@@ -1,0 +1,236 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderTracking snapshot matches the rendered markup 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiContainer-root MuiContainer-maxWidthMd css-doq7n0-MuiContainer-root"
+  >
+    <div
+      class="MuiStack-root css-fb8lv7-MuiStack-root"
+    >
+      <div
+        class="MuiChip-root MuiChip-outlined MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-outlinedPrimary css-gww9aq-MuiChip-root"
+      >
+        <span
+          class="MuiChip-label MuiChip-labelMedium css-1jzq0dw-MuiChip-label"
+        >
+          Order tracking
+        </span>
+      </div>
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1ey9xtw-MuiTypography-root"
+      >
+        Real-time visibility from checkout to doorstep
+      </h3>
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-81jeky-MuiTypography-root"
+      >
+        Enter your order number to see carrier updates, proof of delivery, and concierge assistance options when you need them.
+      </p>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-11h37pt-MuiPaper-root"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 css-480o17-MuiGrid-root"
+      >
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+        >
+          <form>
+            <div
+              class="MuiStack-root css-1sazv7p-MuiStack-root"
+            >
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-required MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for=":r0:"
+                  id=":r0:-label"
+                >
+                  Order number
+                  <span
+                    aria-hidden="true"
+                    class="MuiFormLabel-asterisk MuiInputLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-1bdukpo-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id=":r0:"
+                    name="orderNumber"
+                    placeholder="e.g. FE-482019"
+                    required=""
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-r01yff-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-njhac4-MuiNotchedOutlined-root"
+                    >
+                      <span>
+                        Order number *
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <div
+                class="MuiFormControl-root MuiFormControl-fullWidth MuiTextField-root css-wb57ya-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary Mui-required MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for=":r1:"
+                  id=":r1:-label"
+                >
+                  Email
+                  <span
+                    aria-hidden="true"
+                    class="MuiFormLabel-asterisk MuiInputLabel-asterisk css-wgai2y-MuiFormLabel-asterisk"
+                  >
+                     *
+                  </span>
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl css-md26zr-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id=":r1:"
+                    name="email"
+                    placeholder="you@example.com"
+                    required=""
+                    type="email"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-r01yff-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-njhac4-MuiNotchedOutlined-root"
+                    >
+                      <span>
+                        Email *
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <div
+                class="MuiStack-root css-kdc3n8-MuiStack-root"
+              >
+                <button
+                  class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-colorPrimary css-jh47zj-MuiButtonBase-root-MuiButton-root"
+                  tabindex="0"
+                  type="submit"
+                >
+                  Track my order
+                  <span
+                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+              </div>
+              <span
+                class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+              >
+                Having trouble locating your ID? Search your inbox for the subject “Fusion Electronics Order Confirmation”.
+              </span>
+            </div>
+          </form>
+        </div>
+        <div
+          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-6 css-1fyyp8j-MuiGrid-root"
+        >
+          <div
+            class="MuiStack-root css-1sazv7p-MuiStack-root"
+          >
+            <h6
+              class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+            >
+              Concierge assistance
+            </h6>
+            <p
+              class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+            >
+              For delivery holds, reroutes, or signature requests, reach out to our logistics team and we will coordinate directly with the carrier.
+            </p>
+            <div
+              class="MuiStack-root css-kdc3n8-MuiStack-root"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-colorPrimary MuiSvgIcon-fontSizeSmall css-1bptiuh-MuiSvgIcon-root"
+                data-testid="SupportAgentIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M21 12.22C21 6.73 16.74 3 12 3c-4.69 0-9 3.65-9 9.28-.6.34-1 .98-1 1.72v2c0 1.1.9 2 2 2h1v-6.1c0-3.87 3.13-7 7-7s7 3.13 7 7V19h-8v2h8c1.1 0 2-.9 2-2v-1.22c.59-.31 1-.92 1-1.64v-2.3c0-.7-.41-1.31-1-1.62"
+                />
+                <circle
+                  cx="9"
+                  cy="13"
+                  r="1"
+                />
+                <circle
+                  cx="15"
+                  cy="13"
+                  r="1"
+                />
+                <path
+                  d="M18 11.03C17.52 8.18 15.04 6 12.05 6c-3.03 0-6.29 2.51-6.03 6.45 2.47-1.01 4.33-3.21 4.86-5.89 1.31 2.63 4 4.44 7.12 4.47"
+                />
+              </svg>
+              <span
+                class="MuiTypography-root MuiTypography-caption css-ol7wxs-MuiTypography-root"
+              >
+                support@fusionelectronics.io • +1 (833) 555-0195
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 css-1fql2dk-MuiPaper-root"
+    >
+      <div
+        class="MuiStack-root css-ixqxh-MuiStack-root"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-tjvwag-MuiTypography-root"
+        >
+          What to expect along the way
+        </h6>
+      </div>
+      <div
+        class="MuiBox-root css-f4k602"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-subtitle1 MuiTypography-gutterBottom css-1yua9mw-MuiTypography-root"
+        >
+          Ready when you are
+        </h6>
+        <p
+          class="MuiTypography-root MuiTypography-body2 css-r40f8v-MuiTypography-root"
+        >
+          Enter your order number and the email used at checkout to unlock real-time tracking. Once we locate your order, the full journey timeline will appear here with live updates.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
