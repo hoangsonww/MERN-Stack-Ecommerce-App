@@ -1,12 +1,5 @@
 # SOLID Principles Refactor
 
-This branch applies SOLID design principles to improve code structure.
+Documenting incremental application of SOLID principles.
 
-- Single Responsibility
-- Open/Closed
-- Liskov Substitution
-- Interface Segregation
-- Dependency Inversion
-
-Last touched: 2026-06-17T04:41:38Z
-- SOLID review pass: SRP, OCP, LSP, ISP, DIP verified across modules.
+Last touched: 2026-07-02T12:57:36Z
